@@ -122,6 +122,33 @@ risika/fast:
 	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/build
 .PHONY : risika/fast
 
+libRisika.obj: libRisika.c.obj
+
+.PHONY : libRisika.obj
+
+# target to build an object file
+libRisika.c.obj:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libRisika.c.obj
+.PHONY : libRisika.c.obj
+
+libRisika.i: libRisika.c.i
+
+.PHONY : libRisika.i
+
+# target to preprocess a source file
+libRisika.c.i:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libRisika.c.i
+.PHONY : libRisika.c.i
+
+libRisika.s: libRisika.c.s
+
+.PHONY : libRisika.s
+
+# target to generate assembly for a file
+libRisika.c.s:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libRisika.c.s
+.PHONY : libRisika.c.s
+
 main.obj: main.c.obj
 
 .PHONY : main.obj
@@ -158,6 +185,9 @@ help:
 	@echo ... risika
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... libRisika.obj
+	@echo ... libRisika.i
+	@echo ... libRisika.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
