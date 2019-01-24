@@ -6,7 +6,13 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Matteo/CLionProjects/risika/main.c
+C:/Users/Matteo/CLionProjects/risika/libRisika.c
 stdio.h
 -
+libRisika.h
+C:/Users/Matteo/CLionProjects/risika/libRisika.h
+stdbool.h
+C:/Users/Matteo/CLionProjects/risika/stdbool.h
+
+C:/Users/Matteo/CLionProjects/risika/libRisika.h
 
