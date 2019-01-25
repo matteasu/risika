@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include "libRisika.h"
 
 int main() {
-    printf("Hello, World!\n");
+    int i=0;
+    Giocatore *g;
+    caricaGiocatori(4,g);
+    ordinaVettore(g,4);
     return 0;
 }

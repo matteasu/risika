@@ -1,8 +1,12 @@
-creazione strutture ✅
-richiesta numero giocatori e rispettivo controllo + macro min gioc e max gioc
-funzione per la richiesta dei dati del giocatore 
-vettore dinamico per salvataggio dei giocatori
-scelta primo giocatore e ordinamento vettore
+﻿creazione strutture ✅
+richiesta numero giocatori e rispettivo controllo + macro min gioc e max gioc ✅
+funzione per la richiesta dei dati del giocatore ✅ 
+vettore dinamico per salvataggio dei giocatori ✅
+scelta primo giocatore e ordinamento vettore✅
+<-- da sistemare 
+storie coi puntatori e supermega funzione che include tutto
+-->
+
 scelta colore partendo dal primo giocatore
 assegnamento armate
 <-- inizio carte -->

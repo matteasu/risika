@@ -4,5 +4,6 @@
 CMakeFiles/risika.dir/libRisika.c.obj: ../libRisika.c
 CMakeFiles/risika.dir/libRisika.c.obj: ../libRisika.h
 
+CMakeFiles/risika.dir/main.c.obj: ../libRisika.h
 CMakeFiles/risika.dir/main.c.obj: ../main.c
 

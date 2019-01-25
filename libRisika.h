@@ -5,10 +5,14 @@
 #ifndef RISIKA_LIBRISIKA_H
 #define RISIKA_LIBRISIKA_H
 
+#include "stdio.h"
+#include "malloc.h"
+#include "time.h"
+#include "stdlib.h"
 //enumerazioni
 typedef enum {Studi_Umanistici,Scienze_Economiche_Giuridiche_Politiche,Medicina_Chirurgia,Biologia_Farmacia,Ingegneria_Architettura,Facolta_di_Scienze}Facolta;
 typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
-typedef enum {Caffe,Birra,Vino} Arma;
+typedef enum {Caffe,Birra,Vino,Jolly} Arma;
 
 // struttura giocatore
 typedef struct {
@@ -48,7 +52,7 @@ typedef struct {
 typedef struct nodot{
     struct nodot *prev;
     struct nodot *next;
-    Territorio t;
+    Territorio ter;
 }NodoT;
 
 
@@ -59,4 +63,15 @@ typedef struct {
 }TerritoriG;
 
 
+
+#define MIN_G 3
+#define MAX_G 6
+#define N_TERRITORI 26
+
+
+int leggiGiocatori(int min,int max);
+void  leggiNome(char c[]);
+void caricaGiocatori(int nGiocatori,Giocatore *g);
+int generaCasuale(int min,int max);
+void ordinaVettore(Giocatore *g,int nGiocatori);
 #endif //RISIKA_LIBRISIKA_H
