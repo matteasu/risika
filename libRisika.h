@@ -26,18 +26,37 @@ typedef struct {
 }Territorio;
 
 //struttura nodo per la lista delle carte
-typedef struct carta {
-    struct carta *prev;
-    struct carta *next;
+typedef struct {
     Arma a;
-    Territorio t;
+    int idTerritorio;
 }Carta;
+
+//Nodo per il mazzo di carte
+typedef struct nodoc {
+    struct nodoc *prev;
+    struct nodoc *next;
+    Carta c;
+}NodoC;
 
 //strutura per il mazzo di carte
 typedef struct {
-    Carta *testa;
-    Carta *coda;
+    NodoC *testa;
+    NodoC *coda;
 }Mazzo;
+
+//struttura per i territori del g
+typedef struct nodot{
+    struct nodot *prev;
+    struct nodot *next;
+    Territorio t;
+}NodoT;
+
+
+//lista territori giocatore
+typedef struct {
+    NodoT *testa;
+    NodoT *coda;
+}TerritoriG;
 
 
 #endif //RISIKA_LIBRISIKA_H
