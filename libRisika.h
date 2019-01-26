@@ -9,6 +9,7 @@
 #include "malloc.h"
 #include "time.h"
 #include "stdlib.h"
+#include "stdbool.h"
 //enumerazioni
 typedef enum {Studi_Umanistici,Scienze_Economiche_Giuridiche_Politiche,Medicina_Chirurgia,Biologia_Farmacia,Ingegneria_Architettura,Facolta_di_Scienze}Facolta;
 typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
@@ -74,4 +75,7 @@ void  leggiNome(char c[]);
 void caricaGiocatori(int nGiocatori,Giocatore *g);
 int generaCasuale(int min,int max);
 void ordinaVettore(Giocatore *g,int nGiocatori);
+void gioco();
+void preparazione(Giocatore *g,int nGiocatori);
+void sceltaColore(Giocatore *g,int nGiocatori);
 #endif //RISIKA_LIBRISIKA_H
