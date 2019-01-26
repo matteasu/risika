@@ -14,6 +14,11 @@ void gioco(){
     int nGiocatori;
     nGiocatori=leggiGiocatori(MIN_G,MAX_G);
     preparazione(g,nGiocatori);
+    int i;
+    printf("\n \n fuori main");
+    for(i=0;i<nGiocatori;i++){
+        printf("%s \n",g[i].nome);
+    }
 }
 
 /**
@@ -22,8 +27,10 @@ void gioco(){
  * @param nGiocatori numero di giocatori
  */
 void preparazione(Giocatore *g,int nGiocatori){
-    caricaGiocatori(nGiocatori,g);
-    sceltaColore(g,nGiocatori);
+    Giocatore *a;
+    a=g;
+    a=caricaGiocatori(nGiocatori);
+    //sceltaColore(g,nGiocatori);
 }
 
 
@@ -59,7 +66,8 @@ void leggiNome(char c[]){
  * @param nGiocatori numero di giocatori
  * @param g puntatore allla prima posizione
  */
-void caricaGiocatori(int nGiocatori,Giocatore *g){
+Giocatore * caricaGiocatori(int nGiocatori){
+    Giocatore *g=NULL;
     g=(Giocatore*)malloc(sizeof(Giocatore)*nGiocatori);
     if(g==NULL) {
         exit(-1);
@@ -78,6 +86,7 @@ void caricaGiocatori(int nGiocatori,Giocatore *g){
         printf("\n");
         ordinaVettore(g,nGiocatori);
     }
+    return g;
 }
 
 
@@ -135,20 +144,18 @@ void ordinaVettore(Giocatore *g,int nGiocatori){
 //<-- procedura da terminare -->
 void sceltaColore(Giocatore *g,int nGiocatori){
     int i,j;
+
     int nColori=6;
+    Colore colori[6]={{0,"Rosso"},{1,"Nero"},{2,"Viola"},{3,"Verde"},{4,"Giallo"},{5,"Blu"}};
     _Bool inUse=true;
-    Colore c[6]={Rosso,Nero,Viola,Verde,Giallo,Blu};
+
     for(i=0;i<nGiocatori;i++){
-        do {
+
             printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
             for (j = 0; j < nColori; j++) {
-                printf("%d \n", c[j]);
+                printf("%d - %s \n", colori[j].id,colori[j].nome);
             }
-            scanf("%d",g[i].c);
-
-        }while(inUse!=true);
-
-
+            scanf("%d",g[i].c.id);
     }
 }
 

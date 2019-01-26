@@ -12,8 +12,13 @@
 #include "stdbool.h"
 //enumerazioni
 typedef enum {Studi_Umanistici,Scienze_Economiche_Giuridiche_Politiche,Medicina_Chirurgia,Biologia_Farmacia,Ingegneria_Architettura,Facolta_di_Scienze}Facolta;
-typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
+//typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
 typedef enum {Caffe,Birra,Vino,Jolly} Arma;
+
+typedef struct {
+    int id;
+    char nome[10];
+}Colore;
 
 // struttura giocatore
 typedef struct {
@@ -22,6 +27,9 @@ typedef struct {
     Colore c;
     int nArmate;
 }Giocatore;
+
+
+
 
 // struttura territorio
 typedef struct {
@@ -72,7 +80,7 @@ typedef struct {
 
 int leggiGiocatori(int min,int max);
 void  leggiNome(char c[]);
-void caricaGiocatori(int nGiocatori,Giocatore *g);
+Giocatore * caricaGiocatori(int nGiocatori);
 int generaCasuale(int min,int max);
 void ordinaVettore(Giocatore *g,int nGiocatori);
 void gioco();
