@@ -18,6 +18,7 @@ typedef enum {Caffe,Birra,Vino,Jolly} Arma;
 typedef struct {
     int id;
     char nome[10];
+    _Bool inUse;
 }Colore;
 
 // struttura giocatore

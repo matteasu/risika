@@ -17,7 +17,7 @@ void gioco(){
     int i;
     printf("\n \n fuori main\n ");
     for(i=0;i<nGiocatori;i++){
-        printf("%s %s \n",g[i].nome,g[i].c.nome);
+        printf("%s - %s \n",g[i].nome,g[i].c.nome);
     }
 }
 
@@ -144,22 +144,22 @@ void ordinaVettore(Giocatore *g,int nGiocatori){
 
 //<-- procedura da terminare -->
 void sceltaColore(Giocatore *g,int nGiocatori){
-    int i,j;
+    int i,j,col;
 
     int nColori=6;
-    Colore colori[6]={{0,"Rosso"},{1,"Nero"},{2,"Viola"},{3,"Verde"},{4,"Giallo"},{5,"Blu"}};
+    Colore colori[6]={{0,"Rosso",false},{1,"Nero",false},{2,"Viola",false},{3,"Verde",false},{4,"Giallo",false},{5,"Blu",false}};
 
 
     for(i=0;i<nGiocatori;i++){
         printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
         for (j = 0; j < nColori; j++) {
-            printf("%d - %s \n", colori[j].id,colori[j].nome);
+            if(colori[j].inUse==false)
+                printf("%d - %s \n", colori[j].id,colori[j].nome);
         }
-        scanf("%d",&g[i].c.id);
-
-        rimuoviColore(colori,nColori,g[i].c.id);
-        nColori--;
-
+        scanf("%d",&col);
+        colori[col].inUse=true;
+        g[i].c=colori[col];
+        //rimuoviColore(colori,nColori,g[i].c.id);
     }
 }
 
