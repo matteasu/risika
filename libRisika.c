@@ -13,11 +13,11 @@ void gioco(){
     Giocatore *g=NULL;
     int nGiocatori;
     nGiocatori=leggiGiocatori(MIN_G,MAX_G);
-    preparazione(g,nGiocatori);
+    g=preparazione(nGiocatori);
     int i;
-    printf("\n \n fuori main");
+    printf("\n \n fuori main\n ");
     for(i=0;i<nGiocatori;i++){
-        printf("%s \n",g[i].nome);
+        printf("%s %s \n",g[i].nome,g[i].c.nome);
     }
 }
 
@@ -26,11 +26,12 @@ void gioco(){
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-void preparazione(Giocatore *g,int nGiocatori){
-    Giocatore *a;
-    a=g;
-    a=caricaGiocatori(nGiocatori);
-    //sceltaColore(g,nGiocatori);
+Giocatore * preparazione(int nGiocatori){
+    Giocatore *g;
+    g=caricaGiocatori(nGiocatori);
+    ordinaVettore(g,nGiocatori);
+    sceltaColore(g,nGiocatori);
+    return g;
 }
 
 
@@ -84,7 +85,7 @@ Giocatore * caricaGiocatori(int nGiocatori){
 
         }
         printf("\n");
-        ordinaVettore(g,nGiocatori);
+
     }
     return g;
 }
@@ -147,16 +148,40 @@ void sceltaColore(Giocatore *g,int nGiocatori){
 
     int nColori=6;
     Colore colori[6]={{0,"Rosso"},{1,"Nero"},{2,"Viola"},{3,"Verde"},{4,"Giallo"},{5,"Blu"}};
-    _Bool inUse=true;
+
 
     for(i=0;i<nGiocatori;i++){
+        printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
+        for (j = 0; j < nColori; j++) {
+            printf("%d - %s \n", colori[j].id,colori[j].nome);
+        }
+        scanf("%d",&g[i].c.id);
 
-            printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
-            for (j = 0; j < nColori; j++) {
-                printf("%d - %s \n", colori[j].id,colori[j].nome);
-            }
-            scanf("%d",g[i].c.id);
+        rimuoviColore(colori,nColori,g[i].c.id);
+        nColori--;
+
     }
 }
 
 
+void rimuoviColore(Colore c[],int nCol,int cS){
+    int i,j;
+    Colore v[nCol-1];
+    //copio da colore scelto all'ultimo
+    i=cS+1;
+    j=0;
+    while(i<nCol-1){
+        v[j]=c[i];
+        j++;
+        i++;
+    }
+    i=0;
+    while (i<cS){
+        v[j]=c[i];
+        j++;
+        i++;
+    }
+    for(i=0;i<nCol-1;i++){
+        c[i]=v[i];
+    }
+}
