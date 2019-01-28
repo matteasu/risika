@@ -47,7 +47,7 @@ int leggiGiocatori(int min,int max) {
     do {
         printf("Inserisci il numero di giocatori\n Minimo %d Massimo %d :", min, max);
         scanf("%d", &x);
-    }while(x<min && x>max);
+    }while(x<min || x>max);
     return x;
 }
 /**
@@ -142,7 +142,7 @@ void ordinaVettore(Giocatore *g,int nGiocatori){
     }
 }
 
-//<-- procedura da terminare -->
+
 void sceltaColore(Giocatore *g,int nGiocatori){
     int i,j,col;
 
@@ -164,24 +164,3 @@ void sceltaColore(Giocatore *g,int nGiocatori){
 }
 
 
-void rimuoviColore(Colore c[],int nCol,int cS){
-    int i,j;
-    Colore v[nCol-1];
-    //copio da colore scelto all'ultimo
-    i=cS+1;
-    j=0;
-    while(i<nCol-1){
-        v[j]=c[i];
-        j++;
-        i++;
-    }
-    i=0;
-    while (i<cS){
-        v[j]=c[i];
-        j++;
-        i++;
-    }
-    for(i=0;i<nCol-1;i++){
-        c[i]=v[i];
-    }
-}

@@ -13,7 +13,6 @@
   <component name="ChangeListManager">
     <list default="true" id="14c721fb-4d1d-4974-8feb-fc71f02638f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/C.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/risika.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/risika.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libRisika.c" beforeDir="false" afterPath="$PROJECT_DIR$/libRisika.c" afterDir="false" />
@@ -60,20 +59,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libRisika.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+            <state relative-caret-position="2440">
+              <caret line="155" column="32" selection-start-line="155" selection-start-column="32" selection-end-line="155" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/libRisika.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="87" column="47" selection-start-line="87" selection-start-column="47" selection-end-line="87" selection-end-column="47" />
+            <state relative-caret-position="420">
+              <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
               <folding>
                 <element signature="e#98#116#0" expanded="true" />
               </folding>
@@ -99,8 +98,8 @@
       <list>
         <option value="$PROJECT_DIR$/todoProg.txt" />
         <option value="$PROJECT_DIR$/main.c" />
-        <option value="$PROJECT_DIR$/libRisika.h" />
         <option value="$PROJECT_DIR$/libRisika.c" />
+        <option value="$PROJECT_DIR$/libRisika.h" />
       </list>
     </option>
   </component>
@@ -171,7 +170,8 @@
       <workItem from="1548498158258" duration="2758000" />
       <workItem from="1548519721897" duration="2018000" />
       <workItem from="1548540675942" duration="2075000" />
-      <workItem from="1548608976604" duration="2596000" />
+      <workItem from="1548608976604" duration="3426000" />
+      <workItem from="1548689609204" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="Prova">
       <created>1548269373432</created>
@@ -250,11 +250,25 @@
       <option name="project" value="LOCAL" />
       <updated>1548542263088</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Pulizia codice e tentativo di scegliColore non funzionante">
+      <created>1548611763165</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1548611763166</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Scelta colore abbastanza discutibile ma ok">
+      <created>1548612370929</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1548612370929</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26089000" />
+    <option name="totallyTimeSpent" value="27533000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -284,7 +298,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32935917" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.6527571" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.6527571" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -307,7 +321,9 @@
     <MESSAGE value="Scrittura delle prime procedure o funzioni, verificare todoProg per i progressi" />
     <MESSAGE value="Pulizia del codice e inizio della procedura sceltaColore" />
     <MESSAGE value="E' successo qualcosa ma non mi fido più di tanto&#10;Aggiornamento modalità di accesso ai dati" />
-    <option name="LAST_COMMIT_MESSAGE" value="E' successo qualcosa ma non mi fido più di tanto&#10;Aggiornamento modalità di accesso ai dati" />
+    <MESSAGE value="Pulizia codice e tentativo di scegliColore non funzionante" />
+    <MESSAGE value="Scelta colore abbastanza discutibile ma ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="Scelta colore abbastanza discutibile ma ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -363,20 +379,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libRisika.h">
+    <entry file="file://$PROJECT_DIR$/libRisika.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="87" column="47" selection-start-line="87" selection-start-column="47" selection-end-line="87" selection-end-column="47" />
-          <folding>
-            <element signature="e#98#116#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2440">
+          <caret line="155" column="32" selection-start-line="155" selection-start-column="32" selection-end-line="155" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libRisika.c">
+    <entry file="file://$PROJECT_DIR$/libRisika.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        <state relative-caret-position="420">
+          <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+          <folding>
+            <element signature="e#98#116#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

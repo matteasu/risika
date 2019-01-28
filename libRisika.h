@@ -86,6 +86,5 @@ int generaCasuale(int min,int max);
 void ordinaVettore(Giocatore *g,int nGiocatori);
 void gioco();
 Giocatore * preparazione(int nGiocatori);
-void rimuoviColore(Colore c[],int nCol,int cS);
 void sceltaColore(Giocatore *g,int nGiocatori);
 #endif //RISIKA_LIBRISIKA_H
