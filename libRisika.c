@@ -15,10 +15,8 @@ void gioco(){
     nGiocatori=leggiGiocatori(MIN_G,MAX_G);
     g=preparazione(nGiocatori);
     int i;
-    printf("\n \n fuori main\n ");
-    for(i=0;i<nGiocatori;i++){
-        printf("%s - %s \n",g[i].nome,g[i].c.nome);
-    }
+    printf("\n \n fuori main\n \n ");
+    stampaGiocatori(g,nGiocatori);
 }
 
 /**
@@ -31,6 +29,7 @@ Giocatore * preparazione(int nGiocatori){
     g=caricaGiocatori(nGiocatori);
     ordinaVettore(g,nGiocatori);
     sceltaColore(g,nGiocatori);
+    assegnaArmate(g,nGiocatori);
     return g;
 }
 
@@ -149,7 +148,6 @@ void sceltaColore(Giocatore *g,int nGiocatori){
     int nColori=6;
     Colore colori[6]={{0,"Rosso",false},{1,"Nero",false},{2,"Viola",false},{3,"Verde",false},{4,"Giallo",false},{5,"Blu",false}};
 
-
     for(i=0;i<nGiocatori;i++){
         printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
         for (j = 0; j < nColori; j++) {
@@ -159,8 +157,34 @@ void sceltaColore(Giocatore *g,int nGiocatori){
         scanf("%d",&col);
         colori[col].inUse=true;
         g[i].c=colori[col];
-        //rimuoviColore(colori,nColori,g[i].c.id);
     }
 }
 
+void stampaGiocatori(Giocatore *g,int nGiocatori){
+    int i;
+    for(i=0;i<nGiocatori;i++){
+        printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n",g[i].id,g[i].nome,g[i].c.nome,g[i].nArmate);
+    }
+}
 
+void assegnaArmate(Giocatore *g,int nGiocatori){
+    int num,i;
+    switch (nGiocatori) {
+        case 3:
+            num = 35;
+            break;
+        case 4:
+            num = 30;
+            break;
+        case 5:
+            num = 25;
+        case 6:
+            num = 20;
+            break;
+        default:
+            break;
+    }
+    for(i=0;i<nGiocatori;i++){
+        g[i].nArmate=num;
+    }
+}

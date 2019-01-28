@@ -87,4 +87,6 @@ void ordinaVettore(Giocatore *g,int nGiocatori);
 void gioco();
 Giocatore * preparazione(int nGiocatori);
 void sceltaColore(Giocatore *g,int nGiocatori);
+void assegnaArmate(Giocatore *g,int nGiocatori);
+void stampaGiocatori(Giocatore *g,int nGiocatori);
 #endif //RISIKA_LIBRISIKA_H
