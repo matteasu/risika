@@ -9,7 +9,9 @@
 #include "malloc.h"
 #include "time.h"
 #include "stdlib.h"
+#include "string.h"
 #include "stdbool.h"
+
 //enumerazioni
 typedef enum {Studi_Umanistici,Scienze_Economiche_Giuridiche_Politiche,Medicina_Chirurgia,Biologia_Farmacia,Ingegneria_Architettura,Facolta_di_Scienze}Facolta;
 //typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;

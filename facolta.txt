@@ -9,17 +9,17 @@ Giurisprudenza-1
 Odontoiatria-2
 Infermieristica-2
 Medicina-2
-Scienze Motorie-2
+Scienze_Motorie-2
 CTF-3
 Tossicologia-3
 Biologia-3
-Scienze della Natura-3
+Scienze_della Natura-3
 Farmacia-3
-Ing. Chimica-4
-Ing. Meccanica-4
-Ing. Elettronica-4
+Ing._Chimica-4
+Ing._Meccanica-4
+Ing._Elettronica-4
 Architettura-4
-Ing. Civile-4
+Ing._Civile-4
 Chimica-5
 Fisica-5
 Informatica-5
