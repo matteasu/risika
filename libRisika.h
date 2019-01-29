@@ -91,4 +91,5 @@ Giocatore * preparazione(int nGiocatori);
 void sceltaColore(Giocatore *g,int nGiocatori);
 void assegnaArmate(Giocatore *g,int nGiocatori);
 void stampaGiocatori(Giocatore *g,int nGiocatori);
+void importaDaFile(Territorio t[]);
 #endif //RISIKA_LIBRISIKA_H

@@ -26,10 +26,13 @@ void gioco(){
  */
 Giocatore * preparazione(int nGiocatori){
     Giocatore *g;
+    int i;
+    Territorio t[N_TERRITORI];
     g=caricaGiocatori(nGiocatori);
     ordinaVettore(g,nGiocatori);
     sceltaColore(g,nGiocatori);
     assegnaArmate(g,nGiocatori);
+    importaDaFile(t);
     return g;
 }
 
@@ -187,4 +190,25 @@ void assegnaArmate(Giocatore *g,int nGiocatori){
     for(i=0;i<nGiocatori;i++){
         g[i].nArmate=num;
     }
+}
+/**
+ * procedura per l'importazione dei territori e la relativa facolta' da file di testo
+ * @param t vettore dove verranno inseriti i territori
+ */
+void importaDaFile(Territorio t[]){
+    FILE *f=fopen("facolta.txt","r");
+    int i=0;
+    if(f==NULL){
+        printf("caaaazzo\n");
+        exit(-1);
+    }else {
+
+        while (fscanf(f, "%s", t[i].nome) != EOF) {
+            t[i].id = i;
+            fscanf(f, "%d", &t[i].f);
+            i++;
+        }
+    }
+    fclose(f);
+
 }
