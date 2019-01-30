@@ -87,9 +87,11 @@ Giocatore * caricaGiocatori(int nGiocatori);
 int generaCasuale(int min,int max);
 void ordinaVettore(Giocatore *g,int nGiocatori);
 void gioco();
-Giocatore * preparazione(int nGiocatori);
+Giocatore * preparazione(int nGiocatori,Mazzo *m);
 void sceltaColore(Giocatore *g,int nGiocatori);
 void assegnaArmate(Giocatore *g,int nGiocatori);
 void stampaGiocatori(Giocatore *g,int nGiocatori);
-void importaDaFile(Territorio t[]);
+void importaTerritori(Territorio t[]);
+NodoC * nuovoNodo();
+void importaCarte(Mazzo *m);
 #endif //RISIKA_LIBRISIKA_H

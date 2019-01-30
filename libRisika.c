@@ -12,8 +12,18 @@
 void gioco(){
     Giocatore *g=NULL;
     int nGiocatori;
+    Mazzo m;
+    NodoC *it;
+    m.testa=NULL;
     nGiocatori=leggiGiocatori(MIN_G,MAX_G);
-    g=preparazione(nGiocatori);
+    g=preparazione(nGiocatori,&m);
+    if(m.testa!=NULL){
+        it=m.testa;
+        while(it!=NULL){
+            printf("%d-%d\n",it->c.a,it->c.idTerritorio);
+            it=it->next;
+        }
+    }
     int i;
     printf("\n \n fuori main\n \n ");
     stampaGiocatori(g,nGiocatori);
@@ -24,15 +34,23 @@ void gioco(){
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore * preparazione(int nGiocatori){
+Giocatore * preparazione(int nGiocatori,Mazzo *m){
     Giocatore *g;
-    int i;
     Territorio t[N_TERRITORI];
+    NodoC *it;
     g=caricaGiocatori(nGiocatori);
     ordinaVettore(g,nGiocatori);
     sceltaColore(g,nGiocatori);
     assegnaArmate(g,nGiocatori);
-    importaDaFile(t);
+    importaTerritori(t);
+    importaCarte(m);
+    /*if(m->testa!=NULL){
+        it=m->testa;
+        while(it!=NULL){
+            printf("%d-%d\n",it->c.a,it->c.idTerritorio);
+            it=it->next;
+        }
+    }*/
     return g;
 }
 
@@ -195,7 +213,7 @@ void assegnaArmate(Giocatore *g,int nGiocatori){
  * procedura per l'importazione dei territori e la relativa facolta' da file di testo
  * @param t vettore dove verranno inseriti i territori
  */
-void importaDaFile(Territorio t[]){
+void importaTerritori(Territorio t[]){
     FILE *f=fopen("facolta.txt","r");
     int i=0;
     if(f==NULL){
@@ -211,4 +229,52 @@ void importaDaFile(Territorio t[]){
     }
     fclose(f);
 
+}
+
+void importaCarte(Mazzo *m){
+    FILE *f=fopen("carte.txt","r");
+    NodoC *it,*prev,*nuovo;
+    int a,t;
+    if(f==NULL){
+        printf("caaaazzo\n");
+        exit(-1);
+    }else{
+        while(fscanf(f,"%d",&a)!=EOF){
+            fscanf(f,"%d",&t);
+            if(m->testa==NULL){
+                it=nuovoNodo();
+                it->c.a=a;
+                it->c.idTerritorio=t;
+                it->next=NULL;
+                it->prev=NULL;
+                m->testa=it;
+            }else{
+                it=m->testa;
+                while (it->next!=NULL){
+                    prev=it;
+                    it=it->next;
+                }
+                nuovo=nuovoNodo();
+                nuovo->c.a=a;
+                nuovo->c.idTerritorio=t;
+                //m->coda=it->next->next;
+                nuovo->next=NULL;
+                nuovo->prev=prev;
+                it=nuovo;
+                m->coda=nuovo;
+            }
+
+
+        }
+    }
+}
+
+
+NodoC * nuovoNodo(){
+    NodoC *nuovoNodo = (NodoC*) malloc(sizeof(NodoC)); //Allocazione
+
+    if (nuovoNodo == NULL) //Controllo errori
+        exit(-1);
+
+    return nuovoNodo;
 }
