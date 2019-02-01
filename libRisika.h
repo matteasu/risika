@@ -71,7 +71,6 @@ typedef struct nodot{
 //lista territori giocatore
 typedef struct {
     NodoT *testa;
-    NodoT *coda;
 }TerritoriG;
 
 

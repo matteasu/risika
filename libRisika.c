@@ -44,13 +44,13 @@ Giocatore * preparazione(int nGiocatori,Mazzo *m){
     assegnaArmate(g,nGiocatori);
     importaTerritori(t);
     importaCarte(m);
-    /*if(m->testa!=NULL){
+    if(m->testa!=NULL){
         it=m->testa;
-        while(it!=NULL){
+        while(it->next!=NULL){
             printf("%d-%d\n",it->c.a,it->c.idTerritorio);
             it=it->next;
         }
-    }*/
+    }
     return g;
 }
 
@@ -249,19 +249,19 @@ void importaCarte(Mazzo *m){
                 it->prev=NULL;
                 m->testa=it;
             }else{
+                //creo il nuovo nodo che dovra' contenere le informazioni
+                nuovo=nuovoNodo();
+                nuovo->c.idTerritorio=t;
+                nuovo->c.a=a;
+                nuovo->next=NULL;
+                //cerco l'ultimo nodo nella lista e mi salvo il precedente
                 it=m->testa;
-                while (it->next!=NULL){
+                while(it->next!=NULL){
                     prev=it;
                     it=it->next;
                 }
-                nuovo=nuovoNodo();
-                nuovo->c.a=a;
-                nuovo->c.idTerritorio=t;
-                //m->coda=it->next->next;
-                nuovo->next=NULL;
                 nuovo->prev=prev;
-                it=nuovo;
-                m->coda=nuovo;
+                it->next=nuovo;
             }
 
 
