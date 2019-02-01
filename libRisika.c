@@ -13,18 +13,9 @@ void gioco(){
     Giocatore *g=NULL;
     int nGiocatori;
     Mazzo m;
-    NodoC *it;
     m.testa=NULL;
     nGiocatori=leggiGiocatori(MIN_G,MAX_G);
     g=preparazione(nGiocatori,&m);
-    if(m.testa!=NULL){
-        it=m.testa;
-        while(it!=NULL){
-            printf("%d-%d\n",it->c.a,it->c.idTerritorio);
-            it=it->next;
-        }
-    }
-    int i;
     printf("\n \n fuori main\n \n ");
     stampaGiocatori(g,nGiocatori);
 }
@@ -44,13 +35,6 @@ Giocatore * preparazione(int nGiocatori,Mazzo *m){
     assegnaArmate(g,nGiocatori);
     importaTerritori(t);
     importaCarte(m);
-    if(m->testa!=NULL){
-        it=m->testa;
-        while(it->next!=NULL){
-            printf("%d-%d\n",it->c.a,it->c.idTerritorio);
-            it=it->next;
-        }
-    }
     return g;
 }
 
