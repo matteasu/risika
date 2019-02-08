@@ -35,6 +35,7 @@ Giocatore * preparazione(int nGiocatori,Mazzo *m){
     assegnaArmate(g,nGiocatori);
     importaTerritori(t);
     importaCarte(m);
+    distribuisciCarte(nGiocatori,m);
     return g;
 }
 
@@ -252,6 +253,80 @@ void importaCarte(Mazzo *m){
         }
     }
 }
+
+void distribuisciCarte(int nGioc,Mazzo *m){
+    NodoC *it,*s,*prev;
+    Mazzo *sJ;
+    sJ->testa=NULL;
+    sJ->coda=NULL;
+    it=m->testa;
+    s=sJ->testa;
+    //copia delle carte escludendo i jolly
+    while(it->c.a!=3){
+      if(s==NULL){
+          s=nuovoNodo();
+          s->c=it->c;
+          s->next=nuovoNodo();
+          s->prev=NULL;
+          it=it->next;
+          sJ->testa=s;
+      }else{
+          prev=s;
+          s=s->next;
+          s->c=it->c;
+          s->next=nuovoNodo();
+          s->prev=prev;
+          it=it->next;
+          sJ->coda=s;
+
+      }
+
+    }
+    s=sJ->testa;
+    int i=0;
+    while(s->next!=NULL){
+        printf("a %d- t %d ",s->c.a,s->c.idTerritorio);
+        s=s->next;
+
+    }
+    //ass asuniStupidSorting
+    ass(sJ,26);
+    s=sJ->testa;
+    printf("Looking for assss\n");
+    while(s->next!=NULL){
+        printf("a %d- t %d   ",s->c.a,s->c.idTerritorio);
+        s=s->next;
+
+    }
+
+
+}
+
+void ass(Mazzo *m,int nCarte){
+    int i=0,nIterazioni,j;
+    NodoC *it=m->testa;
+    NodoC *app;
+    Carta c;
+    _Bool ok=false;
+    for(i=0;i<nCarte;i++){
+        do {
+            nIterazioni = generaCasuale(0, nCarte )+generaCasuale(0,2);
+            if(nIterazioni<=26){
+                    ok=true;
+                }else
+                    ok=false;
+        }while(ok!=true);
+        app=m->testa;
+        for(j=0;j<nIterazioni;j++){
+            app=app->next;
+        }
+        c=it->c;
+        it->c=app->c;
+        app->c=c;
+    }
+}
+
+
 
 
 NodoC * nuovoNodo(){

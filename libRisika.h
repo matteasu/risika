@@ -91,6 +91,8 @@ void sceltaColore(Giocatore *g,int nGiocatori);
 void assegnaArmate(Giocatore *g,int nGiocatori);
 void stampaGiocatori(Giocatore *g,int nGiocatori);
 void importaTerritori(Territorio t[]);
+void ass(Mazzo *m,int nCarte);
+void distribuisciCarte(int nGioc,Mazzo *m);
 NodoC * nuovoNodo();
 void importaCarte(Mazzo *m);
 #endif //RISIKA_LIBRISIKA_H

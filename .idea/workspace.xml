@@ -13,8 +13,12 @@
   <component name="ChangeListManager">
     <list default="true" id="14c721fb-4d1d-4974-8feb-fc71f02638f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/libRisika.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/risika.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/risika.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libRisika.c" beforeDir="false" afterPath="$PROJECT_DIR$/libRisika.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libRisika.h" beforeDir="false" afterPath="$PROJECT_DIR$/libRisika.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="100">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -60,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/libRisika.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+            <state relative-caret-position="210">
+              <caret line="323" column="21" selection-start-line="323" selection-start-column="21" selection-end-line="323" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -69,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libRisika.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+            <state relative-caret-position="396">
+              <caret line="93" column="30" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
               <folding>
                 <element signature="e#98#116#0" expanded="true" />
               </folding>
@@ -102,8 +106,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="951" />
-    <option name="width" value="978" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
     <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -113,10 +117,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -177,7 +178,10 @@
       <workItem from="1548772566249" duration="5497000" />
       <workItem from="1548802376382" duration="1646000" />
       <workItem from="1548840145845" duration="4351000" />
-      <workItem from="1549012517352" duration="320000" />
+      <workItem from="1549012517352" duration="933000" />
+      <workItem from="1549635349072" duration="14000" />
+      <workItem from="1549635422611" duration="2929000" />
+      <workItem from="1549638771007" duration="5218000" />
     </task>
     <task id="LOCAL-00001" summary="Prova">
       <created>1548269373432</created>
@@ -298,11 +302,25 @@
       <option name="project" value="LOCAL" />
       <updated>1548803947549</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Maledetto riccardo, la lista è doppiamente concatenata non circolare !!!&#10;//Caricamento delle carte da file">
+      <created>1549013007718</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1549013007718</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Pulizia codice">
+      <created>1549013411115</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1549013411115</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46380000" />
+    <option name="totallyTimeSpent" value="55154000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -400,19 +418,21 @@
     <MESSAGE value="Stampa dei giocatori e assegnamento armate iniziali" />
     <MESSAGE value="Tentativo di separazione delle stringhe" />
     <MESSAGE value="La soluzione era più semplice del previsto, mi sento alquanto scemo&#10;//import da file fixato" />
-    <option name="LAST_COMMIT_MESSAGE" value="La soluzione era più semplice del previsto, mi sento alquanto scemo&#10;//import da file fixato" />
+    <MESSAGE value="Maledetto riccardo, la lista è doppiamente concatenata non circolare !!!&#10;//Caricamento delle carte da file" />
+    <MESSAGE value="Pulizia codice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pulizia codice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/libRisika.c</url>
-          <line>45</line>
+          <line>36</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
-          <line>4</line>
+          <line>5</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -422,8 +442,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/libRisika.c</url>
-          <line>233</line>
+          <line>218</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/libRisika.c</url>
+          <line>256</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -463,30 +488,30 @@
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libRisika.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+        <state relative-caret-position="396">
+          <caret line="93" column="30" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
           <folding>
             <element signature="e#98#116#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/libRisika.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+        <state relative-caret-position="210">
+          <caret line="323" column="21" selection-start-line="323" selection-start-column="21" selection-end-line="323" selection-end-column="21" />
         </state>
       </provider>
     </entry>
