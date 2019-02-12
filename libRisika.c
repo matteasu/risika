@@ -35,7 +35,7 @@ Giocatore *preparazione(int nGiocatori, Mazzo *m) {
     assegnaArmate(g, nGiocatori);
     importaTerritori(t);
     importaCarte(m);
-    distribuisciCarte(nGiocatori,m);
+    distribuisciCarte(nGiocatori,m,g);
     return g;
 }
 
@@ -82,6 +82,7 @@ Giocatore *caricaGiocatori(int nGiocatori) {
         for (i = 0; i < nGiocatori; i++) {
             leggiNome(g[i].nome);
             g[i].id = i;
+            g[i].t.testa=NULL;
         }
         printf("\n");
         printf("Stampa dei giocatori ordinati \n");
@@ -173,9 +174,15 @@ void sceltaColore(Giocatore *g, int nGiocatori) {
 
 void stampaGiocatori(Giocatore *g, int nGiocatori) {
     int i;
+    NodoT *app;
     for (i = 0; i < nGiocatori; i++) {
         printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n", g[i].id, g[i].nome, g[i].c.nome,
                g[i].nArmate);
+        app=g[i].t.testa;
+        while(app->next!=NULL){
+            printf("a %d - t %d \n",app->card.a,app->card.idTerritorio);
+            app=app->next;
+        }
     }
 }
 
@@ -234,7 +241,7 @@ void importaCarte(Mazzo *m) {
         while (fscanf(f, "%d", &a) != EOF) {
             fscanf(f, "%d", &t);
             if (m->testa == NULL) {
-                it = nuovoNodo();
+                it = nuovoNodoC();
                 it->c.a = a;
                 it->c.idTerritorio = t;
                 it->next = NULL;
@@ -242,7 +249,7 @@ void importaCarte(Mazzo *m) {
                 m->testa = it;
             } else {
                 //creo il nuovo nodo che dovra' contenere le informazioni
-                nuovo = nuovoNodo();
+                nuovo = nuovoNodoC();
                 nuovo->c.idTerritorio = t;
                 nuovo->c.a = a;
                 nuovo->next = NULL;
@@ -261,7 +268,7 @@ void importaCarte(Mazzo *m) {
     }
 }
 
-void distribuisciCarte(int nGioc,Mazzo *m){
+void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g){
     NodoC *it,*iS,*s,*prev;
     Mazzo sJ;
     //it puntatore per scorrere il mazzo principale
@@ -274,7 +281,7 @@ void distribuisciCarte(int nGioc,Mazzo *m){
         //controllo se la testa e' vuota
         if(sJ.testa==NULL){
             //creo la nuova carta e la metto in testa
-            s=nuovoNodo();
+            s=nuovoNodoC();
             s->c.idTerritorio=it->c.idTerritorio;
             s->c.a=it->c.a;
             s->next=NULL;
@@ -287,7 +294,7 @@ void distribuisciCarte(int nGioc,Mazzo *m){
                 iS=iS->next;
             }
             //creo la nuova carta
-            s=nuovoNodo();
+            s=nuovoNodoC();
             s->c.idTerritorio=it->c.idTerritorio;
             s->c.a=it->c.a;
             s->next=NULL;
@@ -310,6 +317,7 @@ void distribuisciCarte(int nGioc,Mazzo *m){
     //ass asuniStupidSorting
     ass(&sJ,ncarte);
 
+
     //stampa delle carte dopo essere state mischiate
     s=sJ.testa;
     printf("Looking for assss\n");
@@ -317,9 +325,44 @@ void distribuisciCarte(int nGioc,Mazzo *m){
         printf("a %d- t %d   ",s->c.a,s->c.idTerritorio);
         s=s->next;
     }
-
+    //distribuzione delle carte
+    daiCarte(g,sJ,nGioc,ncarte);
 
 }
+
+void daiCarte(Giocatore g[],Mazzo m,int nGioc, int nCarte) {
+int i;
+NodoC *im;
+NodoT *app,*nuovo;
+
+im=m.testa;
+do{
+    for(i=0;i<nGioc;i++){
+        if(g[i].t.testa==NULL){
+            nuovo=nuovoNodoT();
+            nuovo->next=NULL;
+            nuovo->card=im->c;
+            g[i].t.testa=nuovo;
+            im=im->next;
+        }else{
+            app=g[i].t.testa;
+            while(app->next!=NULL){
+                app=app->next;
+            }
+            nuovo=nuovoNodoT();
+            nuovo->next=NULL;
+            nuovo->card.a=im->c.a;
+            nuovo->card.idTerritorio=im->c.idTerritorio;
+            app->next=nuovo;
+        }
+        im=im->next;
+    }
+}while(im->next->next!=NULL);
+
+}
+
+
+
 
 void ass(Mazzo *m,int nCarte){
     int i=0,nIterazioni,j;
@@ -329,8 +372,8 @@ void ass(Mazzo *m,int nCarte){
     _Bool ok=false;
     for(i=0;i<nCarte;i++){
         do {
-            nIterazioni = generaCasuale(0, nCarte-1)+generaCasuale(0,2);
-            if(nIterazioni<=26){
+            nIterazioni = generaCasuale(0, nCarte)+generaCasuale(0,2);
+            if(nIterazioni<nCarte){
                 ok=true;
             }else
                 ok=false;
@@ -342,6 +385,7 @@ void ass(Mazzo *m,int nCarte){
         c=it->c;
         it->c=app->c;
         app->c=c;
+        it=it->next;
     }
 }
 
@@ -349,7 +393,7 @@ void ass(Mazzo *m,int nCarte){
 
 
 
-NodoC *nuovoNodo() {
+NodoC *nuovoNodoC() {
     NodoC *nuovoNodo = (NodoC *) malloc(sizeof(NodoC)); //Allocazione
 
     if (nuovoNodo == NULL) //Controllo errori

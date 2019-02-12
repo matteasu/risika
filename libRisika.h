@@ -61,7 +61,7 @@ typedef struct {
 //struttura per i territori del g
 typedef struct nodot {
     struct nodot *next;
-    int ter;
+    Carta card;
 } NodoT;
 
 
@@ -110,9 +110,9 @@ void importaTerritori(Territorio t[]);
 
 void ass(Mazzo *m, int nCarte);
 
-void distribuisciCarte(int nGioc,Mazzo *m);
+void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);
 
-NodoC *nuovoNodo();
+NodoC *nuovoNodoC();
 
 NodoT *nuovoNodoT();
 
@@ -120,5 +120,5 @@ void rimuoviCarta(Mazzo *sj);
 
 void importaCarte(Mazzo *m);
 
-void daiCarta(Giocatore g, NodoC *s);
+void daiCarte(Giocatore g[], Mazzo m,int nGioc,int nCarte);
 #endif //RISIKA_LIBRISIKA_H
