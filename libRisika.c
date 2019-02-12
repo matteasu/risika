@@ -9,15 +9,15 @@
  * qua verrano dichiarate tutte le viariabili e verrano chiamate le procedure
  * necessarie al corretto svolgimento del gioco
  */
-void gioco(){
-    Giocatore *g=NULL;
+void gioco() {
+    Giocatore *g = NULL;
     int nGiocatori;
     Mazzo m;
-    m.testa=NULL;
-    nGiocatori=leggiGiocatori(MIN_G,MAX_G);
-    g=preparazione(nGiocatori,&m);
+    m.testa = NULL;
+    nGiocatori = leggiGiocatori(MIN_G, MAX_G);
+    g = preparazione(nGiocatori, &m);
     printf("\n \n fuori main\n \n ");
-    stampaGiocatori(g,nGiocatori);
+    stampaGiocatori(g, nGiocatori);
 }
 
 /**
@@ -25,20 +25,19 @@ void gioco(){
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore * preparazione(int nGiocatori,Mazzo *m){
+Giocatore *preparazione(int nGiocatori, Mazzo *m) {
     Giocatore *g;
     Territorio t[N_TERRITORI];
     NodoC *it;
-    g=caricaGiocatori(nGiocatori);
-    ordinaVettore(g,nGiocatori);
-    sceltaColore(g,nGiocatori);
-    assegnaArmate(g,nGiocatori);
+    g = caricaGiocatori(nGiocatori);
+    ordinaVettore(g, nGiocatori);
+    sceltaColore(g, nGiocatori);
+    assegnaArmate(g, nGiocatori);
     importaTerritori(t);
     importaCarte(m);
     distribuisciCarte(nGiocatori,m);
     return g;
 }
-
 
 
 /**
@@ -47,22 +46,23 @@ Giocatore * preparazione(int nGiocatori,Mazzo *m){
  * @param max
  * @return numeroGiocatori
  */
-int leggiGiocatori(int min,int max) {
+int leggiGiocatori(int min, int max) {
     int x;
     do {
         printf("Inserisci il numero di giocatori\n Minimo %d Massimo %d :", min, max);
         scanf("%d", &x);
-    }while(x<min || x>max);
+    } while (x < min || x > max);
     return x;
 }
+
 /**
  * Procedura per leggere il nome del giocatore
  * @param campo della struttura su cui andro' a scrivere
  */
-void leggiNome(char c[]){
+void leggiNome(char c[]) {
 
     printf("Inserisci il nome del giocatore, max 24 caratteri!!\n altrimenti il nome verra' tagliato :) \n");
-    scanf("%s",c);
+    scanf("%s", c);
 
 }
 
@@ -72,21 +72,21 @@ void leggiNome(char c[]){
  * @param nGiocatori numero di giocatori
  * @param g puntatore allla prima posizione
  */
-Giocatore * caricaGiocatori(int nGiocatori){
-    Giocatore *g=NULL;
-    g=(Giocatore*)malloc(sizeof(Giocatore)*nGiocatori);
-    if(g==NULL) {
+Giocatore *caricaGiocatori(int nGiocatori) {
+    Giocatore *g = NULL;
+    g = (Giocatore *) malloc(sizeof(Giocatore) * nGiocatori);
+    if (g == NULL) {
         exit(-1);
-    }else{
+    } else {
         int i;
-        for(i=0;i<nGiocatori;i++){
+        for (i = 0; i < nGiocatori; i++) {
             leggiNome(g[i].nome);
-            g[i].id=i;
+            g[i].id = i;
         }
         printf("\n");
         printf("Stampa dei giocatori ordinati \n");
-        for(i=0;i<nGiocatori;i++){
-            printf("%s \n",g[i].nome);
+        for (i = 0; i < nGiocatori; i++) {
+            printf("%s \n", g[i].nome);
 
         }
         printf("\n");
@@ -96,85 +96,91 @@ Giocatore * caricaGiocatori(int nGiocatori){
 }
 
 
-
 /**
  * Funzione per la generazione casuale
  * @param min
  * @param max
  * @return
  */
-int generaCasuale(int min,int max){
+int generaCasuale(int min, int max) {
     int r;
-    r=min+rand()%(max-min+1);
+    r = min + rand() % (max - min + 1);
     return r;
 }
+
 /**
  * Procedura per l'ordinamento del vettore di giocatori
  * @param g vettore coi giocatori
  * @param nGiocatori numero di giocatori
  */
-void ordinaVettore(Giocatore *g,int nGiocatori){
-    int primoGiocatore=generaCasuale(0,nGiocatori-1);
+void ordinaVettore(Giocatore *g, int nGiocatori) {
+    int primoGiocatore = generaCasuale(0, nGiocatori - 1);
     //ordinamento del vettore
     Giocatore app[nGiocatori];
-    int i,j;
+    int i, j;
     //copio il vettore
-    for(i=0;i<nGiocatori;i++){
-        app[i]=g[i];
+    for (i = 0; i < nGiocatori; i++) {
+        app[i] = g[i];
     }
-    i=primoGiocatore;
-    j=0;
+    i = primoGiocatore;
+    j = 0;
     //copio da primo giocatore a nGiocatori
-    while(i<nGiocatori){
-        g[j]=app[i];
-        g[j].id=j;
+    while (i < nGiocatori) {
+        g[j] = app[i];
+        g[j].id = j;
         j++;
         i++;
     }
     //j=j+1;
-    i=0;
+    i = 0;
     //giocatori precedenti al primo giocatore
-    while(i<primoGiocatore){
-        g[j]=app[i];
-        g[j].id=j;
+    while (i < primoGiocatore) {
+        g[j] = app[i];
+        g[j].id = j;
         j++;
         i++;
     }
     printf("Stampa dei giocatori ordinati \n");
-    for(i=0;i<nGiocatori;i++){
-        printf("%s - %d \n",g[i].nome,g[i].id);
+    for (i = 0; i < nGiocatori; i++) {
+        printf("%s - %d \n", g[i].nome, g[i].id);
 
     }
 }
 
 
-void sceltaColore(Giocatore *g,int nGiocatori){
-    int i,j,col;
+void sceltaColore(Giocatore *g, int nGiocatori) {
+    int i, j, col;
 
-    int nColori=6;
-    Colore colori[6]={{0,"Rosso",false},{1,"Nero",false},{2,"Viola",false},{3,"Verde",false},{4,"Giallo",false},{5,"Blu",false}};
+    int nColori = 6;
+    Colore colori[6] = {{0, "Rosso",  false},
+                        {1, "Nero",   false},
+                        {2, "Viola",  false},
+                        {3, "Verde",  false},
+                        {4, "Giallo", false},
+                        {5, "Blu",    false}};
 
-    for(i=0;i<nGiocatori;i++){
+    for (i = 0; i < nGiocatori; i++) {
         printf("%s scegli uno dei seguenti colori:\n", g[i].nome);
         for (j = 0; j < nColori; j++) {
-            if(colori[j].inUse==false)
-                printf("%d - %s \n", colori[j].id,colori[j].nome);
+            if (colori[j].inUse == false)
+                printf("%d - %s \n", colori[j].id, colori[j].nome);
         }
-        scanf("%d",&col);
-        colori[col].inUse=true;
-        g[i].c=colori[col];
+        scanf("%d", &col);
+        colori[col].inUse = true;
+        g[i].c = colori[col];
     }
 }
 
-void stampaGiocatori(Giocatore *g,int nGiocatori){
+void stampaGiocatori(Giocatore *g, int nGiocatori) {
     int i;
-    for(i=0;i<nGiocatori;i++){
-        printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n",g[i].id,g[i].nome,g[i].c.nome,g[i].nArmate);
+    for (i = 0; i < nGiocatori; i++) {
+        printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n", g[i].id, g[i].nome, g[i].c.nome,
+               g[i].nArmate);
     }
 }
 
-void assegnaArmate(Giocatore *g,int nGiocatori){
-    int num,i;
+void assegnaArmate(Giocatore *g, int nGiocatori) {
+    int num, i;
     switch (nGiocatori) {
         case 3:
             num = 35;
@@ -190,21 +196,22 @@ void assegnaArmate(Giocatore *g,int nGiocatori){
         default:
             break;
     }
-    for(i=0;i<nGiocatori;i++){
-        g[i].nArmate=num;
+    for (i = 0; i < nGiocatori; i++) {
+        g[i].nArmate = num;
     }
 }
+
 /**
  * procedura per l'importazione dei territori e la relativa facolta' da file di testo
  * @param t vettore dove verranno inseriti i territori
  */
-void importaTerritori(Territorio t[]){
-    FILE *f=fopen("facolta.txt","r");
-    int i=0;
-    if(f==NULL){
+void importaTerritori(Territorio t[]) {
+    FILE *f = fopen("facolta.txt", "r");
+    int i = 0;
+    if (f == NULL) {
         printf("caaaazzo\n");
         exit(-1);
-    }else {
+    } else {
 
         while (fscanf(f, "%s", t[i].nome) != EOF) {
             t[i].id = i;
@@ -216,37 +223,37 @@ void importaTerritori(Territorio t[]){
 
 }
 
-void importaCarte(Mazzo *m){
-    FILE *f=fopen("carte.txt","r");
-    NodoC *it,*prev,*nuovo;
-    int a,t;
-    if(f==NULL){
+void importaCarte(Mazzo *m) {
+    FILE *f = fopen("carte.txt", "r");
+    NodoC *it, *prev, *nuovo;
+    int a, t;
+    if (f == NULL) {
         printf("caaaazzo\n");
         exit(-1);
-    }else{
-        while(fscanf(f,"%d",&a)!=EOF){
-            fscanf(f,"%d",&t);
-            if(m->testa==NULL){
-                it=nuovoNodo();
-                it->c.a=a;
-                it->c.idTerritorio=t;
-                it->next=NULL;
-                it->prev=NULL;
-                m->testa=it;
-            }else{
+    } else {
+        while (fscanf(f, "%d", &a) != EOF) {
+            fscanf(f, "%d", &t);
+            if (m->testa == NULL) {
+                it = nuovoNodo();
+                it->c.a = a;
+                it->c.idTerritorio = t;
+                it->next = NULL;
+                it->prev = NULL;
+                m->testa = it;
+            } else {
                 //creo il nuovo nodo che dovra' contenere le informazioni
-                nuovo=nuovoNodo();
-                nuovo->c.idTerritorio=t;
-                nuovo->c.a=a;
-                nuovo->next=NULL;
+                nuovo = nuovoNodo();
+                nuovo->c.idTerritorio = t;
+                nuovo->c.a = a;
+                nuovo->next = NULL;
                 //cerco l'ultimo nodo nella lista e mi salvo il precedente
-                it=m->testa;
-                while(it->next!=NULL){
-                    prev=it;
-                    it=it->next;
+                it = m->testa;
+                while (it->next != NULL) {
+                    prev = it;
+                    it = it->next;
                 }
-                nuovo->prev=prev;
-                it->next=nuovo;
+                nuovo->prev = prev;
+                it->next = nuovo;
             }
 
 
@@ -255,48 +262,60 @@ void importaCarte(Mazzo *m){
 }
 
 void distribuisciCarte(int nGioc,Mazzo *m){
-    NodoC *it,*s,*prev;
-    Mazzo *sJ;
-    sJ->testa=NULL;
-    sJ->coda=NULL;
+    NodoC *it,*iS,*s,*prev;
+    Mazzo sJ;
+    //it puntatore per scorrere il mazzo principale
+
+    sJ.testa=NULL;
     it=m->testa;
-    s=sJ->testa;
+    int ncarte=0;
     //copia delle carte escludendo i jolly
     while(it->c.a!=3){
-      if(s==NULL){
-          s=nuovoNodo();
-          s->c=it->c;
-          s->next=nuovoNodo();
-          s->prev=NULL;
-          it=it->next;
-          sJ->testa=s;
-      }else{
-          prev=s;
-          s=s->next;
-          s->c=it->c;
-          s->next=nuovoNodo();
-          s->prev=prev;
-          it=it->next;
-          sJ->coda=s;
-
-      }
-
+        //controllo se la testa e' vuota
+        if(sJ.testa==NULL){
+            //creo la nuova carta e la metto in testa
+            s=nuovoNodo();
+            s->c.idTerritorio=it->c.idTerritorio;
+            s->c.a=it->c.a;
+            s->next=NULL;
+            s->prev=NULL;
+            sJ.testa=s;
+        }else{
+            iS=sJ.testa;
+            while(iS->next!=NULL){
+                prev=iS;
+                iS=iS->next;
+            }
+            //creo la nuova carta
+            s=nuovoNodo();
+            s->c.idTerritorio=it->c.idTerritorio;
+            s->c.a=it->c.a;
+            s->next=NULL;
+            s->prev=prev;
+            iS->next=s;
+        }
+        sJ.coda=s;
+        it=it->next;
+        ncarte++;
     }
-    s=sJ->testa;
-    int i=0;
-    while(s->next!=NULL){
-        printf("a %d- t %d ",s->c.a,s->c.idTerritorio);
-        s=s->next;
 
+
+    s=sJ.testa;
+     //stampa delle carte prima che vengano mischiate
+    while(s->next!=NULL) {
+        printf("a %d- t %d ", s->c.a, s->c.idTerritorio);
+        s = s->next;
     }
+
     //ass asuniStupidSorting
-    ass(sJ,26);
-    s=sJ->testa;
+    ass(&sJ,ncarte);
+
+    //stampa delle carte dopo essere state mischiate
+    s=sJ.testa;
     printf("Looking for assss\n");
     while(s->next!=NULL){
         printf("a %d- t %d   ",s->c.a,s->c.idTerritorio);
         s=s->next;
-
     }
 
 
@@ -310,11 +329,11 @@ void ass(Mazzo *m,int nCarte){
     _Bool ok=false;
     for(i=0;i<nCarte;i++){
         do {
-            nIterazioni = generaCasuale(0, nCarte )+generaCasuale(0,2);
+            nIterazioni = generaCasuale(0, nCarte-1)+generaCasuale(0,2);
             if(nIterazioni<=26){
-                    ok=true;
-                }else
-                    ok=false;
+                ok=true;
+            }else
+                ok=false;
         }while(ok!=true);
         app=m->testa;
         for(j=0;j<nIterazioni;j++){
@@ -329,11 +348,19 @@ void ass(Mazzo *m,int nCarte){
 
 
 
-NodoC * nuovoNodo(){
-    NodoC *nuovoNodo = (NodoC*) malloc(sizeof(NodoC)); //Allocazione
+
+NodoC *nuovoNodo() {
+    NodoC *nuovoNodo = (NodoC *) malloc(sizeof(NodoC)); //Allocazione
 
     if (nuovoNodo == NULL) //Controllo errori
         exit(-1);
 
+    return nuovoNodo;
+}
+
+NodoT *nuovoNodoT() {
+    NodoT *nuovoNodo = (NodoT *) malloc(sizeof(NodoT));
+    if (nuovoNodo == NULL)
+        exit(-1);
     return nuovoNodo;
 }
