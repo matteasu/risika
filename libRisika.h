@@ -39,6 +39,12 @@ typedef struct {
     Facolta f;
 } Territorio;
 
+typedef struct {
+    Territorio t;
+    int idPropietario;
+    int nArmate;
+} Tabellone;
+
 //struttura nodo per la lista delle carte
 typedef struct {
     Arma a;
@@ -98,7 +104,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori);
 
 void gioco();
 
-Giocatore *preparazione(int nGiocatori, Mazzo *m);
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Territorio ter[], Tabellone t[]);
 
 void sceltaColore(Giocatore *g, int nGiocatori);
 
@@ -106,7 +112,7 @@ void assegnaArmate(Giocatore *g, int nGiocatori);
 
 void stampaGiocatori(Giocatore *g, int nGiocatori);
 
-void importaTerritori(Territorio t[]);
+void importaTerritori(Territorio ter[], Tabellone t[]);
 
 void ass(Mazzo *m, int nCarte);
 
@@ -118,7 +124,14 @@ NodoT *nuovoNodoT();
 
 void rimuoviCarta(Mazzo *sj);
 
+void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
+
+void stampaNomeTerritorio(int id, Tabellone t[]);
+
+void armateInT(Giocatore *g, Tabellone t[]);
 void importaCarte(Mazzo *m);
 
-void daiCarte(Giocatore g[], Mazzo m,int nGioc,int nCarte);
+void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
+
+void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 #endif //RISIKA_LIBRISIKA_H

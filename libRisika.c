@@ -14,8 +14,10 @@ void gioco() {
     int nGiocatori;
     Mazzo m;
     m.testa = NULL;
+    Territorio territori[N_TERRITORI];
+    Tabellone t[N_TERRITORI];
     nGiocatori = leggiGiocatori(MIN_G, MAX_G);
-    g = preparazione(nGiocatori, &m);
+    g = preparazione(nGiocatori, &m, territori, t);
     printf("\n \n fuori main\n \n ");
     stampaGiocatori(g, nGiocatori);
 }
@@ -25,17 +27,16 @@ void gioco() {
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore *preparazione(int nGiocatori, Mazzo *m) {
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Territorio ter[], Tabellone t[]) {
     Giocatore *g;
-    Territorio t[N_TERRITORI];
-    NodoC *it;
     g = caricaGiocatori(nGiocatori);
     ordinaVettore(g, nGiocatori);
     sceltaColore(g, nGiocatori);
     assegnaArmate(g, nGiocatori);
-    importaTerritori(t);
+    importaTerritori(ter, t);
     importaCarte(m);
     distribuisciCarte(nGiocatori,m,g);
+    assegnaArmateTerritori(nGiocatori, g, t);
     return g;
 }
 
@@ -212,17 +213,20 @@ void assegnaArmate(Giocatore *g, int nGiocatori) {
  * procedura per l'importazione dei territori e la relativa facolta' da file di testo
  * @param t vettore dove verranno inseriti i territori
  */
-void importaTerritori(Territorio t[]) {
+void importaTerritori(Territorio ter[], Tabellone t[]) {
     FILE *f = fopen("facolta.txt", "r");
+    Territorio app;
     int i = 0;
     if (f == NULL) {
         printf("caaaazzo\n");
         exit(-1);
     } else {
 
-        while (fscanf(f, "%s", t[i].nome) != EOF) {
-            t[i].id = i;
-            fscanf(f, "%d", &t[i].f);
+        while (fscanf(f, "%s", app.nome) != EOF) {
+            app.id = i;
+            fscanf(f, "%d", &app.f);
+            ter[i] = app;
+            t[i].t = app;
             i++;
         }
     }
@@ -326,24 +330,23 @@ void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g){
         s=s->next;
     }
     //distribuzione delle carte
-    daiCarte(g,sJ,nGioc,ncarte);
+    daiCarte(g, &sJ, nGioc, ncarte);
 
 }
 
-void daiCarte(Giocatore g[],Mazzo m,int nGioc, int nCarte) {
+void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
 int i;
-NodoC *im;
+    NodoC *im, *vecc;
 NodoT *app,*nuovo;
-
-im=m.testa;
-do{
+    im = m->testa;
+    while (m->testa->next->next != NULL) {
     for(i=0;i<nGioc;i++){
         if(g[i].t.testa==NULL){
             nuovo=nuovoNodoT();
             nuovo->next=NULL;
-            nuovo->card=im->c;
+            nuovo->card = m->testa->c;
             g[i].t.testa=nuovo;
-            im=im->next;
+            //im=im->next;
         }else{
             app=g[i].t.testa;
             while(app->next!=NULL){
@@ -351,13 +354,17 @@ do{
             }
             nuovo=nuovoNodoT();
             nuovo->next=NULL;
-            nuovo->card.a=im->c.a;
-            nuovo->card.idTerritorio=im->c.idTerritorio;
+            nuovo->card = m->testa->c;
             app->next=nuovo;
         }
-        im=im->next;
+        if (m->testa != NULL) {
+            vecc = m->testa->next;
+            free(m->testa);
+            m->testa = vecc;
+        } else
+            m->testa = NULL;
     }
-}while(im->next->next!=NULL);
+    }
 
 }
 
@@ -408,3 +415,125 @@ NodoT *nuovoNodoT() {
         exit(-1);
     return nuovoNodo;
 }
+
+void stampaNomeTerritorio(int id, Tabellone t[]) {
+
+    printf("%s \n", t[id].t.nome);
+
+}
+
+void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
+    int i, scelta = -1;
+    NodoT *it;
+    for (i = 0; i < nGiocatori; i++) {
+        it = g[i].t.testa;
+        //assegnamento armate iniziali
+        while (it->next != NULL) {
+            t[it->card.idTerritorio].idPropietario = g->id;
+            t[it->card.idTerritorio].nArmate = 1;
+            g[i].nArmate--;
+            it = it->next;
+        }
+    }
+    for (i = 0; i < nGiocatori; ++i) {
+        if (g[i].nArmate > 0) {
+            if (g[i].nArmate >= 3) {
+                do {
+                    printf("%s come vuoi posizionare queste 3 armate ?\n 1) per metterne 3 in un territorio\n"
+                           "2) 2 in un territorio e la rimanente in un'altro territorio\n"
+                           "3) tutte e 3 in territori diversi\n", g[i].nome);
+                    scanf("%d", &scelta);
+                } while (scelta < 1 || scelta > 3);
+
+            } else {
+                if (g[i].nArmate == 2)
+                    do {
+                        printf("%s come vuoi posizionare queste %d armate ?\n 4) per metterne %d in un territorio\n"
+                               "5) %d in un territorio e %d in un'altro territorio\n", g[i].nome, g[i].nArmate,
+                               g[i].nArmate,
+                               g[i].nArmate - 1, g[i].nArmate - 1);
+                        scanf("%d", &scelta);
+                    } while (scelta < 4 || scelta > 5);
+            }else{
+                do {
+                    printf("%s 6)posiziona la tua ultima armata\n ");
+                } while (scelta != 6);
+            }
+            posizionaArmate(&g[i], t, scelta);
+        }
+    }
+}
+
+void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
+    NodoT *it;
+    int idTer, i;
+    switch (scelta) {
+        case 1:
+            armateInT(g, t);
+            break;
+
+        case 2:
+            it = g->t.testa;
+            printf("In che territorio vuoi mettere queste 2 armate ?\n");
+            while (it->next != NULL) {
+                printf("%d)", it->card.idTerritorio);
+                stampaNomeTerritorio(it->card.idTerritorio, t);
+            }
+            scanf("%d", &idTer);
+            t[idTer].nArmate += 2;
+            g->nArmate -= 2;
+
+            it = g->t.testa;
+            printf("In che territorio vuoi mettere l'ultima armata ?\n");
+            while (it->next != NULL) {
+                printf("%d)", it->card.idTerritorio);
+                stampaNomeTerritorio(it->card.idTerritorio, t);
+            }
+            scanf("%d", &idTer);
+            t[idTer].nArmate += 1;
+            g->nArmate -= 1;
+            break;
+
+        case 3:
+            for (i = 0; i < 3; i++) {
+                it = g->t.testa;
+                printf("In che territorio vuoi mettere una armata ?\n");
+                while (it->next != NULL) {
+                    printf("%d)", it->card.idTerritorio);
+                    stampaNomeTerritorio(it->card.idTerritorio, t);
+                }
+                scanf("%d", &idTer);
+                t[idTer].nArmate += 1;
+                g->nArmate -= 1;
+            }
+            break;
+
+        default:
+            break;
+
+
+    }
+}
+
+void armateInT(Giocatore *g, Tabellone t[]) {
+    NodoT *it;
+    int idTer;
+    it = g->t.testa;
+    if (g->nArmate == 1)
+        printf("In che territorio vuoi mettere questa armata ?");
+    else
+        printf("In che territorio vuoi mettere queste armate ?\n");
+    while (it->next != NULL) {
+        printf("%d)", it->card.idTerritorio);
+        stampaNomeTerritorio(it->card.idTerritorio, t);
+    }
+    scanf("%d", &idTer);
+    if (g->nArmate >= 3) {
+        t[idTer].nArmate += 3;
+        g->nArmate -= 3;
+    } else {
+        t[idTer].nArmate += g->nArmate;
+        g->nArmate -= g->nArmate;
+    }
+}
+
