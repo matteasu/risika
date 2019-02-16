@@ -334,31 +334,50 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
 
 }
 
+/**
+ * Procedura che distribuisce tutte le 26 carte (Ovvero le carte rimanenti dopo che vengono tolti i jolly)
+ * ai giocatori
+ * @param g Vettore contenente i giocatori
+ * @param m Mazzo da cui attingere alle carte
+ * @param nGioc numero di giocatori
+ * @param nCarte numero di carte da distribuire
+ */
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
     int i, j = 0, carteDaDare, cr;
+    //i e j son dei contatori
     NodoC *vecc;
     NodoT *app, *nuovo;
-    carteDaDare = (nCarte / nGioc) * nGioc;
-    cr = nCarte % nGioc;
+    carteDaDare = (nCarte / nGioc) * nGioc; //Calcolo il numero di carte che ogni giocatore ricevera'
+    cr = nCarte % nGioc; //carte rimanenti che rimangono da distribuire per arrivare a 26
     while (j <= carteDaDare) {
         for (i = 0; i < nGioc; i++) {
+            //se il mazzo di carte del giocatore e' vuoto
             if (g[i].t.testa == NULL) {
+                //creo il nuovo nodo
                 nuovo = nuovoNodoT();
+                //imposto il suo next a null
                 nuovo->next = NULL;
+                //prendo la carta dal mazzo principale e la assegno alla carta del giocatore
                 nuovo->card = m->testa->c;
+                //aggiorno la testa del mazzo del giocatore
                 g[i].t.testa = nuovo;
-                //im=im->next;
             } else {
+                //se il mazzo del giocatore non e' vuoto vado avanti sino a quando non trovo una posizione libera
                 app = g[i].t.testa;
                 while (app->next != NULL) {
                     app = app->next;
                 }
+                //creo il nuovo nodo
                 nuovo = nuovoNodoT();
+                //imposto il suo next a null
                 nuovo->next = NULL;
+                //prendo la carta dal mazzo principale e la assegno alla carta del giocatore
                 nuovo->card = m->testa->c;
+                //e infine assegno la nuova carta al mazzo
                 app->next = nuovo;
             }
-            j++;
+            j++;//dopo che la carta e' stata correttamente inserita nel nuovo mazzo vado avanti
+            //eliminazione in testa dal mazzo principale
             if (m->testa->next != NULL) {
                 vecc = m->testa->next;
                 vecc->prev = NULL;
@@ -368,63 +387,33 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
         }
     }
     i = j = 0;
-
+    //distribuzione delle carte rimanenti
     while (j < cr) {
+        //nodo d'appoggio per scorrere il mazzo del giocatore
         app = g[i].t.testa;
+        //cerco la prima posizione disponibile
         while (app->next != NULL) {
             app = app->next;
         }
+        //creazione del nuovo nodo e inserimento in coda
         nuovo = nuovoNodoT();
         nuovo->next = NULL;
         nuovo->card = m->testa->c;
         app->next = nuovo;
+        //eliminazione in testa
         if (m->testa->next != NULL) {
             vecc = m->testa->next;
             vecc->prev = NULL;
             free(m->testa);
             m->testa = vecc;
         }
+        //passo al prossimo giocatore
         i++;
+        //passo alla prossima carta
         j++;
 
     }
 }
-
-/**
-while (m->testa->next != NULL) {
-    for (i = 0; i < nGioc; i++) {
-        if (g[i].t.testa == NULL) {
-            nuovo = nuovoNodoT();
-            nuovo->next = NULL;
-            nuovo->card = m->testa->c;
-            g[i].t.testa = nuovo;
-            //im=im->next;
-        } else {
-            app = g[i].t.testa;
-            while (app->next != NULL) {
-                app = app->next;
-            }
-            nuovo = nuovoNodoT();
-            nuovo->next = NULL;
-            nuovo->card = m->testa->c;
-            app->next = nuovo;
-        }
-        if (m->testa->next != NULL) {
-            vecc = m->testa->next;
-            vecc->prev=NULL;
-            free(m->testa);
-            m->testa = vecc;
-        }else{
-            vecc = m->testa;
-            vecc->prev=NULL;
-            vecc->next=NULL;
-            m->testa = vecc;
-        }
-    }
-}*/
-
-
-
 
 void ass(Mazzo *m, int nCarte) {
     int i = 0, nIterazioni, j;
@@ -482,8 +471,8 @@ void stampaNomeTerritorio(int id, Tabellone t[]) {
  * @param t tabellone di gioco
  */
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
-    int i = 0, scelta = -1;
-    _Bool ok = true;
+    int i = 0, j, scelta = -1;
+
     NodoT *it;
     for (i = 0; i < nGiocatori; i++) {
         it = g[i].t.testa;
@@ -494,26 +483,28 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
             g[i].nArmate--;
             it = it->next;
         }
-    }/**
-    while(ok){
-        i=0;
-        while(i<nGiocatori) {
-            if (g[i].nArmate > 0) {
-                if (g[i].nArmate >= 3) {
+    }
+    i = 0;
+    while (i < nGiocatori) {
+        j = i;
+        while (j < nGiocatori) {
+            if (g[j].nArmate > 0) {
+                printf("\n \n numero armate %d \n \n", g[j].nArmate);
+                if (g[j].nArmate >= 3) {
                     do {
                         printf("%s come vuoi posizionare queste 3 armate ?\n 1) per metterne 3 in un territorio\n"
                                "2) 2 in un territorio e la rimanente in un'altro territorio\n"
-                               "3) tutte e 3 in territori diversi\n", g[i].nome);
+                               "3) tutte e 3 in territori diversi\n", g[j].nome);
                         scanf("%d", &scelta);
                     } while (scelta < 1 || scelta > 3);
 
                 } else {
-                    if (g[i].nArmate == 2) {
+                    if (g[j].nArmate == 2) {
                         do {
                             printf("%s come vuoi posizionare queste %d armate ?\n 4) per metterne %d in un territorio\n"
-                                   "5) %d in un territorio e %d in un'altro territorio\n", g[i].nome, g[i].nArmate,
-                                   g[i].nArmate,
-                                   g[i].nArmate - 1, g[i].nArmate - 1);
+                                   "5) %d in un territorio e %d in un'altro territorio\n", g[j].nome, g[j].nArmate,
+                                   g[j].nArmate,
+                                   g[j].nArmate - 1, g[j].nArmate - 1);
                             scanf("%d", &scelta);
                         } while (scelta < 4 || scelta > 5);
                     } else {
@@ -523,12 +514,14 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                     }
 
                 }
-                posizionaArmate(&g[i], t, scelta);
+                posizionaArmate(&g[j], t, scelta);
+                j++;
+            } else {
                 i++;
-            }else
-                ok=false;
+                j++;
+            }
         }
-    }*/
+    }
 }
 
 void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
