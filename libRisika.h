@@ -61,7 +61,7 @@ typedef struct nodoc {
 //strutura per il mazzo di carte
 typedef struct {
     NodoC *testa;
-    NodoC *coda;
+
 } Mazzo;
 
 //struttura per i territori del g
@@ -128,7 +128,7 @@ void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
 
 void stampaNomeTerritorio(int id, Tabellone t[]);
 
-void armateInT(Giocatore *g, Tabellone t[]);
+void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
 
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
