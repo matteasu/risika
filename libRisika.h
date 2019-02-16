@@ -64,16 +64,9 @@ typedef struct {
 
 } Mazzo;
 
-//struttura per i territori del g
-typedef struct nodot {
-    struct nodot *next;
-    Carta card;
-} NodoT;
-
-
 //lista territori giocatore
 typedef struct {
-    NodoT *testa;
+    NodoC *testa;
 } TerritoriG;
 
 
@@ -120,9 +113,7 @@ void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);
 
 NodoC *nuovoNodoC();
 
-NodoT *nuovoNodoT();
-
-void rimuoviCarta(Mazzo *sj);
+void rimuoviCarta(Mazzo *m);
 
 void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
 
@@ -131,6 +122,9 @@ void stampaNomeTerritorio(int id, Tabellone t[]);
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
 
+void inserimentoInCoda(NodoC *testa, Carta c);
+
+NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
