@@ -1,4 +1,4 @@
-﻿creazione strutture ✅
+creazione strutture ✅
 richiesta numero giocatori e rispettivo controllo + macro min gioc e max gioc ✅
 funzione per la richiesta dei dati del giocatore ✅ 
 vettore dinamico per salvataggio dei giocatori ✅
@@ -7,10 +7,12 @@ storie coi puntatori e supermega funzione che include tutto✅
 scelta colore partendo dal primo giocatore ✅
 assegnamento armate✅
 <-- inizio carte -->
-rimozione carte jolly dal mazzo
-mischiare le carte e inserirle in una lista doppiamente concatenata
-// generare un vettore di valori diversi per mischiare
-distribuzione carte, una ad una 
+rimozione carte jolly dal mazzo✅
+mischiare le carte e inserirle in una lista doppiamente concatenata✅
+// generare un vettore di valori diversi per mischiare✅
+distribuzione carte, una ad una ✅
 <-- fine carte -->
-posizonamento di una armata per territorio
-aggioramento disposizione nArmate 
+posizonamento di una armata per territorio✅
+aggioramento disposizione nArmate ✅
+Mischiare mazzo completo
+Controllare di aver pulito bene il codice e dallocato tutttto
