@@ -557,9 +557,29 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
     }
 }
 
+/**
+ * Procedura che rappresenta la fase di rinforzo
+ * @param g giocatore attuale
+ * @param t tabellone di gioco
+ */
 void rinforzo(Giocatore *g,Tabellone t[]){
-    NodoC *app;
-    int nTerritori=0;
+    NodoC *app; //Puntatore utilizzato per scorrere la lista coi territori del giocatore
+    int nTerritori = 0, i, numF; //numero di territori del giocatore,contatore,variabile utilizzata per contare i territori
+    //di una certa facolta'
+    //struttura contenente gli identificatori di ogni facolta
+    Facolta f[NUM_FACOLTA] = {Studi_Umanistici,
+                              Scienze_Economiche_Giuridiche_Politiche,
+                              Medicina_Chirurgia, Biologia_Farmacia,
+                              Ingegneria_Architettura, Facolta_di_Scienze};
+    //struttura contenente il numero di territori di ogni facolta e il rispettivo incremento nel caso si abbiano tutti i
+    //territori
+    Incrementi numeroF[NUM_FACOLTA] = {{NUM_SU,  3},
+                                       {NUM_SE,  2},
+                                       {NUM_MC,  2},
+                                       {NUM_BF,  4},
+                                       {NUM_ING, 4},
+                                       {NUM_FS,  2}};
+
     app=g->t.testa;
     while(app->next!=NULL){
         nTerritori++;
@@ -567,4 +587,16 @@ void rinforzo(Giocatore *g,Tabellone t[]){
     }
     nTerritori=nTerritori/3;
     g->nArmate=nTerritori;
+    for (i = 0; i < NUM_FACOLTA; i++) {
+        app = g->t.testa;
+        numF = 0;
+        while (app->next != NULL) {
+            if (t[app->c.idTerritorio].t.f == f[i]) {
+                numF++;
+            }
+            app = app->next;
+        }
+        if (numF == numeroF[i].nf)
+            g->nArmate += numeroF[i].incr;
+    }
 }

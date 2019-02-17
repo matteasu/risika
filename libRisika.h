@@ -5,13 +5,13 @@
 #ifndef RISIKA_LIBRISIKA_H
 #define RISIKA_LIBRISIKA_H
 
-#include "stdio.h"
-#include "malloc.h"
-#include "time.h"
-#include "stdlib.h"
-#include "string.h"
-#include "stdbool.h"
-
+#include <stdio.h>
+#include <malloc.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include "docente.h"
 //enumerazioni
 typedef enum {
     Studi_Umanistici,
@@ -80,6 +80,12 @@ typedef struct {
 } Giocatore;
 
 
+typedef struct {
+    int nf;
+    int incr;
+} Incrementi;
+
+
 #define MIN_G 3
 #define MAX_G 6
 #define N_TERRITORI 26
@@ -91,7 +97,13 @@ typedef struct {
 #define DUEINT 4//2 armate in un territorio
 #define DUET 5//una armata in un territorio e una in un altro
 #define AINT 6//una armata in un territorio
-
+#define NUM_FACOLTA 6
+#define NUM_SU 5 //numero facolta studi umanistici
+#define NUM_SE 3 //numero facolta scienze economice
+#define NUM_MC 4 //numero facolta medicina e chirurgia
+#define NUM_BF 5 //numero facolta biologia e farmacia
+#define NUM_ING 5 //numero facolta ing
+#define NUM_FS 4 //numero facolta scientifiche
 int leggiGiocatori(int min, int max);
 
 void leggiNome(char c[]);

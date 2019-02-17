@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "C:/Users/Matteo/CLionProjects/risika/docente.c" "C:/Users/Matteo/CLionProjects/risika/cmake-build-debug/CMakeFiles/risika.dir/docente.c.obj"
   "C:/Users/Matteo/CLionProjects/risika/libRisika.c" "C:/Users/Matteo/CLionProjects/risika/cmake-build-debug/CMakeFiles/risika.dir/libRisika.c.obj"
   "C:/Users/Matteo/CLionProjects/risika/main.c" "C:/Users/Matteo/CLionProjects/risika/cmake-build-debug/CMakeFiles/risika.dir/main.c.obj"
   )

@@ -122,6 +122,33 @@ risika/fast:
 	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/build
 .PHONY : risika/fast
 
+docente.obj: docente.c.obj
+
+.PHONY : docente.obj
+
+# target to build an object file
+docente.c.obj:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/docente.c.obj
+.PHONY : docente.c.obj
+
+docente.i: docente.c.i
+
+.PHONY : docente.i
+
+# target to preprocess a source file
+docente.c.i:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/docente.c.i
+.PHONY : docente.c.i
+
+docente.s: docente.c.s
+
+.PHONY : docente.s
+
+# target to generate assembly for a file
+docente.c.s:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/docente.c.s
+.PHONY : docente.c.s
+
 libRisika.obj: libRisika.c.obj
 
 .PHONY : libRisika.obj
@@ -185,6 +212,9 @@ help:
 	@echo ... risika
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... docente.obj
+	@echo ... docente.i
+	@echo ... docente.s
 	@echo ... libRisika.obj
 	@echo ... libRisika.i
 	@echo ... libRisika.s

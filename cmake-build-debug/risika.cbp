@@ -74,6 +74,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/docente.c">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/docente.h">
+			<Option target="risika"/>
+		</Unit>
 		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libRisika.c">
 			<Option target="risika"/>
 		</Unit>

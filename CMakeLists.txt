@@ -3,4 +3,4 @@ project(risika C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(risika main.c libRisika.c libRisika.h)
+add_executable(risika main.c libRisika.c libRisika.h docente.c docente.h)
