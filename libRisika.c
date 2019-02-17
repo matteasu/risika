@@ -21,6 +21,7 @@ void gioco() {
     printf("\n \n fuori main\n \n ");
     for(i=0;i<nGiocatori;i++) {
         rinforzo(&g[i], t);
+        attacco(&g[i],t);
     }
     stampaGiocatori(g, nGiocatori);
 }
@@ -599,4 +600,59 @@ void rinforzo(Giocatore *g,Tabellone t[]){
         if (numF == numeroF[i].nf)
             g->nArmate += numeroF[i].incr;
     }
+}
+
+void attacco(Giocatore *g,Tabellone t[]) {
+    char scelta;
+    int tB,nT,j=0,tA;
+    NodoC *app;
+    _Bool ok=false;
+    printf("%s\n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome);
+    //pulizia buffer in modo da poter leggere la scelta dell'utente
+    fflush(stdin);
+    scanf("%c", &scelta);
+    if (scelta == 'S' || scelta == 's') {
+
+        do {
+            app = g->t.testa;
+            printf("Da che territorio vuoi far partire l'attacco?\n");
+            while (app->next != NULL) {
+                printf("%d)", app->c.idTerritorio);
+                stampaNomeTerritorio(app->c.idTerritorio, t);
+                nT++;
+                app = app->next;
+            }
+            scanf("%d", &tB);
+            app = g->t.testa;
+            //controllo del valore appena letto, sia mai che un giocatore cerchi di aumentare armate di territori
+            //che non gli appartengono
+            while (j < nT) {
+                while (app->next != NULL) {
+                    if (tB == app->c.idTerritorio)
+                        ok = true;
+                    app = app->next;
+                }
+                j++;
+            }
+        } while (ok != true);
+        ok=false;
+        do {
+            printf("Scegli il territorio da attaccare \n");
+            for (j = 0; j < N_TERRITORI; j++) {
+                if (isAdjacent(tB, j)) {
+                    printf("%d)", t[j].t.id);
+                    stampaNomeTerritorio(j, t);
+                }
+            }
+            scanf("%d", &tA);
+            for (j = 0; j < N_TERRITORI; j++) {
+                if (isAdjacent(tB, j)) {
+                    if(tA==t[j].t.id)
+                        ok=true;
+                }
+            }
+        }while(ok!=true);
+    }
+    else
+            armateInT(g,t,1,1);
 }

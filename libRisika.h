@@ -147,4 +147,5 @@ NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
+void attacco(Giocatore *g,Tabellone t[]);
 #endif //RISIKA_LIBRISIKA_H
