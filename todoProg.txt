@@ -1,4 +1,5 @@
 creazione strutture ✅
+<-- fase preparazione -->
 richiesta numero giocatori e rispettivo controllo + macro min gioc e max gioc ✅
 funzione per la richiesta dei dati del giocatore ✅ 
 vettore dinamico per salvataggio dei giocatori ✅
@@ -14,5 +15,11 @@ distribuzione carte, una ad una ✅
 <-- fine carte -->
 posizonamento di una armata per territorio✅
 aggioramento disposizione nArmate ✅
-Mischiare mazzo completo
-Controllare di aver pulito bene il codice e dallocato tutttto
+Mischiare mazzo completo✅
+Controllare di aver pulito bene il codice e dallocato tutttto✅
+<-- fine fase preparazione  -->
+
+<-- gioco -->
+
+<-- rinforzi -->
+assegnamento delle armate in base al numero di territori posseduti ✅

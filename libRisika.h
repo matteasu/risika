@@ -133,6 +133,6 @@ void inserimentoInCoda(NodoC *testa, Carta c);
 
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
-
+void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 #endif //RISIKA_LIBRISIKA_H

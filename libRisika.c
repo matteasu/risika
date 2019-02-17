@@ -11,7 +11,7 @@
  */
 void gioco() {
     Giocatore *g = NULL;
-    int nGiocatori;
+    int nGiocatori,i=0;
     Mazzo m;
     m.testa = NULL;
     Territorio territori[N_TERRITORI];
@@ -19,6 +19,9 @@ void gioco() {
     nGiocatori = leggiGiocatori(MIN_G, MAX_G);
     g = preparazione(nGiocatori, &m, t);
     printf("\n \n fuori main\n \n ");
+    for(i=0;i<nGiocatori;i++) {
+        rinforzo(&g[i], t);
+    }
     stampaGiocatori(g, nGiocatori);
 }
 
@@ -554,3 +557,14 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
     }
 }
 
+void rinforzo(Giocatore *g,Tabellone t[]){
+    NodoC *app;
+    int nTerritori=0;
+    app=g->t.testa;
+    while(app->next!=NULL){
+        nTerritori++;
+        app=app->next;
+    }
+    nTerritori=nTerritori/3;
+    g->nArmate=nTerritori;
+}
