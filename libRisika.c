@@ -17,7 +17,7 @@ void gioco() {
     Territorio territori[N_TERRITORI];
     Tabellone t[N_TERRITORI];
     nGiocatori = leggiGiocatori(MIN_G, MAX_G);
-    g = preparazione(nGiocatori, &m, territori, t);
+    g = preparazione(nGiocatori, &m, t);
     printf("\n \n fuori main\n \n ");
     stampaGiocatori(g, nGiocatori);
 }
@@ -27,16 +27,18 @@ void gioco() {
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Territorio ter[], Tabellone t[]) {
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[]) {
     Giocatore *g;
     g = caricaGiocatori(nGiocatori);
     ordinaVettore(g, nGiocatori);
     sceltaColore(g, nGiocatori);
     assegnaArmate(g, nGiocatori);
-    importaTerritori(ter, t);
+    importaTerritori(t);
     importaCarte(m);
     distribuisciCarte(nGiocatori, m, g);
     assegnaArmateTerritori(nGiocatori, g, t);
+    //mischio il mazzo di carte principale
+    ass(m, N_CARTE);
     return g;
 }
 
@@ -83,14 +85,6 @@ Giocatore *caricaGiocatori(int nGiocatori) {
             g[i].id = i;
             g[i].t.testa = NULL;
         }
-        printf("\n");
-        printf("Stampa dei giocatori ordinati \n");
-        for (i = 0; i < nGiocatori; i++) {
-            printf("%s \n", g[i].nome);
-
-        }
-        printf("\n");
-
     }
     return g;
 }
@@ -139,11 +133,6 @@ void ordinaVettore(Giocatore *g, int nGiocatori) {
         g[j].id = j;
         j++;
         i++;
-    }
-    printf("Stampa dei giocatori ordinati \n");
-    for (i = 0; i < nGiocatori; i++) {
-        printf("%s - %d \n", g[i].nome, g[i].id);
-
     }
 }
 
@@ -195,6 +184,7 @@ void stampaGiocatori(Giocatore *g, int nGiocatori) {
             app = app->next;
         }
     }
+
 }
 
 void assegnaArmate(Giocatore *g, int nGiocatori) {
@@ -223,7 +213,7 @@ void assegnaArmate(Giocatore *g, int nGiocatori) {
  * procedura per l'importazione dei territori e la relativa facolta' da file di testo
  * @param t vettore dove verranno inseriti i territori
  */
-void importaTerritori(Territorio ter[], Tabellone t[]) {
+void importaTerritori(Tabellone t[]) {
     //apertura del file contenente i vari territori
     FILE *f = fopen("facolta.txt", "r");
     Territorio app;
@@ -237,7 +227,6 @@ void importaTerritori(Territorio ter[], Tabellone t[]) {
         while (fscanf(f, "%s", app.nome) != EOF) {
             app.id = i;
             fscanf(f, "%d", &app.f);
-            ter[i] = app;
             t[i].t = app;
             i++;
         }
@@ -248,7 +237,7 @@ void importaTerritori(Territorio ter[], Tabellone t[]) {
 
 void importaCarte(Mazzo *m) {
     FILE *f = fopen("carte.txt", "r");
-    NodoC *it, *prev, *nuovo;
+    NodoC *it;
     int a, t;
     Carta c;
     if (f == NULL) {
@@ -267,10 +256,9 @@ void importaCarte(Mazzo *m) {
                 it = m->testa;
                 inserimentoInCoda(it, c);
             }
-
-
         }
     }
+    fclose(f);
 }
 
 NodoC *inserimentoInTesta(Carta c) {
@@ -298,18 +286,17 @@ void inserimentoInCoda(NodoC *testa, Carta c) {
         nuovo->prev = prev;
         it->next = nuovo;
     }
-
 }
 
 void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
-    NodoC *it, *iS, *s, *prev;
+    NodoC *it, *iS, *s;
     Mazzo sJ;
     Carta c;
     //it puntatore per scorrere il mazzo principale
 
     sJ.testa = NULL;
     it = m->testa;
-    int ncarte = 0;
+
     //copia delle carte escludendo i jolly
     while (it->c.a != 3) {
         //controllo se la testa e' vuota
@@ -322,31 +309,12 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
             inserimentoInCoda(iS, c);
         }
         it = it->next;
-        ncarte++;
     }
-
-
-    s = sJ.testa;
-    //stampa delle carte prima che vengano mischiate
-    while (s->next != NULL) {
-        printf("a %d- t %d ", s->c.a, s->c.idTerritorio);
-        s = s->next;
-    }
-
     //ass asuniStupidSorting
-    ass(&sJ, ncarte);
-
-
-    //stampa delle carte dopo essere state mischiate
-    s = sJ.testa;
-    printf("Looking for assss\n");
-    while (s->next != NULL) {
-        printf("a %d- t %d   ", s->c.a, s->c.idTerritorio);
-        s = s->next;
-    }
+    ass(&sJ, N_CARTESJ);
     //distribuzione delle carte
-    daiCarte(g, &sJ, nGioc, ncarte);
-
+    daiCarte(g, &sJ, nGioc, N_CARTESJ);
+    free(sJ.testa);
 }
 
 /**
@@ -360,8 +328,7 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
     int i, j = 0, carteDaDare, cr;
     //i e j son dei contatori
-    NodoC *vecc;
-    NodoC *app, *nuovo;
+    NodoC *app;
     carteDaDare = (nCarte / nGioc) * nGioc; //Calcolo il numero di carte che ogni giocatore ricevera'
     cr = nCarte % nGioc; //carte rimanenti che rimangono da distribuire per arrivare a 26
     while (j <= carteDaDare) {
@@ -391,7 +358,6 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
         i++;
         //passo alla prossima carta
         j++;
-
     }
 }
 
@@ -444,9 +410,7 @@ NodoC *nuovoNodoC() {
 
 
 void stampaNomeTerritorio(int id, Tabellone t[]) {
-
     printf("%s \n", t[id].t.nome);
-
 }
 
 /**
@@ -482,7 +446,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                                "2) 2 in un territorio e la rimanente in un'altro territorio\n"
                                "3) tutte e 3 in territori diversi\n", g[j].nome);
                         scanf("%d", &scelta);
-                    } while (scelta < 1 || scelta > 3);
+                    } while (scelta < TREAINT || scelta > TREDIVERSO);
 
                 } else {
                     if (g[j].nArmate == 2) {
@@ -492,11 +456,11 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                                    g[j].nArmate,
                                    g[j].nArmate - 1, g[j].nArmate - 1);
                             scanf("%d", &scelta);
-                        } while (scelta < 4 || scelta > 5);
+                        } while (scelta < DUEINT || scelta > DUET);
                     } else {
                         do {
                             printf("%s 6)posiziona la tua ultima armata\n ");
-                        } while (scelta != 6);
+                        } while (scelta != AINT);
                     }
 
                 }
@@ -513,28 +477,28 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
 void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
 
     switch (scelta) {
-        case 1:
+        case TREAINT:
             armateInT(g, t, 1, 3);
             break;
 
-        case 2:
+        case DUEAINTET:
             armateInT(g, t, 1, 2);
             armateInT(g, t, 1, 1);
             break;
 
-        case 3:
+        case TREDIVERSO:
             armateInT(g, t, 3, 1);
             break;
 
-        case 4:
+        case DUEINT:
             armateInT(g, t, 1, 2);
             break;
 
-        case 5:
+        case DUET:
             armateInT(g, t, 2, 1);
             break;
 
-        case 6:
+        case AINT:
             armateInT(g, t, 1, 1);
             break;
 

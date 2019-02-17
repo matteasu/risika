@@ -83,7 +83,14 @@ typedef struct {
 #define MIN_G 3
 #define MAX_G 6
 #define N_TERRITORI 26
-
+#define N_CARTE 28
+#define N_CARTESJ 26
+#define TREAINT 1 //3 armate nello stesso territorio
+#define DUEAINTET 2//2 armate in un territorio e una in un altro
+#define TREDIVERSO 3 //3 armate in 3 territori diversi
+#define DUEINT 4//2 armate in un territorio
+#define DUET 5//una armata in un territorio e una in un altro
+#define AINT 6//una armata in un territorio
 
 int leggiGiocatori(int min, int max);
 
@@ -97,7 +104,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori);
 
 void gioco();
 
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Territorio ter[], Tabellone t[]);
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[]);
 
 void sceltaColore(Giocatore *g, int nGiocatori);
 
@@ -105,7 +112,7 @@ void assegnaArmate(Giocatore *g, int nGiocatori);
 
 void stampaGiocatori(Giocatore *g, int nGiocatori);
 
-void importaTerritori(Territorio ter[], Tabellone t[]);
+void importaTerritori(Tabellone t[]);
 
 void ass(Mazzo *m, int nCarte);
 
