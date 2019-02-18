@@ -143,9 +143,11 @@ void importaCarte(Mazzo *m);
 
 void inserimentoInCoda(NodoC *testa, Carta c);
 
+int baseAttacco(Giocatore *g, Tabellone t[]);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
-void attacco(Giocatore *g,Tabellone t[]);
+
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
 #endif //RISIKA_LIBRISIKA_H

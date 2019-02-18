@@ -21,7 +21,7 @@ void gioco() {
     printf("\n \n fuori main\n \n ");
     for(i=0;i<nGiocatori;i++) {
         rinforzo(&g[i], t);
-        attacco(&g[i],t);
+        attacco(&g[i], g, t);
     }
     stampaGiocatori(g, nGiocatori);
 }
@@ -411,6 +411,10 @@ NodoC *nuovoNodoC() {
     return nuovoNodo;
 }
 
+void stampaNomeIdTerritorio(int id, Tabellone t[]) {
+    printf("%d)", t[id].t.id);
+    stampaNomeTerritorio(id, t);
+}
 
 
 void stampaNomeTerritorio(int id, Tabellone t[]) {
@@ -534,8 +538,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             else
                 printf("In che territorio vuoi mettere queste %d armate ?\n", nA);
             while (it->next != NULL) {
-                printf("%d)", it->c.idTerritorio);
-                stampaNomeTerritorio(it->c.idTerritorio, t);
+                stampaNomeIdTerritorio(it->c.idTerritorio, t);
                 nT++;
                 it = it->next;
             }
@@ -602,57 +605,69 @@ void rinforzo(Giocatore *g,Tabellone t[]){
     }
 }
 
-void attacco(Giocatore *g,Tabellone t[]) {
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
     char scelta;
-    int tB,nT,j=0,tA;
     NodoC *app;
+    int nT = 0, tB, j = 0, nA, tA;
     _Bool ok=false;
     printf("%s\n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome);
     //pulizia buffer in modo da poter leggere la scelta dell'utente
     fflush(stdin);
     scanf("%c", &scelta);
     if (scelta == 'S' || scelta == 's') {
-
+        tB = baseAttacco(g, t);
         do {
-            app = g->t.testa;
-            printf("Da che territorio vuoi far partire l'attacco?\n");
-            while (app->next != NULL) {
-                printf("%d)", app->c.idTerritorio);
-                stampaNomeTerritorio(app->c.idTerritorio, t);
-                nT++;
-                app = app->next;
-            }
-            scanf("%d", &tB);
-            app = g->t.testa;
-            //controllo del valore appena letto, sia mai che un giocatore cerchi di aumentare armate di territori
-            //che non gli appartengono
-            while (j < nT) {
-                while (app->next != NULL) {
-                    if (tB == app->c.idTerritorio)
-                        ok = true;
-                    app = app->next;
-                }
-                j++;
-            }
-        } while (ok != true);
-        ok=false;
-        do {
-            printf("Scegli il territorio da attaccare \n");
-            for (j = 0; j < N_TERRITORI; j++) {
-                if (isAdjacent(tB, j)) {
-                    printf("%d)", t[j].t.id);
-                    stampaNomeTerritorio(j, t);
-                }
-            }
-            scanf("%d", &tA);
-            for (j = 0; j < N_TERRITORI; j++) {
-                if (isAdjacent(tB, j)) {
-                    if(tA==t[j].t.id)
-                        ok=true;
-                }
+            do {
+                printf("Con quante armate vuoi attaccare ?\n");
+                scanf("%d", &nA);
+            } while (nA < 1 || nA > 3);
+            if (t[tB].nArmate - nA >= 1) {
+                do {
+                    printf("Scegli il territorio da attaccare \n");
+                    for (j = 0; j < N_TERRITORI; j++) {
+                        if (isAdjacent(tB, j)) {
+                            stampaNomeIdTerritorio(j, t);
+                        }
+                    }
+                    scanf("%d", &tA);
+                    for (j = 0; j < N_TERRITORI; j++) {
+                        if (isAdjacent(tB, j)) {
+                            if (tA == t[j].t.id)
+                                ok = true;
+                        }
+                    }
+                } while (ok != true);
+            } else {
+                printf("Non puoi lasciare un territorio scoperto\n");
+                ok = false;
+                tB = baseAttacco(g, t);
             }
         }while(ok!=true);
-    }
-    else
-            armateInT(g,t,1,1);
+    } else
+        armateInT(g, t, 1, 1);
+}
+
+int baseAttacco(Giocatore *g, Tabellone t[]) {
+    int tB;
+    NodoC *app;
+    _Bool ok;
+    do {
+        app = g->t.testa;
+        printf("Da che territorio vuoi far partire l'attacco?\n");
+        while (app->next != NULL) {
+            stampaNomeIdTerritorio(app->c.idTerritorio, t);
+
+            app = app->next;
+        }
+        scanf("%d", &tB);
+        app = g->t.testa;
+        while (app->next != NULL) {
+            if (tB == app->c.idTerritorio) {
+                ok = true;
+            }
+            app = app->next;
+        }
+
+    } while (ok != true);
+    return tB;
 }
