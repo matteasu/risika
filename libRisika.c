@@ -23,6 +23,11 @@ void gioco() {
         rinforzo(&g[i], t);
         attacco(&g[i], g, t);
     }
+    /**
+    printf("\n");
+    for(i=0;i<N_TERRITORI;i++){
+        printf(" %d %s %d  ",t[i].t.id,t[i].t.nome,t[i].idPropietario);
+    }*/
     stampaGiocatori(g, nGiocatori);
 }
 
@@ -436,7 +441,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
         it = g[i].t.testa;
         //assegnamento armate iniziali
         while (it->next != NULL) {
-            t[it->c.idTerritorio].idPropietario = g->id;
+            t[it->c.idTerritorio].idPropietario = g[i].id;
             t[it->c.idTerritorio].nArmate = 1;
             g[i].nArmate--;
             it = it->next;
@@ -608,7 +613,7 @@ void rinforzo(Giocatore *g,Tabellone t[]){
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
     char scelta;
     NodoC *app;
-    int nT = 0, tB, j = 0, nA, tA;
+    int nT = 0, tB, j = 0, nA, tA, difesa;
     _Bool ok=false;
     printf("%s\n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome);
     //pulizia buffer in modo da poter leggere la scelta dell'utente
@@ -624,10 +629,12 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
             if (t[tB].nArmate - nA >= 1) {
                 do {
                     printf("Scegli il territorio da attaccare \n");
-                    for (j = 0; j < N_TERRITORI; j++) {
-                        if (isAdjacent(tB, j)) {
+                    while (j < N_TERRITORI) {
+                        if (isAdjacent(tB, j) && (t[j].idPropietario != g->id)) {
                             stampaNomeIdTerritorio(j, t);
-                        }
+                            j++;
+                        } else
+                            j++;
                     }
                     scanf("%d", &tA);
                     for (j = 0; j < N_TERRITORI; j++) {
@@ -637,6 +644,10 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
                         }
                     }
                 } while (ok != true);
+                do {
+                    printf("%s con quante armate ti vuoi difendere?\n", giocatori[t[tA].idPropietario].nome);
+                    scanf("%d", &difesa);
+                } while (difesa < 1 || difesa > 3);
             } else {
                 printf("Non puoi lasciare un territorio scoperto\n");
                 ok = false;
@@ -656,7 +667,6 @@ int baseAttacco(Giocatore *g, Tabellone t[]) {
         printf("Da che territorio vuoi far partire l'attacco?\n");
         while (app->next != NULL) {
             stampaNomeIdTerritorio(app->c.idTerritorio, t);
-
             app = app->next;
         }
         scanf("%d", &tB);
