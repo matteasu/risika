@@ -17,6 +17,7 @@ void gioco() {
     Territorio territori[N_TERRITORI];
     Tabellone t[N_TERRITORI];
     nGiocatori = leggiGiocatori(MIN_G, MAX_G);
+    pulisciConsole();
     g = preparazione(nGiocatori, &m, t);
     printf("\n \n fuori main\n \n ");
     for(i=0;i<nGiocatori;i++) {
@@ -29,6 +30,7 @@ void gioco() {
         printf(" %d %s %d  ",t[i].t.id,t[i].t.nome,t[i].idPropietario);
     }*/
     stampaGiocatori(g, nGiocatori);
+    system("pause");
 }
 
 /**
@@ -71,10 +73,8 @@ int leggiGiocatori(int min, int max) {
  * @param campo della struttura su cui andro' a scrivere
  */
 void leggiNome(char c[]) {
-
     printf("Inserisci il nome del giocatore, max 24 caratteri!!\n altrimenti il nome verra' tagliato :) \n");
     scanf("%s", c);
-
 }
 
 /**
@@ -91,6 +91,7 @@ Giocatore *caricaGiocatori(int nGiocatori) {
         int i;
         for (i = 0; i < nGiocatori; i++) {
             leggiNome(g[i].nome);
+            pulisciConsole();
             g[i].id = i;
             g[i].t.testa = NULL;
         }
@@ -178,6 +179,7 @@ void sceltaColore(Giocatore *g, int nGiocatori) {
         colori[col].inUse = true;
         g[i].c = colori[col];
         col = -1;
+        pulisciConsole();
     }
 }
 
@@ -285,9 +287,15 @@ void inserimentoInCoda(NodoC *testa, Carta c) {
         testa = inserimentoInTesta(c);
     else {
         it = testa;
-        while (it->next != NULL) {
+        while (it != NULL) {
             prev = it;
             it = it->next;
+        }
+
+        it = testa;
+        while (it->next != NULL) {
+            it = it->next;
+
         }
         nuovo = nuovoNodoC();
         nuovo->c = c;
@@ -477,7 +485,9 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                     }
 
                 }
+                pulisciConsole();
                 posizionaArmate(&g[j], t, scelta);
+                pulisciConsole();
                 j++;
             } else {
                 i++;
@@ -551,14 +561,13 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             it = g->t.testa;
             //controllo del valore appena letto, sia mai che un giocatore cerchi di aumentare armate di territori
             //che non gli appartengono
-            while (j < nT) {
+
                 while (it->next != NULL) {
                     if (idTer == it->c.idTerritorio)
                         ok = true;
                     it = it->next;
                 }
-                j++;
-            }
+
         } while (ok != true);
         t[idTer].nArmate += nA;
         g->nArmate -= nA;
@@ -613,7 +622,7 @@ void rinforzo(Giocatore *g,Tabellone t[]){
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
     char scelta;
     NodoC *app;
-    int nT = 0, tB, j = 0, nA, tA, difesa;
+    int i = 0, nT = 0, tB, j = 0, nA, tA, difesa, dA[3] = {0, 0, 0}, dD[3] = {0, 0, 0};
     _Bool ok=false;
     printf("%s\n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome);
     //pulizia buffer in modo da poter leggere la scelta dell'utente
@@ -648,6 +657,25 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
                     printf("%s con quante armate ti vuoi difendere?\n", giocatori[t[tA].idPropietario].nome);
                     scanf("%d", &difesa);
                 } while (difesa < 1 || difesa > 3);
+                i = j = 0;
+                while (i < nA && j < difesa) {
+                    dA[i] = generaCasuale(1, 6);
+                    dD[i] = generaCasuale(1, 6);
+                    if (dA[i] == dD[j]) {
+                        printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
+                        t[tB].nArmate--;
+                    } else {
+                        if (dA[i] > dD[j]) {
+                            printf("%d %d \n Dado %d vince l'attaccante\n", dA[i], dD[i], i);
+                            t[tA].nArmate--;
+                        } else {
+                            printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
+                            t[tB].nArmate--;
+                        }
+                    }
+                    i++;
+                    j++;
+                }
             } else {
                 printf("Non puoi lasciare un territorio scoperto\n");
                 ok = false;
@@ -680,4 +708,16 @@ int baseAttacco(Giocatore *g, Tabellone t[]) {
 
     } while (ok != true);
     return tB;
+}
+
+void pulisciConsole() {
+#ifdef _WIN32
+    system("cls");
+#endif
+#ifdef linux
+    system("clear");
+#endif
+#ifdef __APPLE__
+    system("clear");
+#endif
 }

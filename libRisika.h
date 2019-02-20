@@ -143,6 +143,7 @@ void importaCarte(Mazzo *m);
 
 void inserimentoInCoda(NodoC *testa, Carta c);
 
+void pulisciConsole();
 int baseAttacco(Giocatore *g, Tabellone t[]);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
