@@ -30,7 +30,9 @@ void gioco() {
         printf(" %d %s %d  ",t[i].t.id,t[i].t.nome,t[i].idPropietario);
     }*/
     stampaGiocatori(g, nGiocatori);
+#ifdef _WIN32
     system("pause");
+#endif
 }
 
 /**
@@ -480,7 +482,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                         } while (scelta < DUEINT || scelta > DUET);
                     } else {
                         do {
-                            printf("%s 6)posiziona la tua ultima armata\n ");
+                            printf("%s 6)posiziona la tua ultima armata\n", g[j].nome);
                         } while (scelta != AINT);
                     }
 
@@ -623,65 +625,37 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
     char scelta;
     NodoC *app;
     int i = 0, nT = 0, tB, j = 0, nA, tA, difesa, dA[3] = {0, 0, 0}, dD[3] = {0, 0, 0};
+    int continuo = -1;
     _Bool ok=false;
-    printf("%s\n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome);
+    printf("%s\n hai %d armate \n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n", g->nome,
+           g->nArmate);
     //pulizia buffer in modo da poter leggere la scelta dell'utente
-    fflush(stdin);
+    getchar();
     scanf("%c", &scelta);
     if (scelta == 'S' || scelta == 's') {
-        tB = baseAttacco(g, t);
         do {
             do {
-                printf("Con quante armate vuoi attaccare ?\n");
-                scanf("%d", &nA);
-            } while (nA < 1 || nA > 3);
-            if (t[tB].nArmate - nA >= 1) {
-                do {
-                    printf("Scegli il territorio da attaccare \n");
-                    while (j < N_TERRITORI) {
-                        if (isAdjacent(tB, j) && (t[j].idPropietario != g->id)) {
-                            stampaNomeIdTerritorio(j, t);
-                            j++;
-                        } else
-                            j++;
-                    }
-                    scanf("%d", &tA);
-                    for (j = 0; j < N_TERRITORI; j++) {
-                        if (isAdjacent(tB, j)) {
-                            if (tA == t[j].t.id)
-                                ok = true;
-                        }
-                    }
-                } while (ok != true);
-                do {
-                    printf("%s con quante armate ti vuoi difendere?\n", giocatori[t[tA].idPropietario].nome);
-                    scanf("%d", &difesa);
-                } while (difesa < 1 || difesa > 3);
-                i = j = 0;
-                while (i < nA && j < difesa) {
-                    dA[i] = generaCasuale(1, 6);
-                    dD[i] = generaCasuale(1, 6);
-                    if (dA[i] == dD[j]) {
-                        printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
-                        t[tB].nArmate--;
-                    } else {
-                        if (dA[i] > dD[j]) {
-                            printf("%d %d \n Dado %d vince l'attaccante\n", dA[i], dD[i], i);
-                            t[tA].nArmate--;
-                        } else {
-                            printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
-                            t[tB].nArmate--;
-                        }
-                    }
-                    i++;
-                    j++;
-                }
-            } else {
-                printf("Non puoi lasciare un territorio scoperto\n");
-                ok = false;
+                //caso 2
                 tB = baseAttacco(g, t);
-            }
-        }while(ok!=true);
+                nA = richiestaNumeroArmate(*g, 1);
+                if (t[tB].nArmate - nA < 1) {
+                    printf("Non puoi lasciare un territorio scoperto!\n");
+                    ok = false;
+                } else
+                    ok = true;
+            } while (ok != true);
+            tA = sceltaTerritorioAttacco(*g, t, tB);
+            difesa = richiestaNumeroArmate(giocatori[t[tA].idPropietario], 2);
+            attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa);
+            do {
+                printf("Vuoi continuare l'attacco?\n premi un tasto per continuare\n"
+                       "altrimenti premi 0 per terminare la fase d'attacco\n");
+                scanf("%d", &continuo);
+
+            } while (continuo < 0 || continuo > 2);
+        } while (continuo != 0); //caso 0 l'utente non vuole più attaccare
+
+
     } else
         armateInT(g, t, 1, 1);
 }
@@ -714,10 +688,81 @@ void pulisciConsole() {
 #ifdef _WIN32
     system("cls");
 #endif
-#ifdef linux
+#ifdef unix
     system("clear");
 #endif
-#ifdef __APPLE__
-    system("clear");
-#endif
+}
+
+int sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB) {
+    int j = 0, tA;
+    _Bool ok = false;
+    do {
+        printf("Scegli il territorio da attaccare \n");
+        while (j < N_TERRITORI) {
+            if (isAdjacent(tB, j) && (t[j].idPropietario != g.id)) {
+                stampaNomeIdTerritorio(j, t);
+                j++;
+            } else
+                j++;
+        }
+        scanf("%d", &tA);
+        for (j = 0; j < N_TERRITORI; j++) {
+            if (isAdjacent(tB, j)) {
+                if (tA == t[j].t.id)
+                    ok = true;
+            }
+        }
+    } while (ok != true);
+    return tA;
+}
+
+void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD) {
+    int i, j;
+    int dA[3] = {0, 0, 0};
+    int dD[3] = {0, 0, 0};
+    i = j = 0;
+    while (i < nA && j < nAD) {
+        dA[i] = generaCasuale(1, 6);
+        dD[i] = generaCasuale(1, 6);
+        if (dA[i] == dD[j]) {
+            printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
+            t[tB].nArmate--;
+            g1->nArmate--;
+        } else {
+            if (dA[i] > dD[j]) {
+                printf("%d %d \n Dado %d vince l'attaccante\n", dA[i], dD[i], i);
+                t[tA].nArmate--;
+                g2->nArmate--;
+            } else {
+                printf("%d %d \n Dado %d vince la difesa\n", dA[i], dD[i], i);
+                t[tB].nArmate--;
+                g1->nArmate--;
+            }
+        }
+        i++;
+        j++;
+    }
+}
+
+int richiestaNumeroArmate(Giocatore g, int caso) {
+    int nA;
+    switch (caso) {
+        case 1:
+            do {
+                printf("%s, con quante armate vuoi attaccare?\n "
+                       "Ricorda che puoi schierare massimo 3 armate!\n", g.nome);
+                scanf("%d", &nA);
+            } while (nA < 1 || nA > 3);
+            break;
+        case 2:
+            do {
+                printf("%s, con quante armate ti vuoi difendere?\n "
+                       "Ricorda che puoi schierare massimo 3 armate!\n", g.nome);
+                scanf("%d", &nA);
+            } while (nA < 1 || nA > 3);
+            break;
+        default:
+            break;
+    }
+
 }

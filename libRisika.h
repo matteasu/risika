@@ -143,6 +143,7 @@ void importaCarte(Mazzo *m);
 
 void inserimentoInCoda(NodoC *testa, Carta c);
 
+int sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB);
 void pulisciConsole();
 int baseAttacco(Giocatore *g, Tabellone t[]);
 NodoC *inserimentoInTesta(Carta c);
@@ -150,5 +151,8 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
+int richiestaNumeroArmate(Giocatore g, int caso);
+
+void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
 #endif //RISIKA_LIBRISIKA_H
