@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "docente.h"
+
 //enumerazioni
 typedef enum {
     Studi_Umanistici,
@@ -69,6 +70,9 @@ typedef struct {
     NodoC *testa;
 } TerritoriG;
 
+typedef struct {
+    NodoC *testa;
+} Carte;
 
 // struttura giocatore
 typedef struct {
@@ -77,6 +81,7 @@ typedef struct {
     Colore c;
     int nArmate;
     TerritoriG t;
+    Carte ca;
 } Giocatore;
 
 
@@ -141,18 +146,24 @@ void stampaNomeTerritorio(int id, Tabellone t[]);
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
 
+void rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori);
 void inserimentoInCoda(NodoC *testa, Carta c);
 
+void bonusCarte(Giocatore *g, Tabellone t[]);
 int sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB);
 void pulisciConsole();
+
+_Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc);
 int baseAttacco(Giocatore *g, Tabellone t[]);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
+Carta recuperaCarta(TerritoriG *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
+_Bool fineGioco(Giocatore giocatori[], int nGiocatori);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
 #endif //RISIKA_LIBRISIKA_H
