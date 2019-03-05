@@ -119,6 +119,7 @@ Giocatore *caricaGiocatori(int nGiocatori) {
         for (i = 0; i < nGiocatori; i++) {
             leggiNome(g[i].nome);
             pulisciConsole();
+            g[i].nArmateinG = 0;
             g[i].id = i;
             g[i].t.testa = NULL;
             g[i].ca.testa = NULL;
@@ -482,6 +483,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
             t[it->c.idTerritorio].idPropietario = g[i].id;
             t[it->c.idTerritorio].nArmate = 1;
             g[i].nArmate--;
+            g[i].nArmateinG++;
             it = it->next;
         }
     }
@@ -600,6 +602,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             }
         } while (ok != true);
         t[idTer].nArmate += nA;
+        g->nArmateinG += nA;
         g->nArmate -= nA;
         i++;
     }
@@ -829,11 +832,13 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
         if (tg == td) {
             printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
             t[tB].nArmate--;
+            g1->nArmateinG--;
             //g1->nArmate--;
         } else {
             if (tg > td) {
                 printf("%d %d \n Dado %d vince l'attaccante\n", tg, td, i);
                 t[tA].nArmate--;
+                g2->nArmateinG--;
                 //g2->nArmate--;
                 if (t[tA].nArmate == 0) {
                     printf("%s hai perso il territorio %s\n", g2->nome, t[tA].t.nome);
@@ -847,6 +852,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
             } else {
                 printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
                 t[tB].nArmate--;
+                g1->nArmateinG--;
                 //g1->nArmate--;
             }
         }

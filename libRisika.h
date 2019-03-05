@@ -80,6 +80,7 @@ typedef struct {
     char nome[24];
     Colore c;
     int nArmate;
+    int nArmateinG;
     TerritoriG t;
     Carte ca;
 } Giocatore;
