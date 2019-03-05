@@ -109,6 +109,7 @@ typedef struct {
 #define NUM_BF 5 //numero facolta biologia e farmacia
 #define NUM_ING 5 //numero facolta ing
 #define NUM_FS 4 //numero facolta scientifiche
+#define F_LOG "log.txt"
 int leggiGiocatori(int min, int max);
 
 void leggiNome(char c[]);
@@ -146,20 +147,24 @@ void stampaNomeTerritorio(int id, Tabellone t[]);
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
 
-void rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori);
+Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori);
 void inserimentoInCoda(NodoC *testa, Carta c);
 
 void bonusCarte(Giocatore *g, Tabellone t[]);
-int sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB);
+
+_Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
 void pulisciConsole();
 
-_Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc);
-int baseAttacco(Giocatore *g, Tabellone t[]);
+_Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc, Giocatore *giocatori);
+
+_Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
+
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
+int trovaMax(int v[], int n);
 Carta recuperaCarta(TerritoriG *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
