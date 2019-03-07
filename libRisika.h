@@ -115,7 +115,7 @@ int leggiGiocatori(int min, int max);
 
 void leggiNome(char c[]);
 
-Giocatore *caricaGiocatori(int nGiocatori);
+Giocatore *caricaGiocatori(int nGiocatori, FILE *f);
 
 int generaCasuale(int min, int max);
 
@@ -123,7 +123,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori);
 
 void gioco();
 
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[]);
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
 
 void sceltaColore(Giocatore *g, int nGiocatori);
 

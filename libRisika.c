@@ -12,24 +12,24 @@
 void gioco() {
     Giocatore *g = NULL;
     FILE *log;
-    log = fopen(F_LOG, "r+");
+    log = fopen(F_LOG, "a");
     fprintf(log, "%s", "Inizio nuova partita\n");
-    fclose(log);
     int nGiocatori,i=0;
     Mazzo m;
     m.testa = NULL;
     Tabellone t[N_TERRITORI];
     nGiocatori = leggiGiocatori(MIN_G, MAX_G);
     pulisciConsole();
-    g = preparazione(nGiocatori, &m, t);
+    g = preparazione(nGiocatori, &m, t, log);
+    fclose(log);
     printf("\n \n fuori main\n \n ");
 
     while (fineGioco(g, nGiocatori) != true) {
         for (i = 0; i < nGiocatori; i++) {
-            log = fopen(F_LOG, "w");
+            log = fopen(F_LOG, "a");
             fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
             rinforzo(&g[i], t);
-            attacco(&g[i], g, t);
+            //attacco(&g[i], g, t);
             pulisciConsole();
             spostamentoStrategio(&g[i], t);
             fclose(log);
@@ -67,9 +67,9 @@ _Bool fineGioco(Giocatore giocatori[], int nGiocatori) {
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[]) {
+Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f) {
     Giocatore *g;
-    g = caricaGiocatori(nGiocatori);
+    g = caricaGiocatori(nGiocatori, f);
     ordinaVettore(g, nGiocatori);
     sceltaColore(g, nGiocatori);
     assegnaArmate(g, nGiocatori);
@@ -111,7 +111,7 @@ void leggiNome(char c[]) {
  * @param nGiocatori numero di giocatori
  * @param g puntatore allla prima posizione
  */
-Giocatore *caricaGiocatori(int nGiocatori) {
+Giocatore *caricaGiocatori(int nGiocatori, FILE *f) {
     Giocatore *g = NULL;
     g = (Giocatore *) malloc(sizeof(Giocatore) * nGiocatori);
     if (g == NULL) {
@@ -125,6 +125,7 @@ Giocatore *caricaGiocatori(int nGiocatori) {
             g[i].id = i;
             g[i].t.testa = NULL;
             g[i].ca.testa = NULL;
+            fprintf(f, "%s %s \n", "Ho inserito un giocatore, si chiama: ", g[i].nome);
         }
     }
     return g;
@@ -577,7 +578,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
     int i = 0;
     int idTer, nT = 0;
     _Bool ok = false;
-    while (i < nRip) {
+    while (i < nRip && g->nArmateinG < 100) {
         do {
             ok = false;
             it = g->t.testa;
@@ -602,10 +603,14 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
                     it = it->next;
             }
         } while (ok != true);
-        t[idTer].nArmate += nA;
-        g->nArmateinG += nA;
-        g->nArmate -= nA;
-        i++;
+        if (g->nArmateinG + nA < 100) {
+            t[idTer].nArmate += nA;
+            g->nArmateinG += nA;
+            g->nArmate -= nA;
+            i++;
+        } else {
+            printf("Hai raggiunto il numero massimo di armate nel tabellone\n");
+        }
     }
     pulisciConsole();
 }
