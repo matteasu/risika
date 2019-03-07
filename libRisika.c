@@ -815,6 +815,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
     int i, j, tg, td;
     int dA[3] = {0, 0, 0};
     int dD[3] = {0, 0, 0};
+    _Bool haiPerso = false;
     Carta app;
     for (i = 0; i < nA; i++) {
         dA[i] = generaCasuale(1, 6);
@@ -825,7 +826,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
         printf(" difesa %d ", dD[j]);
     }
     i = j = 0;
-    while (i < nA && j < nAD) {
+    while (i < nA && j < nAD && haiPerso != true) {
         tg = trovaMax(dA, nA);
         td = trovaMax(dD, nAD);
         printf("max giocatore %d  max difesa %d\n", tg, td);
@@ -846,6 +847,8 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                     t[tA].nArmate = nA;
                     //rimuovi elemento
                     app = recuperaCarta(&g2->t, tA);
+                    if (g2->t.testa == NULL)
+                        haiPerso = true;
                     //aggiungi in coda
                     inserimentoInCoda(g1->t.testa, app);
                 }
@@ -882,31 +885,37 @@ Carta recuperaCarta(TerritoriG *m, int el) {
     app = m->testa;
     _Bool ok = false;
     //Cerco la carta da eliminare
-    while (app->c.idTerritorio != el) {
-        app = app->next;
-    }
-    c = app->c;
-    //caso in cui l'elemento da eliminare sia la testa
-    if (app->prev == NULL) {
-        if (app->next != NULL) {
-            m->testa = app->next;
-        } else {
-            m->testa = NULL;
-        }
-        m->testa->prev = NULL;
-        free(app);
+    if (app->next == NULL) {
+        c = app->c;
+        m->testa = NULL;
     } else {
-        //caso in cui l'elemento da eliminare sia l'ultimo elemento della lista
-        if (app->next == NULL) {
-            prev = app->prev;
-            prev->next = NULL;
+        while (app->c.idTerritorio != el) {
+            app = app->next;
+        }
+        c = app->c;
+        //caso in cui l'elemento da eliminare sia la testa
+        if (app->prev == NULL) {
+            if (app->next != NULL) {
+                m->testa = app->next;
+            } else {
+                printf("Hai perso!\n");
+                m->testa = NULL;
+            }
+            m->testa->prev = NULL;
             free(app);
         } else {
-            //caso in cui l'elemento è in mezzo alla lista
-            prev = app->prev;
-            prev->next = app->next;
-            prev->next->prev = prev;
-            free(app);
+            //caso in cui l'elemento da eliminare sia l'ultimo elemento della lista
+            if (app->next == NULL) {
+                prev = app->prev;
+                prev->next = NULL;
+                free(app);
+            } else {
+                //caso in cui l'elemento è in mezzo alla lista
+                prev = app->prev;
+                prev->next = app->next;
+                prev->next->prev = prev;
+                free(app);
+            }
         }
     }
     //free(app);
@@ -943,10 +952,11 @@ _Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc, Giocatore
     NodoC *app;
     int nA = 0;
     app = g->t.testa;
+    //printf("%s hai perso! \n", g[id].nome);
     _Bool ok = false;
     if (app == NULL) {
         printf("%s hai perso! \n", g[id].nome);
-        //giocatori=rimuoviGiocatore(giocatori, id, nGioc);
+        giocatori = rimuoviGiocatore(giocatori, id, nGioc);
     }
 
     return ok;
@@ -1020,10 +1030,11 @@ void bonusCarte(Giocatore *g, Tabellone t[]) {
 Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
     Giocatore app[nGiocatori - 1];
     printf("copio i giocatori ad ecezione del giocatore da eliminare\n");
-    int i = 0;
+    int i = 0, j = 0;
     while (i < nGiocatori) {
         if (g[i].id != id) {
-            app[i] = g[i];
+            app[j] = g[i];
+            j++;
         }
         i++;
     }
