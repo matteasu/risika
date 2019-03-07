@@ -30,6 +30,8 @@ void gioco() {
             fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
             rinforzo(&g[i], t);
             attacco(&g[i], g, t);
+            pulisciConsole();
+            spostamentoStrategio(&g[i], t);
             fclose(log);
             pulisciConsole();
             stampaGiocatori(g, nGiocatori, t);
@@ -515,7 +517,6 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                             printf("%s 6)posiziona la tua ultima armata\n", g[j].nome);
                         } while (scelta != AINT);
                     }
-
                 }
                 pulisciConsole();
                 posizionaArmate(&g[j], t, scelta);
@@ -723,11 +724,6 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
             } while (ok != true);
 
             //ok=false;
-
-
-
-
-
 
         } while (continuo != 'f' && continuo != 'F'); //caso 0 l'utente non vuole più attaccare
 
@@ -1045,4 +1041,62 @@ Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
         g[i] = app[i];
     }
     return g;
+}
+
+
+void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
+    char scelta;
+    int tB, tD, i, nA;
+    NodoC *app;
+    _Bool ok = false;
+    printf("Vuoi effettuare uno spostamento strategico?\n Premi s per continuare\n");
+    getchar();
+    scanf("%c", &scelta);
+    if (scelta == 'S' || scelta == 's') {
+        do {
+            app = g->t.testa;
+            printf("Da che territorio vuoi spostare delle armate?\n");
+            while (app != NULL) {
+                stampaNomeIdTerritorio(app->c.idTerritorio, t);
+                printf(" %d\n", t[app->c.idTerritorio].nArmate);
+                app = app->next;
+            }
+            scanf("%d", &tB);
+            app = g->t.testa;
+            while (app != NULL) {
+                if (tB == app->c.idTerritorio)
+                    ok = true;
+                app = app->next;
+            }
+        } while (ok != true);
+        ok = false;
+        do {
+            printf("In che territorio vuoi aggiungere delle armate?\n");
+            for (i = 0; i < N_TERRITORI; i++) {
+                if (isAdjacent(tB, t[i].t.id) && t[i].idPropietario == g->id) {
+                    stampaNomeIdTerritorio(i, t);
+                    printf(" %d\n", t[i].nArmate);
+                }
+            }
+            scanf("%d", &tD);
+            app = g->t.testa;
+            while (app != NULL) {
+                if (tD == app->c.idTerritorio)
+                    ok = true;
+                app = app->next;
+            }
+        } while (ok != true);
+        ok = false;
+        do {
+            printf("Quante armate vuoi spostare da %s a %s?\n", t[tB].t.nome, t[tD].t.nome);
+            scanf("%d", &nA);
+            if (t[tB].nArmate - nA < 1 || nA >= t[tB].nArmate) {
+                printf("Devi lasciare sempre almeno una armata per territorio!\n");
+            } else
+                ok = true;
+        } while (ok != true);
+        t[tB].nArmate -= nA;
+        t[tD].nArmate += nA;
+        printf("Hai spostato %d armate da % s a %s\n", nA, t[tB].t.nome, t[tD].t.nome);
+    }
 }

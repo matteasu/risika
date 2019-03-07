@@ -3,6 +3,7 @@
 
 int main() {
     srand(time(NULL));
+    /*
     Giocatore *g;
     int nGiocatori = 3;
     Mazzo m, sj;
@@ -18,7 +19,6 @@ int main() {
     //ass(&m,28);
     NodoC *it;
     it = m.testa;
-    /*
     while(it!=NULL){
         if(it->c.a!=3){
             if(sj.testa==NULL){
@@ -66,13 +66,13 @@ int main() {
             it = it->next;
         }
     }
-     */
+
     stampaGiocatori(g, nGiocatori, t);
     pulisciConsole();
     g = rimuoviGiocatore(g, 1, nGiocatori);
     nGiocatori--;
     stampaGiocatori(g, nGiocatori, t);
-    /*
+
     for(i=0;i<nGiocatori;i++){
         rinforzo(&g[i],t);
     }
@@ -85,6 +85,6 @@ int main() {
              }
         }
     }*/
-    //gioco();
+    gioco();
     return 0;
 }

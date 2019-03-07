@@ -169,6 +169,7 @@ int trovaMax(int v[], int n);
 Carta recuperaCarta(TerritoriG *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
+void spostamentoStrategio(Giocatore *g, Tabellone t[]);
 _Bool fineGioco(Giocatore giocatori[], int nGiocatori);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
