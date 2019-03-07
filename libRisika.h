@@ -119,15 +119,15 @@ Giocatore *caricaGiocatori(int nGiocatori, FILE *f);
 
 int generaCasuale(int min, int max);
 
-void ordinaVettore(Giocatore *g, int nGiocatori);
+void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f);
 
 void gioco();
 
 Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
 
-void sceltaColore(Giocatore *g, int nGiocatori);
+void sceltaColore(Giocatore *g, int nGiocatori, FILE *f);
 
-void assegnaArmate(Giocatore *g, int nGiocatori);
+void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f);
 
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]);
 

@@ -70,9 +70,9 @@ _Bool fineGioco(Giocatore giocatori[], int nGiocatori) {
 Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f) {
     Giocatore *g;
     g = caricaGiocatori(nGiocatori, f);
-    ordinaVettore(g, nGiocatori);
-    sceltaColore(g, nGiocatori);
-    assegnaArmate(g, nGiocatori);
+    ordinaVettore(g, nGiocatori, f);
+    sceltaColore(g, nGiocatori, f);
+    assegnaArmate(g, nGiocatori, f);
     importaTerritori(t);
     importaCarte(m);
     distribuisciCarte(nGiocatori, m, g);
@@ -149,8 +149,10 @@ int generaCasuale(int min, int max) {
  * @param g vettore coi giocatori
  * @param nGiocatori numero di giocatori
  */
-void ordinaVettore(Giocatore *g, int nGiocatori) {
+void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f) {
+    fprintf(f, "%s\n", "Ordino casualmente il vettore dei giocatori");
     int primoGiocatore = generaCasuale(0, nGiocatori - 1);
+    fprintf(f, "%s %s\n", g[primoGiocatore].nome, "e' il primo giocatore");
     //ordinamento del vettore
     Giocatore app[nGiocatori];
     int i, j;
@@ -183,7 +185,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori) {
  * @param g vettore coi giocatori
  * @param nGiocatori numero di giocatori
  */
-void sceltaColore(Giocatore *g, int nGiocatori) {
+void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
     int i, j, col;
 
     int nColori = 6;
@@ -210,6 +212,7 @@ void sceltaColore(Giocatore *g, int nGiocatori) {
         } while (col < 0 || col > 6);
         colori[col].inUse = true;
         g[i].c = colori[col];
+        fprintf(f, "%s %s %s\n", g[i].nome, " ha scelto il colore: ", colori[col].nome);
         col = -1;
         pulisciConsole();
     }
@@ -230,7 +233,7 @@ void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
 
 }
 
-void assegnaArmate(Giocatore *g, int nGiocatori) {
+void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f) {
     int num, i;
     switch (nGiocatori) {
         case 3:
@@ -249,6 +252,7 @@ void assegnaArmate(Giocatore *g, int nGiocatori) {
             break;
     }
     for (i = 0; i < nGiocatori; i++) {
+        fprintf(f, "%s %s %d %s \n", g[i].nome, " Ha ricevuto ", num, " armate");
         g[i].nArmate = num;
     }
 }
