@@ -30,7 +30,7 @@ void gioco() {
         g = preparazione(nGiocatori, &m, t, log);
         fclose(log);
         printf("\n \n fuori main\n \n ");
-        while (fineGioco(g, nGiocatori) != true) {
+        while (fineGioco(nGiocatori) != true) {
             for (i = 0; i < nGiocatori; i++) {
                 //pulisciConsole();
                 log = fopen(F_LOG, "a");
@@ -41,7 +41,7 @@ void gioco() {
                 fclose(log);
                 pulisciConsole();
                 stampaGiocatori(g, nGiocatori, t);
-                if (eliminaGiocatore(&g[i], g[i].id, t, nGiocatori, g)) {
+                if (eliminaGiocatore(&g[i], g[i].id, nGiocatori, g)) {
                     nGiocatori--;
                     stampaGiocatori(g, nGiocatori, t);
                 }
@@ -50,19 +50,30 @@ void gioco() {
         }
         statisticheVittoria(&g[0], st);
         stampaGiocatori(g, nGiocatori, t);
-#ifdef _WIN32
-        system("pause");
-#endif
     } else {
+        Tabellone t[N_TERRITORI];
+        Mazzo m;
+        m.testa = NULL;
+        Salvataggio s;
+        /*
         int nGioc, giocatoreCor;
         FILE *salvataggio;
         salvataggio = fopen("Salvataggio.rsk", "r+");
         if (salvataggio != NULL) {
             caricaSalvataggio(salvataggio, &nGioc, &giocatoreCor);
-            printf("%d %d %s", nGioc, giocatoreCor);
+            printf("%d %d", nGioc, giocatoreCor);
             //carica i dati dal salvataggio
         } else {
             //nessun salvataggio trovato,iniziamo da capo
+        }
+        */
+        importaTerritori(t);
+        importaCarte(&m);
+        s = importaSalvataggio(m, t);
+        printf("ngioc %d\n", s.nGioc);
+        int i = 0;
+        for (i = 0; i < N_TERRITORI; i++) {
+            printf("%s %d %d\n", t[i].t.nome, t[i].idPropietario, t[i].nArmate);
         }
     }
 
@@ -82,9 +93,7 @@ void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente) {
 }
 
 
-
-
-_Bool fineGioco(Giocatore giocatori[], int nGiocatori) {
+_Bool fineGioco(int nGiocatori) {
     _Bool x = false;
 
     if (nGiocatori == 1)
@@ -251,7 +260,6 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
 
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
     int i, j;
-    NodoC *app;
     for (i = 0; i < nGiocatori; i++) {
         printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n", g[i].id, g[i].nome, g[i].c.nome,
                g[i].nArmate);
@@ -319,6 +327,7 @@ void importaCarte(Mazzo *m) {
     NodoC *it;
     int a, t;
     Carta c;
+    int i = 0;
     if (f == NULL) {
         printf("File carte.txt non trovato\n scaricalo da http://bit.ly/carteRisika \n e inseriscilo nella cartella: "
                "cmake-build-debug\n");
@@ -326,6 +335,7 @@ void importaCarte(Mazzo *m) {
     } else {
         while (fscanf(f, "%d", &a) != EOF) {
             fscanf(f, "%d", &t);
+            c.idCarta = i;
             c.a = a;
             c.idTerritorio = t;
             if (m->testa == NULL) {
@@ -335,6 +345,7 @@ void importaCarte(Mazzo *m) {
                 it = m->testa;
                 inserimentoInCoda(it, c);
             }
+            i++;
         }
     }
     fclose(f);
@@ -609,14 +620,12 @@ void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
  * @param nA numero di armate da impiegare
  */
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
-    NodoC *it;
     int i = 0, j;
     int idTer, nT = 0;
-    _Bool ok = false;
+    _Bool ok;
     while (i < nRip && g->nArmateinG < 100) {
         do {
             ok = false;
-            it = g->t.testa;
             if (nA == 1)
                 printf("In che territorio vuoi mettere questa armata ?\n");
             else
@@ -631,7 +640,6 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             }
 
             scanf("%d", &idTer);
-            it = g->t.testa;
             //controllo del valore appena letto, sia mai che un giocatore cerchi di aumentare armate di territori
             //che non gli appartengono
 
@@ -675,7 +683,6 @@ void rinforzo(Giocatore *g,Tabellone t[]){
                                        {NUM_ING, 4},
                                        {NUM_FS,  2}};
 
-    app=g->t.testa;
     for (i = 0; i < N_TERRITORI; i++) {
         if (t[i].idPropietario == g->id)
             nTerritori++;
@@ -711,8 +718,8 @@ void rinforzo(Giocatore *g,Tabellone t[]){
 
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
     char scelta, continuo;
-    NodoC *app;
-    int tB, nA, tA = -1, difesa, c;
+
+    int tB, nA, tA = -1, difesa;
     _Bool ok = false;
 
     printf("%s\n hai %d armate \n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n",
@@ -775,10 +782,8 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
 
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
     int c = 0;
-    NodoC *app;
     _Bool ok = false;
     int i, j, a;
-        app = g->t.testa;
         printf("Da che territorio vuoi far partire l'attacco?\n");
     for (i = 0; i < N_TERRITORI; i++) {
         if (t[i].idPropietario == g->id) {
@@ -818,7 +823,7 @@ void pulisciConsole() {
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
     int i = 0, app = 0;
 
-    _Bool ok = false;
+    _Bool ok;
 
     printf("%s, Scegli il territorio da attaccare\n"
            "Se vedi un elenco vuoto premi -1 per cambiare base d'attacco\n", g.nome);
@@ -915,9 +920,8 @@ int trovaMax(int v[], int n) {
 
 Carta recuperaCarta(TerritoriG *m, int el) {
     Carta c;
-    NodoC *app, *nuovo, *prev;
+    NodoC *app, *prev;
     app = m->testa;
-    _Bool ok = false;
     //Cerco la carta da eliminare
     if (app->next == NULL) {
         c = app->c;
@@ -982,9 +986,8 @@ int richiestaNumeroArmate(Giocatore g, int caso) {
     return nA;
 }
 
-_Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc, Giocatore *giocatori) {
+_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori) {
     NodoC *app;
-    int nA = 0;
     app = g->t.testa;
     //printf("%s hai perso! \n", g[id].nome);
     _Bool ok = false;
@@ -1085,14 +1088,12 @@ Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
 void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
     char scelta;
     int tB, tD, i, j, nA, nT = 0;
-    NodoC *app;
     _Bool ok = false;
     printf("Vuoi effettuare uno spostamento strategico?\n Premi s per continuare\n");
     getchar();
     scanf("%c", &scelta);
     if (scelta == 'S' || scelta == 's') {
         do {
-            app = g->t.testa;
             printf("Da che territorio vuoi spostare delle armate?\n");
             for (j = 0; j < N_TERRITORI; j++) {
                 nT = 0;
@@ -1162,4 +1163,51 @@ void statisticheVittoria(Giocatore *g, Statistiche stat[]) {
             stat[Blu].npv++;
             break;
     }
+}
+
+Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]) {
+    Salvataggio s;
+    _Bool trovato;
+    NodoC *app;
+    Carta c;
+    int i, j, idC, idT;
+    FILE *f;
+    f = fopen("Salvataggio.rsk", "r");
+    if (f != NULL) {
+        fread(&s.nGioc, sizeof(int), 1, f);
+        fread(&s.currentP, sizeof(int), 1, f);
+        for (i = 0; i < s.nGioc; i++) {
+            s.g[i].id = i;
+            s.g[i].ca.testa = NULL;
+            fread(s.g[i].nome, sizeof(char) * 24, 1, f);
+            fread(&s.g[i].c.id, sizeof(int), 1, f);
+            fread(&s.g[i].nCarte, sizeof(int), 1, f);
+            for (j = 0; j < s.g[i].nCarte; j++) {
+                fread(&idC, sizeof(int), 1, f);
+                trovato = false;
+                app = m.testa;
+                while (app != NULL && trovato != true) {
+                    if (app->c.idCarta == idC) {
+                        c = app->c;
+                        trovato = true;
+                    } else {
+                        app = app->next;
+                    }
+                }
+                if (s.g[i].ca.testa == NULL) {
+                    s.g[i].ca.testa = inserimentoInTesta(c);
+                } else {
+                    inserimentoInCoda(s.g[i].ca.testa, c);
+                }
+            }
+        }
+        for (i = 0; i < N_TERRITORI; i++) {
+            fread(&idT, sizeof(int), 1, f);
+            fread(&t[idT].idPropietario, sizeof(int), 1, f);
+            fread(&t[idT].nArmate, sizeof(int), 1, f);
+        }
+
+    }
+    fclose(f);
+    return s;
 }

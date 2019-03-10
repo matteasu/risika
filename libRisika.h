@@ -13,6 +13,29 @@
 #include <stdbool.h>
 #include "docente.h"
 
+
+#define MIN_G 3
+#define MAX_G 6
+#define N_TERRITORI 26
+#define N_CARTE 28
+#define N_CARTESJ 26
+#define TREAINT 1 //3 armate nello stesso territorio
+#define DUEAINTET 2//2 armate in un territorio e una in un altro
+#define TREDIVERSO 3 //3 armate in 3 territori diversi
+#define DUEINT 4//2 armate in un territorio
+#define DUET 5//una armata in un territorio e una in un altro
+#define AINT 6//una armata in un territorio
+#define NUM_FACOLTA 6
+#define NUM_SU 5 //numero facolta studi umanistici
+#define NUM_SE 3 //numero facolta scienze economice
+#define NUM_MC 4 //numero facolta medicina e chirurgia
+#define NUM_BF 5 //numero facolta biologia e farmacia
+#define NUM_ING 5 //numero facolta ing
+#define NUM_FS 4 //numero facolta scientifiche
+#define F_LOG "log.txt"
+
+
+
 //enumerazioni
 typedef enum {
     Studi_Umanistici,
@@ -57,6 +80,7 @@ typedef struct {
 typedef struct {
     Arma a;
     int idTerritorio;
+    int idCarta;
 } Carta;
 
 //Nodo per il mazzo di carte
@@ -87,6 +111,7 @@ typedef struct {
     char nome[24];
     Colore c;
     int nArmate;
+    int nCarte;
     int nArmateinG;
     TerritoriG t;
     Carte ca;
@@ -98,26 +123,18 @@ typedef struct {
     int incr;
 } Incrementi;
 
+typedef struct {
+    int nGioc;
+    int currentP;
+    Giocatore g[MAX_G];
+    Tabellone t;
+    int nCarte;
+    int carte[N_CARTE];
+} Salvataggio;
 
-#define MIN_G 3
-#define MAX_G 6
-#define N_TERRITORI 26
-#define N_CARTE 28
-#define N_CARTESJ 26
-#define TREAINT 1 //3 armate nello stesso territorio
-#define DUEAINTET 2//2 armate in un territorio e una in un altro
-#define TREDIVERSO 3 //3 armate in 3 territori diversi
-#define DUEINT 4//2 armate in un territorio
-#define DUET 5//una armata in un territorio e una in un altro
-#define AINT 6//una armata in un territorio
-#define NUM_FACOLTA 6
-#define NUM_SU 5 //numero facolta studi umanistici
-#define NUM_SE 3 //numero facolta scienze economice
-#define NUM_MC 4 //numero facolta medicina e chirurgia
-#define NUM_BF 5 //numero facolta biologia e farmacia
-#define NUM_ING 5 //numero facolta ing
-#define NUM_FS 4 //numero facolta scientifiche
-#define F_LOG "log.txt"
+
+
+
 int leggiGiocatori(int min, int max);
 
 void leggiNome(char c[]);
@@ -163,7 +180,7 @@ void bonusCarte(Giocatore *g, Tabellone t[]);
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
 void pulisciConsole();
 
-_Bool eliminaGiocatore(Giocatore *g, int id, Tabellone t[], int nGioc, Giocatore *giocatori);
+_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori);
 
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
 
@@ -172,6 +189,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
+Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]);
 void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente);
 int trovaMax(int v[], int n);
 Carta recuperaCarta(TerritoriG *m, int el);
@@ -179,7 +197,8 @@ int richiestaNumeroArmate(Giocatore g, int caso);
 
 void statisticheVittoria(Giocatore *g, Statistiche stat[]);
 void spostamentoStrategio(Giocatore *g, Tabellone t[]);
-_Bool fineGioco(Giocatore giocatori[], int nGiocatori);
+
+_Bool fineGioco(int nGiocatori);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
 #endif //RISIKA_LIBRISIKA_H
