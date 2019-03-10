@@ -10,49 +10,79 @@
  * necessarie al corretto svolgimento del gioco
  */
 void gioco() {
-    Giocatore *g = NULL;
-    FILE *log;
-    log = fopen(F_LOG, "a");
-    fprintf(log, "%s", "Inizio nuova partita\n");
-    int nGiocatori,i=0;
-    Mazzo m;
-    m.testa = NULL;
-    Tabellone t[N_TERRITORI];
-    nGiocatori = leggiGiocatori(MIN_G, MAX_G);
-    pulisciConsole();
-    g = preparazione(nGiocatori, &m, t, log);
-    fclose(log);
-    printf("\n \n fuori main\n \n ");
-
-    while (fineGioco(g, nGiocatori) != true) {
-        for (i = 0; i < nGiocatori; i++) {
-            log = fopen(F_LOG, "a");
-            fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
-            rinforzo(&g[i], t);
-            //attacco(&g[i], g, t);
-            pulisciConsole();
-            spostamentoStrategio(&g[i], t);
-            fclose(log);
-            pulisciConsole();
-            stampaGiocatori(g, nGiocatori, t);
-            if (eliminaGiocatore(&g[i], g[i].id, t, nGiocatori, g)) {
-                nGiocatori--;
+    char scelta;
+    printf("Benvenuto in Risika\n n)Per iniziare una nuova partita\n c)Per caricare un salvataggio\n");
+    scanf("%c", &scelta);
+    if (scelta == 'n' || scelta == 'N') {
+        Giocatore *g = NULL;
+        FILE *log;
+        FILE *stat;
+        log = fopen(F_LOG, "a+");
+        //stat=fopen("stat","r+");
+        Statistiche st[6];
+        fprintf(log, "%s", "Inizio nuova partita\n");
+        int nGiocatori, i = 0;
+        Mazzo m;
+        m.testa = NULL;
+        Tabellone t[N_TERRITORI];
+        nGiocatori = leggiGiocatori(MIN_G, MAX_G);
+        pulisciConsole();
+        g = preparazione(nGiocatori, &m, t, log);
+        fclose(log);
+        printf("\n \n fuori main\n \n ");
+        while (fineGioco(g, nGiocatori) != true) {
+            for (i = 0; i < nGiocatori; i++) {
+                //pulisciConsole();
+                log = fopen(F_LOG, "a");
+                fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
+                rinforzo(&g[i], t);
+                attacco(&g[i], g, t);
+                spostamentoStrategio(&g[i], t);
+                fclose(log);
+                pulisciConsole();
                 stampaGiocatori(g, nGiocatori, t);
-            }
+                if (eliminaGiocatore(&g[i], g[i].id, t, nGiocatori, g)) {
+                    nGiocatori--;
+                    stampaGiocatori(g, nGiocatori, t);
+                }
 
+            }
+        }
+        statisticheVittoria(&g[0], st);
+        stampaGiocatori(g, nGiocatori, t);
+#ifdef _WIN32
+        system("pause");
+#endif
+    } else {
+        int nGioc, giocatoreCor;
+        FILE *salvataggio;
+        salvataggio = fopen("Salvataggio.rsk", "r+");
+        if (salvataggio != NULL) {
+            caricaSalvataggio(salvataggio, &nGioc, &giocatoreCor);
+            printf("%d %d %s", nGioc, giocatoreCor);
+            //carica i dati dal salvataggio
+        } else {
+            //nessun salvataggio trovato,iniziamo da capo
         }
     }
+
 
     /**
     printf("\n");
     for(i=0;i<N_TERRITORI;i++){
         printf(" %d %s %d  ",t[i].t.id,t[i].t.nome,t[i].idPropietario);
     }*/
-    stampaGiocatori(g, nGiocatori, t);
-#ifdef _WIN32
-    system("pause");
-#endif
+
 }
+
+
+void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente) {
+    fread(nGiocatori, sizeof(int), 1, f);
+    fread(giocatoreCorrente, sizeof(int), 1, f);
+}
+
+
+
 
 _Bool fineGioco(Giocatore giocatori[], int nGiocatori) {
     _Bool x = false;
@@ -127,7 +157,8 @@ Giocatore *caricaGiocatori(int nGiocatori, FILE *f) {
             g[i].ca.testa = NULL;
             fprintf(f, "%s %s \n", "Ho inserito un giocatore, si chiama: ", g[i].nome);
         }
-    }
+        }
+
     return g;
 }
 
@@ -219,15 +250,15 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
 }
 
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
-    int i;
+    int i, j;
     NodoC *app;
     for (i = 0; i < nGiocatori; i++) {
         printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n", g[i].id, g[i].nome, g[i].c.nome,
                g[i].nArmate);
-        app = g[i].t.testa;
-        while (app != NULL) {
-            printf("a %d - t %d -nA %d \n", app->c.a, app->c.idTerritorio, t[app->c.idTerritorio].nArmate);
-            app = app->next;
+
+        for (j = 0; j < N_TERRITORI; j++) {
+            if (t[j].idPropietario == g[i].id)
+                printf("t %d -nA %d \n", t[j].t.id, t[t[j].t.id].nArmate);
         }
     }
 
@@ -579,7 +610,7 @@ void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
  */
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
     NodoC *it;
-    int i = 0;
+    int i = 0, j;
     int idTer, nT = 0;
     _Bool ok = false;
     while (i < nRip && g->nArmateinG < 100) {
@@ -590,22 +621,22 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
                 printf("In che territorio vuoi mettere questa armata ?\n");
             else
                 printf("In che territorio vuoi mettere queste %d armate ?\n", nA);
-            while (it != NULL) {
-                stampaNomeIdTerritorio(it->c.idTerritorio, t);
-                printf(" %d\n", t[it->c.idTerritorio].nArmate);
+
+            for (j = 0; j < N_TERRITORI; j++) {
+                if (t[j].idPropietario == g->id) {
+                    stampaNomeIdTerritorio(j, t);
+                    printf(" %d\n", t[j].nArmate);
+                }
                 nT++;
-                it = it->next;
             }
+
             scanf("%d", &idTer);
             it = g->t.testa;
             //controllo del valore appena letto, sia mai che un giocatore cerchi di aumentare armate di territori
             //che non gli appartengono
 
-            while (it != NULL) {
-                    if (idTer == it->c.idTerritorio)
-                        ok = true;
-                    it = it->next;
-            }
+            if (t[idTer].idPropietario == g->id)
+                ok = true;
         } while (ok != true);
         if (g->nArmateinG + nA < 100) {
             t[idTer].nArmate += nA;
@@ -628,7 +659,7 @@ void rinforzo(Giocatore *g,Tabellone t[]){
     NodoC *app; //Puntatore utilizzato per scorrere la lista coi territori del giocatore
     char scelta;
     int nCarte = 0;
-    int nTerritori = 0, i, numF; //numero di territori del giocatore,contatore,variabile utilizzata per contare i territori
+    int nTerritori = 0, i, j, numF; //numero di territori del giocatore,contatore,variabile utilizzata per contare i territori
     //di una certa facolta'
     //struttura contenente gli identificatori di ogni facolta
     Facolta f[NUM_FACOLTA] = {Studi_Umanistici,
@@ -645,20 +676,20 @@ void rinforzo(Giocatore *g,Tabellone t[]){
                                        {NUM_FS,  2}};
 
     app=g->t.testa;
-    while (app != NULL) {
-        nTerritori++;
-        app=app->next;
+    for (i = 0; i < N_TERRITORI; i++) {
+        if (t[i].idPropietario == g->id)
+            nTerritori++;
     }
     nTerritori=nTerritori/3;
-    g->nArmate=nTerritori;
+    g->nArmate += nTerritori;
     for (i = 0; i < NUM_FACOLTA; i++) {
-        app = g->t.testa;
         numF = 0;
-        while (app != NULL) {
-            if (t[app->c.idTerritorio].t.f == f[i]) {
-                numF++;
+        for (j = 0; j < N_TERRITORI; j++) {
+            if (t[j].idPropietario == g->id) {
+                if (t[j].t.f == f[i]) {
+                    numF++;
+                }
             }
-            app = app->next;
         }
         if (numF == numeroF[i].nf)
             g->nArmate += numeroF[i].incr;
@@ -713,6 +744,7 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
                                 } else
                                     ok = true;
                             } while (ok != true);
+                            pulisciConsole();
                             attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa);
                             if (g->t.testa != NULL) {
                                 printf("Vuoi continuare l'attacco?\n premi qualsiasi tasto per continuare\n"
@@ -745,33 +777,30 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
     int c = 0;
     NodoC *app;
     _Bool ok = false;
-    int i, a;
+    int i, j, a;
         app = g->t.testa;
         printf("Da che territorio vuoi far partire l'attacco?\n");
-        while (app != NULL) {
-            if (t[app->c.idTerritorio].nArmate > 1) {
+    for (i = 0; i < N_TERRITORI; i++) {
+        if (t[i].idPropietario == g->id) {
+            if (t[i].nArmate > 1) {
+                //controllo se ha territori attacabili da questo territorio
                 a = 0;
-                for (i = 0; i < N_TERRITORI; i++) {
-                    if (isAdjacent(app->c.idTerritorio, t[i].t.id) && t[i].idPropietario != g->id)
+                for (j = 0; j < N_TERRITORI; j++) {
+                    if (isAdjacent(t[i].t.id, t[j].t.id) && t[j].idPropietario != g->id)
                         a++;
                 }
                 if (a > 0) {
                     c++;
-                    stampaNomeIdTerritorio(app->c.idTerritorio, t);
-                    printf(" %d\n", t[app->c.idTerritorio].nArmate);
+                    stampaNomeIdTerritorio(t[i].t.id, t);
+                    printf(" %d\n", t[i].nArmate);
                 }
             }
-            app = app->next;
+        }
         }
     if (c > 0) {
         scanf("%d", tB);
-        app = g->t.testa;
-        while (app != NULL) {
-            if (*tB == app->c.idTerritorio) {
-                ok = true;
-            }
-            app = app->next;
-        }
+        if (t[*tB].idPropietario == g->id)
+            ok = true;
     } else
         *tB = -1;
     return ok;
@@ -1055,7 +1084,7 @@ Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
 
 void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
     char scelta;
-    int tB, tD, i, nA;
+    int tB, tD, i, j, nA, nT = 0;
     NodoC *app;
     _Bool ok = false;
     printf("Vuoi effettuare uno spostamento strategico?\n Premi s per continuare\n");
@@ -1065,18 +1094,23 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
         do {
             app = g->t.testa;
             printf("Da che territorio vuoi spostare delle armate?\n");
-            while (app != NULL) {
-                stampaNomeIdTerritorio(app->c.idTerritorio, t);
-                printf(" %d\n", t[app->c.idTerritorio].nArmate);
-                app = app->next;
+            for (j = 0; j < N_TERRITORI; j++) {
+                nT = 0;
+                if (t[j].idPropietario == g->id) {
+                    for (i = 0; i < N_TERRITORI; i++) {
+                        if (isAdjacent(t[j].t.id, t[i].t.id) && t[i].idPropietario == g->id) {
+                            nT++;
+                        }
+                    }
+                    if (nT > 0) {
+                        stampaNomeIdTerritorio(t[j].t.id, t);
+                        printf(" %d\n", t[j].nArmate);
+                    }
+                }
             }
             scanf("%d", &tB);
-            app = g->t.testa;
-            while (app != NULL) {
-                if (tB == app->c.idTerritorio)
-                    ok = true;
-                app = app->next;
-            }
+            if (t[tB].idPropietario == g->id)
+                ok = true;
         } while (ok != true);
         ok = false;
         do {
@@ -1088,12 +1122,8 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
                 }
             }
             scanf("%d", &tD);
-            app = g->t.testa;
-            while (app != NULL) {
-                if (tD == app->c.idTerritorio)
-                    ok = true;
-                app = app->next;
-            }
+            if (t[tD].idPropietario == g->id)
+                ok = true;
         } while (ok != true);
         ok = false;
         do {
@@ -1106,6 +1136,30 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
         } while (ok != true);
         t[tB].nArmate -= nA;
         t[tD].nArmate += nA;
-        printf("Hai spostato %d armate da % s a %s\n", nA, t[tB].t.nome, t[tD].t.nome);
+        printf("Hai spostato %d armate da %s a %s\n", nA, t[tB].t.nome, t[tD].t.nome);
+    }
+}
+
+//typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
+void statisticheVittoria(Giocatore *g, Statistiche stat[]) {
+    switch (g->c.id) {
+        case Rosso:
+            stat[Rosso].npv++;
+            break;
+        case Nero:
+            stat[Nero].npv++;
+            break;
+        case Viola:
+            stat[Viola].npv++;
+            break;
+        case Verde:
+            stat[Verde].npv++;
+            break;
+        case Giallo:
+            stat[Giallo].npv++;
+            break;
+        case Blu:
+            stat[Blu].npv++;
+            break;
     }
 }

@@ -22,7 +22,9 @@ typedef enum {
     Ingegneria_Architettura,
     Facolta_di_Scienze
 } Facolta;
-//typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
+typedef enum {
+    Rosso, Nero, Viola, Verde, Giallo, Blu
+} Colori;
 typedef enum {
     Caffe, Birra, Vino, Jolly
 } Arma;
@@ -32,6 +34,11 @@ typedef struct {
     char nome[10];
     _Bool inUse;
 } Colore;
+
+typedef struct {
+    Colore c;
+    int npv;
+} Statistiche;
 
 // struttura territorio
 typedef struct {
@@ -165,10 +172,12 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
+void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente);
 int trovaMax(int v[], int n);
 Carta recuperaCarta(TerritoriG *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
+void statisticheVittoria(Giocatore *g, Statistiche stat[]);
 void spostamentoStrategio(Giocatore *g, Tabellone t[]);
 _Bool fineGioco(Giocatore giocatori[], int nGiocatori);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
