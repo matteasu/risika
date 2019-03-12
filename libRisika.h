@@ -147,7 +147,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f);
 
 void gioco();
 
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
+void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
 
 void sceltaColore(Giocatore *g, int nGiocatori, FILE *f);
 
@@ -191,7 +191,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
-Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]);
+Salvataggio importaSalvataggio(FILE *f, Mazzo m, Tabellone t[]);
 void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente);
 int trovaMax(int v[], int n);
 
@@ -205,5 +205,6 @@ _Bool fineGioco(int nGiocatori);
 
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP);
 
+Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP);
 #endif //RISIKA_LIBRISIKA_H

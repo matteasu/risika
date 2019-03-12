@@ -10,27 +10,38 @@
  * necessarie al corretto svolgimento del gioco
  */
 void gioco() {
+    //dichiarazione variabili essenziali per l'avvio corretto del gioco
+    Giocatore *g = NULL;
+    FILE *saveFile;
+    saveFile = fopen("Salvataggio.rsk", "rb");
+    FILE *log;
+    log = fopen(F_LOG, "a+");
     char scelta;
+    Mazzo m;
+    Tabellone t[N_TERRITORI];
+    m.testa = NULL;
+    importaTerritori(t);
+    importaCarte(&m);
+    Salvataggio s;
+    int nGiocatori;
+    int idP = -1;
+    int i = 0;
+    fprintf(log, "%s", "Inizio nuova partita\n");
+
+
     printf("Benvenuto in Risika\n n)Per iniziare una nuova partita\n c)Per caricare un salvataggio\n");
     scanf("%c", &scelta);
-    if (scelta == 'n' || scelta == 'N') {
-        Giocatore *g = NULL;
-        FILE *log;
-        int idP = -1;
-        FILE *stat;
-        log = fopen(F_LOG, "a+");
-        //stat=fopen("stat","r+");
-        Statistiche st[6];
-        fprintf(log, "%s", "Inizio nuova partita\n");
-        int nGiocatori, i = 0;
-        Mazzo m;
-        m.testa = NULL;
-        Tabellone t[N_TERRITORI];
-        nGiocatori = leggiGiocatori(MIN_G, MAX_G);
-        pulisciConsole();
-        g = preparazione(nGiocatori, &m, t, log);
-        fclose(log);
-        printf("\n \n fuori main\n \n ");
+    if (scelta == 'c' || scelta == 'C') {
+        if (saveFile != NULL) {
+            s = importaSalvataggio(saveFile, m, t);
+        } else {
+            printf("Errore apertura salvataggio\n La partita iniziera' da capo\n");
+            g = nuovaPartita(&nGiocatori, &m, t, log);
+        }
+    } else {
+        g = nuovaPartita(&nGiocatori, &m, t, log);
+    }
+    fclose(log);
         while (fineGioco(nGiocatori) != true) {
             for (i = 0; i < nGiocatori; i++) {
                 //pulisciConsole();
@@ -46,48 +57,22 @@ void gioco() {
                 fclose(log);
                 pulisciConsole();
                 stampaGiocatori(g, nGiocatori, t);
-
-
             }
         }
-        statisticheVittoria(&g[0], st);
-        stampaGiocatori(g, nGiocatori, t);
-    } else {
-        Tabellone t[N_TERRITORI];
-        Mazzo m;
-        m.testa = NULL;
-        Salvataggio s;
-        importaTerritori(t);
-        importaCarte(&m);
-        NodoC *app;
-        s = importaSalvataggio(m, t);
-        int i;
-        for (i = 0; i < s.nGioc; i++) {
-            app = s.g[i].ca.testa;
-            printf("Carte %s \n", s.g[i].nome);
-            while (app != NULL) {
-                printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
-                app = app->next;
-            }
-        }
-
-    }
-
-
-    /**
-    printf("\n");
-    for(i=0;i<N_TERRITORI;i++){
-        printf(" %d %s %d  ",t[i].t.id,t[i].t.nome,t[i].idPropietario);
-    }*/
+    stampaGiocatori(g, nGiocatori, t);
 
 }
 
 
-void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente) {
-    fread(nGiocatori, sizeof(int), 1, f);
-    fread(giocatoreCorrente, sizeof(int), 1, f);
+Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log) {
+    Giocatore *giocatori;
+    *nGiocatori = leggiGiocatori(MIN_G, MAX_G);
+    giocatori = (Giocatore *) malloc(sizeof(Giocatore) * (*nGiocatori));
+    pulisciConsole();
+    giocatori = caricaGiocatori(*nGiocatori, log);
+    preparazione(giocatori, *nGiocatori, m, t, log);
+    return giocatori;
 }
-
 
 _Bool fineGioco(int nGiocatori) {
     _Bool x = false;
@@ -102,19 +87,14 @@ _Bool fineGioco(int nGiocatori) {
  * @param g vettore che conterra' i giocatori
  * @param nGiocatori numero di giocatori
  */
-Giocatore *preparazione(int nGiocatori, Mazzo *m, Tabellone t[], FILE *f) {
-    Giocatore *g;
-    g = caricaGiocatori(nGiocatori, f);
+void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f) {
     ordinaVettore(g, nGiocatori, f);
     sceltaColore(g, nGiocatori, f);
     assegnaArmate(g, nGiocatori, f);
-    importaTerritori(t);
-    importaCarte(m);
     distribuisciCarte(nGiocatori, m, g);
     assegnaArmateTerritori(nGiocatori, g, t);
     //mischio il mazzo di carte principale
     ass(m, N_CARTE);
-    return g;
 }
 
 /**
@@ -162,7 +142,7 @@ Giocatore *caricaGiocatori(int nGiocatori, FILE *f) {
             g[i].ca.testa = NULL;
             fprintf(f, "%s %s \n", "Ho inserito un giocatore, si chiama: ", g[i].nome);
         }
-        }
+    }
 
     return g;
 }
@@ -357,7 +337,7 @@ NodoC *inserimentoInTesta(Carta c) {
 }
 
 void inserimentoInCoda(NodoC *testa, Carta c) {
-    NodoC *nuovo, *it, *prev;
+    NodoC *nuovo, *it, *prev, *nex;
     prev = NULL;
     if (testa == NULL)
         testa = inserimentoInTesta(c);
@@ -367,11 +347,9 @@ void inserimentoInCoda(NodoC *testa, Carta c) {
             prev = it;
             it = it->next;
         }
-
-        it = testa;
+        it = prev;
         while (it->next != NULL) {
             it = it->next;
-
         }
         nuovo = nuovoNodoC();
         nuovo->c = c;
@@ -779,7 +757,7 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
     int c = 0;
     _Bool ok = false;
     int i, j, a;
-        printf("Da che territorio vuoi far partire l'attacco?\n");
+    printf("Da che territorio vuoi far partire l'attacco?\n");
     for (i = 0; i < N_TERRITORI; i++) {
         if (t[i].idPropietario == g->id) {
             if (t[i].nArmate > 1) {
@@ -797,7 +775,7 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
                 }
             }
         }
-        }
+    }
     if (c > 0) {
         scanf("%d", tB);
         if (t[*tB].idPropietario == g->id)
@@ -827,10 +805,10 @@ _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
         if (isAdjacent(tB, t[i].t.id) && t[i].idPropietario != g.id) {
             stampaNomeIdTerritorio(i, t);
             printf("%d\n", t[i].nArmate);
-                app++;
-            }
-        i++;
+            app++;
         }
+        i++;
+    }
 
     //verifica del valore inserito
     scanf("%d", tA);
@@ -1186,14 +1164,12 @@ void statisticheVittoria(Giocatore *g, Statistiche stat[]) {
     }
 }
 
-Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]) {
+Salvataggio importaSalvataggio(FILE *f, Mazzo m, Tabellone t[]) {
     Salvataggio s;
     _Bool trovato;
     NodoC *app;
     Carta c;
     int i, j, idC, idT, cF;
-    FILE *f;
-    f = fopen("Salvataggio.rsk", "rb");
     fread(&s.nGioc, sizeof(int), 1, f);
     printf("Numero giocatori %d \n", s.nGioc);
     fread(&s.currentP, sizeof(int), 1, f);
