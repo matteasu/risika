@@ -16,6 +16,7 @@ void gioco() {
     if (scelta == 'n' || scelta == 'N') {
         Giocatore *g = NULL;
         FILE *log;
+        int idP = -1;
         FILE *stat;
         log = fopen(F_LOG, "a+");
         //stat=fopen("stat","r+");
@@ -36,15 +37,16 @@ void gioco() {
                 log = fopen(F_LOG, "a");
                 fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
                 rinforzo(&g[i], t);
-                attacco(&g[i], g, t);
+                attacco(&g[i], g, t, &idP);
+                if (idP != -1) {
+                    g = rimuoviGiocatore(g, idP, nGiocatori, t);
+                    nGiocatori--;
+                }
                 spostamentoStrategio(&g[i], t);
                 fclose(log);
                 pulisciConsole();
                 stampaGiocatori(g, nGiocatori, t);
-                if (eliminaGiocatore(&g[i], g[i].id, nGiocatori, g)) {
-                    nGiocatori--;
-                    stampaGiocatori(g, nGiocatori, t);
-                }
+
 
             }
         }
@@ -55,26 +57,11 @@ void gioco() {
         Mazzo m;
         m.testa = NULL;
         Salvataggio s;
-        /*
-        int nGioc, giocatoreCor;
-        FILE *salvataggio;
-        salvataggio = fopen("Salvataggio.rsk", "r+");
-        if (salvataggio != NULL) {
-            caricaSalvataggio(salvataggio, &nGioc, &giocatoreCor);
-            printf("%d %d", nGioc, giocatoreCor);
-            //carica i dati dal salvataggio
-        } else {
-            //nessun salvataggio trovato,iniziamo da capo
-        }
-        */
         importaTerritori(t);
         importaCarte(&m);
         s = importaSalvataggio(m, t);
-        printf("ngioc %d\n", s.nGioc);
-        int i = 0;
-        for (i = 0; i < N_TERRITORI; i++) {
-            printf("%s %d %d\n", t[i].t.nome, t[i].idPropietario, t[i].nArmate);
-        }
+
+
     }
 
 
@@ -716,9 +703,8 @@ void rinforzo(Giocatore *g,Tabellone t[]){
 
 }
 
-void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP) {
     char scelta, continuo;
-
     int tB, nA, tA = -1, difesa;
     _Bool ok = false;
 
@@ -752,7 +738,7 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]) {
                                     ok = true;
                             } while (ok != true);
                             pulisciConsole();
-                            attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa);
+                            attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa, idP);
                             if (g->t.testa != NULL) {
                                 printf("Vuoi continuare l'attacco?\n premi qualsiasi tasto per continuare\n"
                                        "altrimenti premi f per terminare la fase d'attacco\n");
@@ -794,6 +780,7 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
                     if (isAdjacent(t[i].t.id, t[j].t.id) && t[j].idPropietario != g->id)
                         a++;
                 }
+                c = 0;
                 if (a > 0) {
                     c++;
                     stampaNomeIdTerritorio(t[i].t.id, t);
@@ -850,7 +837,8 @@ _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
 
     return ok;
 }
-void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD) {
+
+void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP) {
     int i, j, tg, td;
     int dA[3] = {0, 0, 0};
     int dD[3] = {0, 0, 0};
@@ -885,11 +873,12 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                     t[tA].idPropietario = g1->id;
                     t[tA].nArmate = nA;
                     //rimuovi elemento
-                    app = recuperaCarta(&g2->t, tA);
-                    if (g2->t.testa == NULL)
-                        haiPerso = true;
+                    //app = recuperaCarta(&g2->t, tA);
+                    if (contaTerritoriGiocatore(t, g2->id) == 0)
+                        *idP = g2->id;
+
                     //aggiungi in coda
-                    inserimentoInCoda(g1->t.testa, app);
+                    //inserimentoInCoda(g1->t.testa, app);
                 }
             } else {
                 printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
@@ -986,19 +975,29 @@ int richiestaNumeroArmate(Giocatore g, int caso) {
     return nA;
 }
 
-_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori) {
+_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori, Tabellone t[]) {
     NodoC *app;
-    app = g->t.testa;
+
     //printf("%s hai perso! \n", g[id].nome);
     _Bool ok = false;
     if (app == NULL) {
         printf("%s hai perso! \n", g[id].nome);
-        giocatori = rimuoviGiocatore(giocatori, id, nGioc);
+        giocatori = rimuoviGiocatore(giocatori, id, nGioc, t);
     }
 
     return ok;
 
 }
+
+int contaTerritoriGiocatore(Tabellone t[], int id) {
+    int i, c = 0;
+    for (i = 0; i < N_TERRITORI; i++) {
+        if (t[i].idPropietario == id)
+            c++;
+    }
+    return c;
+}
+
 
 void bonusCarte(Giocatore *g, Tabellone t[]) {
     NodoC *app;
@@ -1064,13 +1063,19 @@ void bonusCarte(Giocatore *g, Tabellone t[]) {
     }
 }
 
-Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
+Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori, Tabellone t[]) {
     Giocatore app[nGiocatori - 1];
+    printf("%s hai perso!\n", g[id].nome);
     printf("copio i giocatori ad ecezione del giocatore da eliminare\n");
-    int i = 0, j = 0;
+    int i = 0, j = 0, idV;
     while (i < nGiocatori) {
         if (g[i].id != id) {
             app[j] = g[i];
+            if (g[i].id > id) {
+                idV = app[j].id;
+                app[j].id -= 1;
+                sistemaTabellone(t, idV, app[j].id);
+            }
             j++;
         }
         i++;
@@ -1084,6 +1089,14 @@ Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori) {
     return g;
 }
 
+void sistemaTabellone(Tabellone t[], int oldId, int newId) {
+    int i;
+    for (i = 0; i < N_TERRITORI; i++) {
+        if (t[i].idPropietario == oldId) {
+            t[i].idPropietario = newId;
+        }
+    }
+}
 
 void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
     char scelta;
@@ -1170,43 +1183,40 @@ Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]) {
     _Bool trovato;
     NodoC *app;
     Carta c;
-    int i, j, idC, idT;
+    int i, j, idC, idT, cF;
     FILE *f;
-    f = fopen("Salvataggio.rsk", "r");
-    if (f != NULL) {
-        fread(&s.nGioc, sizeof(int), 1, f);
-        fread(&s.currentP, sizeof(int), 1, f);
-        for (i = 0; i < s.nGioc; i++) {
-            s.g[i].id = i;
-            s.g[i].ca.testa = NULL;
-            fread(s.g[i].nome, sizeof(char) * 24, 1, f);
-            fread(&s.g[i].c.id, sizeof(int), 1, f);
-            fread(&s.g[i].nCarte, sizeof(int), 1, f);
-            for (j = 0; j < s.g[i].nCarte; j++) {
-                fread(&idC, sizeof(int), 1, f);
-                trovato = false;
-                app = m.testa;
-                while (app != NULL && trovato != true) {
-                    if (app->c.idCarta == idC) {
-                        c = app->c;
-                        trovato = true;
-                    } else {
-                        app = app->next;
-                    }
-                }
-                if (s.g[i].ca.testa == NULL) {
-                    s.g[i].ca.testa = inserimentoInTesta(c);
-                } else {
-                    inserimentoInCoda(s.g[i].ca.testa, c);
-                }
-            }
+    f = fopen("Salvataggio.rsk", "rb");
+    fread(&s.nGioc, sizeof(int), 1, f);
+    printf("Numero giocatori %d \n", s.nGioc);
+    fread(&s.currentP, sizeof(int), 1, f);
+    printf("Giocatore corrente %d \n", s.currentP);
+    for (i = 0; i < s.nGioc; i++) {
+        //printf("%d ",i);
+        s.g[i].id = i;
+        fread(&s.g[i].nome, sizeof(char) * 24, 1, f);
+        printf("Giocatore %d %s \n", s.g[i].id, s.g[i].nome);
+        fread(&s.g[i].c.id, sizeof(int), 1, f);
+        fread(&s.g[i].nCarte, sizeof(int), 1, f);
+        printf("Giocatore %d ha %d carte \n", s.g[i].id, s.g[i].nCarte);
+        for (j = 0; j < s.g[i].nCarte; j++) {
+            fread(&idC, sizeof(int), 1, f);
+            printf("carta %d ", idC);
         }
-        for (i = 0; i < N_TERRITORI; i++) {
-            fread(&idT, sizeof(int), 1, f);
-            fread(&t[idT].idPropietario, sizeof(int), 1, f);
-            fread(&t[idT].nArmate, sizeof(int), 1, f);
-        }
+        printf("\n");
+    }
+    for (i = 0; i < N_TERRITORI; i++) {
+        fseek(f, sizeof(int), SEEK_CUR);
+        fread(&t[i].idPropietario, sizeof(int), 1, f);
+        fread(&t[i].nArmate, sizeof(int), 1, f);
 
+    }
+    for (i = 0; i < N_TERRITORI; i++) {
+        printf("%d %s %d  ownd by %s\n", i, t[i].t.nome, t[i].nArmate, s.g[t[i].idPropietario].nome);
+    }
+    fread(&s.nCarte, sizeof(int), 1, f);
+    for (i = 0; i < s.nCarte; i++) {
+        fread(&idC, sizeof(int), 1, f);
+        printf("carta %d\n", idC);
     }
     fclose(f);
     return s;

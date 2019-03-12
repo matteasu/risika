@@ -5,86 +5,56 @@ int main() {
     srand(time(NULL));
     /*
     Giocatore *g;
-    int nGiocatori = 3;
+    int nGiocatori =3;
     Mazzo m, sj;
+    int idp=-1;
+    FILE *f=NULL;
+    f=fopen(F_LOG,"a+");
     sj.testa = NULL;
     m.testa = NULL;
     Tabellone t[N_TERRITORI];
-    g = caricaGiocatori(nGiocatori);
-    sceltaColore(g, nGiocatori);
+    g = caricaGiocatori(nGiocatori,f);
+    sceltaColore(g, nGiocatori,f);
     //importaCarte(&m);
-    //importaTerritori(t);
-    //assegnaArmate(g,nGiocatori);
-    int i;
+    importaTerritori(t);
+    assegnaArmate(g,nGiocatori,f);
+    int i,j;
     //ass(&m,28);
     NodoC *it;
     it = m.testa;
-    while(it!=NULL){
-        if(it->c.a!=3){
-            if(sj.testa==NULL){
-                sj.testa=inserimentoInTesta(it->c);
-                it=it->next;
-            }else{
-                inserimentoInCoda(sj.testa,it->c);
-                it=it->next;
-            }
-        }else{
-            it=it->next;
-        }
-    }
-    for(i=0;i<9;i++){
-        if(m.testa->c.a!=3){
-            if(g[0].t.testa==NULL)
-                g[0].t.testa=inserimentoInTesta(sj.testa->c);
-            else
-                inserimentoInCoda(g[0].t.testa,sj.testa->c);
-            rimuoviCarta(&sj);
-        }else
-            rimuoviCarta(&sj);
+    for(i=0;i<20;i++){
+        t[i].idPropietario=0;
+        t[i].nArmate=5;
     }
 
-        g[1].t.testa = inserimentoInTesta(sj.testa->c);
-        rimuoviCarta(&sj);
-
-    for(i=0;i<16;i++){
-        if(m.testa->c.a!=3){
-            if(g[2].t.testa==NULL)
-                g[2].t.testa=inserimentoInTesta(sj.testa->c);
-            else
-                inserimentoInCoda(g[2].t.testa,sj.testa->c);
-            rimuoviCarta(&sj);
-        }else
-            rimuoviCarta(&sj);
+    t[i].idPropietario=1;
+    t[i].nArmate=1;
+    i++;
+    for(j=0;j<5;j++){
+        t[i].idPropietario=2;
+        t[i].nArmate=1;
+        i++;
     }
+    //stampaGiocatori(g, nGiocatori, t);
     for(i=0;i<nGiocatori;i++){
-        it=g[i].t.testa;
-        while(it!=NULL){
-            t[it->c.idTerritorio].idPropietario = g[i].id;
-            t[it->c.idTerritorio].nArmate = 1;
-            g[i].nArmate--;
-            g[i].nArmateinG++;
-            it = it->next;
-        }
+        printf("%d \n",contaTerritoriGiocatore(t,i));
     }
-
-    stampaGiocatori(g, nGiocatori, t);
-    pulisciConsole();
-    g = rimuoviGiocatore(g, 1, nGiocatori);
-    nGiocatori--;
-    stampaGiocatori(g, nGiocatori, t);
-
-    for(i=0;i<nGiocatori;i++){
-        rinforzo(&g[i],t);
-    }
-    while(fineGioco(g,nGiocatori)!=true){
+    while(fineGioco(nGiocatori)!=true){
         for(i=0;i<nGiocatori;i++){
-            attacco(&g[i],g,t);
-             if(eliminaGiocatore(&g[i], g[i].id,t, nGiocatori, g)){
-                 nGiocatori--;
-                 stampaGiocatori(g,nGiocatori,t);
-             }
+            rinforzo(&g[i],t);
+            //attacco(&g[i],g,t,&idp);
+            t[9].idPropietario=0;
+            idp=1;
+            if(idp!=-1){
+                g=rimuoviGiocatore(g,idp,nGiocatori,t);
+                nGiocatori--;
+                //stampaGiocatori(g,nGiocatori,t);
+            }
+            stampaGiocatori(g,nGiocatori,t);
         }
-    }*/
+    }
+    free(g);
+     */
     gioco();
     return 0;
 }

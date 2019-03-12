@@ -172,7 +172,7 @@ void stampaNomeTerritorio(int id, Tabellone t[]);
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
 
-Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori);
+Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori, Tabellone t[]);
 void inserimentoInCoda(NodoC *testa, Carta c);
 
 void bonusCarte(Giocatore *g, Tabellone t[]);
@@ -180,10 +180,12 @@ void bonusCarte(Giocatore *g, Tabellone t[]);
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
 void pulisciConsole();
 
-_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori);
+_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori, Tabellone t[]);
 
+void sistemaTabellone(Tabellone t[], int oldId, int newId);
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
 
+int contaTerritoriGiocatore(Tabellone t[], int id);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
@@ -199,6 +201,8 @@ void statisticheVittoria(Giocatore *g, Statistiche stat[]);
 void spostamentoStrategio(Giocatore *g, Tabellone t[]);
 
 _Bool fineGioco(int nGiocatori);
-void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD);
-void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[]);
+
+void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP);
+
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP);
 #endif //RISIKA_LIBRISIKA_H
