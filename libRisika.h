@@ -194,7 +194,8 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]);
 void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente);
 int trovaMax(int v[], int n);
-Carta recuperaCarta(TerritoriG *m, int el);
+
+Carta recuperaCarta(Mazzo *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
 void statisticheVittoria(Giocatore *g, Statistiche stat[]);

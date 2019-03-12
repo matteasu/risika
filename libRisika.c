@@ -59,8 +59,17 @@ void gioco() {
         Salvataggio s;
         importaTerritori(t);
         importaCarte(&m);
+        NodoC *app;
         s = importaSalvataggio(m, t);
-
+        int i;
+        for (i = 0; i < s.nGioc; i++) {
+            app = s.g[i].ca.testa;
+            printf("Carte %s \n", s.g[i].nome);
+            while (app != NULL) {
+                printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
+                app = app->next;
+            }
+        }
 
     }
 
@@ -906,8 +915,7 @@ int trovaMax(int v[], int n) {
 }
 
 
-
-Carta recuperaCarta(TerritoriG *m, int el) {
+Carta recuperaCarta(Mazzo *m, int el) {
     Carta c;
     NodoC *app, *prev;
     app = m->testa;
@@ -916,7 +924,7 @@ Carta recuperaCarta(TerritoriG *m, int el) {
         c = app->c;
         m->testa = NULL;
     } else {
-        while (app->c.idTerritorio != el) {
+        while (app->c.idCarta != el) {
             app = app->next;
         }
         c = app->c;
@@ -1195,12 +1203,24 @@ Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]) {
         s.g[i].id = i;
         fread(&s.g[i].nome, sizeof(char) * 24, 1, f);
         printf("Giocatore %d %s \n", s.g[i].id, s.g[i].nome);
+        s.g[i].ca.testa = NULL;
         fread(&s.g[i].c.id, sizeof(int), 1, f);
         fread(&s.g[i].nCarte, sizeof(int), 1, f);
         printf("Giocatore %d ha %d carte \n", s.g[i].id, s.g[i].nCarte);
         for (j = 0; j < s.g[i].nCarte; j++) {
             fread(&idC, sizeof(int), 1, f);
-            printf("carta %d ", idC);
+            c = recuperaCarta(&m, idC);
+            if (s.g[i].ca.testa == NULL) {
+                s.g[i].ca.testa = inserimentoInTesta(c);
+            } else {
+                inserimentoInCoda(s.g[i].ca.testa, c);
+            }
+        }
+        app = s.g[i].ca.testa;
+        printf("Dentro importa Carte %s \n", s.g[i].nome);
+        while (app != NULL) {
+            printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
+            app = app->next;
         }
         printf("\n");
     }
@@ -1217,6 +1237,11 @@ Salvataggio importaSalvataggio(Mazzo m, Tabellone t[]) {
     for (i = 0; i < s.nCarte; i++) {
         fread(&idC, sizeof(int), 1, f);
         printf("carta %d\n", idC);
+    }
+    app = m.testa;
+    while (app != NULL) {
+        printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
+        app = app->next;
     }
     fclose(f);
     return s;
