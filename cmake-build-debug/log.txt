@@ -1,0 +1,555 @@
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+tt e' il primo giocatore
+tt  ha scelto il colore:  Rosso
+eo  ha scelto il colore:  Nero
+ma  ha scelto il colore:  Viola
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+eo e' il primo giocatore
+eo  ha scelto il colore:  Rosso
+ma  ha scelto il colore:  Nero
+tt  ha scelto il colore:  Viola
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+tt e' il primo giocatore
+tt  ha scelto il colore:  Rosso
+eo  ha scelto il colore:  Nero
+ma  ha scelto il colore:  Viola
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+eo e' il primo giocatore
+eo  ha scelto il colore:  Rosso
+ma  ha scelto il colore:  Nero
+tt  ha scelto il colore:  Viola
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+tt e' il primo giocatore
+tt  ha scelto il colore:  Rosso
+eo  ha scelto il colore:  Nero
+ma  ha scelto il colore:  Viola
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+tt e' il primo giocatore
+tt  ha scelto il colore:  Rosso
+eo  ha scelto il colore:  Nero
+ma  ha scelto il colore:  Viola
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Gioca il giocatore 
+ Fase di rinforzo
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Inizio nuova partita
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+tt e' il primo giocatore
+tt  ha scelto il colore:  Rosso
+eo  ha scelto il colore:  Nero
+ma  ha scelto il colore:  Viola
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+eo e' il primo giocatore
+eo  ha scelto il colore:  Rosso
+ma  ha scelto il colore:  Nero
+tt  ha scelto il colore:  Viola
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+eo e' il primo giocatore
+eo  ha scelto il colore:  Rosso
+ma  ha scelto il colore:  Nero
+tt  ha scelto il colore:  Viola
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+Inizio nuova partita
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+ma e' il primo giocatore
+ma  ha scelto il colore:  Rosso
+tt  ha scelto il colore:  Nero
+eo  ha scelto il colore:  Viola
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+eo  Ha ricevuto  35  armate 
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Gioca il giocatore 
+ Fase di rinforzo
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita
+Inizio nuova partita

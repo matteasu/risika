@@ -40,6 +40,7 @@ void gioco() {
             g = (Giocatore *) malloc(sizeof(Giocatore) * (nGiocatori));
             for (i = 0; i < nGiocatori; i++) {
                 g[i] = s.g[i];
+                contaArmateG(t, &g[i]);
                 g[i].c = assegnaColore(g[i].c.id);
 
             }
@@ -300,7 +301,7 @@ void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
     int i, j;
     for (i = 0; i < nGiocatori; i++) {
         printf("Giocatore: %d\n Nome: %s\n Colore: %s\n Numero Armate: %d \n \n", g[i].id, g[i].nome, g[i].c.nome,
-               g[i].nArmate);
+               g[i].nArmateinG);
 
         for (j = 0; j < N_TERRITORI; j++) {
             if (t[j].idPropietario == g[i].id)
@@ -660,7 +661,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
     int i = 0, j;
     int idTer, nT = 0;
     _Bool ok;
-    while (i < nRip && g->nArmateinG < 100) {
+    while (i < nRip) {
         do {
             ok = false;
             if (nA == 1)
@@ -683,14 +684,13 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             if (t[idTer].idPropietario == g->id)
                 ok = true;
         } while (ok != true);
-        if (g->nArmateinG + nA < 100) {
             t[idTer].nArmate += nA;
             g->nArmateinG += nA;
+        if (g->nArmateinG > 100)
+            g->nArmateinG = 100;
             g->nArmate -= nA;
             i++;
-        } else {
-            printf("Hai raggiunto il numero massimo di armate nel tabellone\n");
-        }
+
     }
     pulisciConsole();
 }
@@ -703,6 +703,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
 void rinforzo(Giocatore *g,Tabellone t[]){
     NodoC *app; //Puntatore utilizzato per scorrere la lista coi territori del giocatore
     char scelta;
+    int tI, sceltaIn;
     int nCarte = 0;
     int nTerritori = 0, i, j, numF; //numero di territori del giocatore,contatore,variabile utilizzata per contare i territori
     //di una certa facolta'
@@ -720,12 +721,9 @@ void rinforzo(Giocatore *g,Tabellone t[]){
                                        {NUM_ING, 4},
                                        {NUM_FS,  2}};
 
-    for (i = 0; i < N_TERRITORI; i++) {
-        if (t[i].idPropietario == g->id)
-            nTerritori++;
-    }
+    nTerritori = contaTerritoriGiocatore(t, g->id);
     nTerritori=nTerritori/3;
-    g->nArmate += nTerritori;
+    g->nArmate = nTerritori;
     for (i = 0; i < NUM_FACOLTA; i++) {
         numF = 0;
         for (j = 0; j < N_TERRITORI; j++) {
@@ -743,14 +741,40 @@ void rinforzo(Giocatore *g,Tabellone t[]){
         nCarte++;
         app = app->next;
     }
-    if (nCarte >= 3) {
-        printf("%s Vuoi giocare un bonus di carte? s per si,altrimenti premi un altro tasto\n", g->nome);
-        getchar();
-        scanf("%c", &scelta);
-        if (scelta == 's' || scelta == 'S')
-            bonusCarte(g, t);
-    }
+    contaArmateG(t, g);
+    if (g->nArmateinG < 100) {
+        if (nCarte >= 3) {
+            printf("%s Vuoi giocare un bonus di carte? s per si,altrimenti premi un altro tasto\n", g->nome);
+            getchar();
+            scanf("%c", &scelta);
+            if (scelta == 's' || scelta == 'S')
+                bonusCarte(g, t);
+        }
+        printf("Devi utilizzare queste %d armate\n"
+               "Come vuoi giocarle?\n", g->nArmate);
+        do {
+            if (g->nArmate == 1) {
+                armateInT(g, t, 1, 1);
+                g->nArmate -= 1;
+            } else {
+                printf("1) Tutte in un territorio\n 2)Voglio dividerle in piu' territori\n");
+                scanf("%d", &sceltaIn);
+                if (sceltaIn == 1) {
+                    armateInT(g, t, 1, g->nArmate);
+                    g->nArmate = 0;
+                } else {
+                    do {
+                        printf("Scegli da 1 a %d armate da mettere in un territorio\n", g->nArmate);
+                        scanf("%d", &tI);
+                        armateInT(g, t, 1, tI);
+                    } while (tI < 1 || tI > g->nArmate);
+                }
+            }
 
+        } while (sceltaIn != 1 && sceltaIn != 2 && g->nArmate > 0);
+    } else {
+        printf("Hai raggiunto il numero massimo di armate nel tabellone\n");
+    }
 }
 
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP) {
@@ -758,7 +782,7 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP) {
     int tB, nA, tA = -1, difesa;
     _Bool ok = false;
 
-    printf("%s\n hai %d armate \n per attaccare premi S\n in caso contrario dovrai aggiungere una armata\n",
+    printf("Vuoi attaccare? Premi s\n",
            g->nome,
            g->nArmate);
 
@@ -812,8 +836,7 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP) {
         } while (continuo != 'f' && continuo != 'F'); //caso 0 l'utente non vuole più attaccare
 
 
-    } else
-        armateInT(g, t, 1, 1);
+    }
 }
 
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
@@ -1047,6 +1070,16 @@ int contaTerritoriGiocatore(Tabellone t[], int id) {
     return c;
 }
 
+void contaArmateG(Tabellone t[], Giocatore *g) {
+    int i, c = 0;
+    for (i = 0; i < N_TERRITORI; i++) {
+        if (t[i].idPropietario == g->id) {
+            c += t[i].nArmate;
+        }
+    }
+    g->nArmateinG = c;
+}
+
 
 void bonusCarte(Giocatore *g, Tabellone t[]) {
     NodoC *app;
@@ -1265,7 +1298,6 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int
     for (i = 0; i < s.nCarte; i++) {
         fread(&s.carte[i], sizeof(int), 1, f);
     }
-
     app = m->testa;
     i = 0;
     while (app != NULL) {
@@ -1284,9 +1316,7 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int
             i++;
         }
     }
-
     fclose(f);
-
     return s;
 }
 
