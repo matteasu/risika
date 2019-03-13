@@ -115,6 +115,7 @@ typedef struct {
     int nArmateinG;
     TerritoriG t;
     Carte ca;
+    int vCarte[N_CARTE];
 } Giocatore;
 
 
@@ -127,7 +128,7 @@ typedef struct {
     int nGioc;
     int currentP;
     Giocatore g[MAX_G];
-    Tabellone t;
+    Tabellone t[N_TERRITORI];
     int nCarte;
     int carte[N_CARTE];
 } Salvataggio;
@@ -157,6 +158,7 @@ void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]);
 
 void importaTerritori(Tabellone t[]);
 
+Salvataggio creaSalvataggio(int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]);
 void ass(Mazzo *m, int nCarte);
 
 void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);
@@ -191,8 +193,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
 void rinforzo(Giocatore *g,Tabellone t[]);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
-Salvataggio importaSalvataggio(FILE *f, Mazzo m, Tabellone t[]);
-void caricaSalvataggio(FILE *f, int *nGiocatori, int *giocatoreCorrente);
+Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *cartedt);
 int trovaMax(int v[], int n);
 
 Carta recuperaCarta(Mazzo *m, int el);
@@ -205,6 +206,7 @@ _Bool fineGioco(int nGiocatori);
 
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP);
 
+Colore assegnaColore(int id);
 Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log);
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP);
 #endif //RISIKA_LIBRISIKA_H

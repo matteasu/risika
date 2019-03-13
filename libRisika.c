@@ -23,7 +23,7 @@ void gioco() {
     importaTerritori(t);
     importaCarte(&m);
     Salvataggio s;
-    int nGiocatori;
+    int nGiocatori, currentP;
     int idP = -1;
     int i = 0;
     fprintf(log, "%s", "Inizio nuova partita\n");
@@ -33,7 +33,25 @@ void gioco() {
     scanf("%c", &scelta);
     if (scelta == 'c' || scelta == 'C') {
         if (saveFile != NULL) {
-            s = importaSalvataggio(saveFile, m, t);
+            int *carteDatrovare = NULL;
+            int idC;
+            NodoC *app;
+            s = importaSalvataggio(saveFile, &m, t, &nGiocatori, &currentP, carteDatrovare);
+            g = (Giocatore *) malloc(sizeof(Giocatore) * (nGiocatori));
+            for (i = 0; i < nGiocatori; i++) {
+                g[i] = s.g[i];
+                g[i].c = assegnaColore(g[i].c.id);
+
+            }
+            app = m.testa;
+            printf("Mazzo carte main");
+            while (app != NULL) {
+                printf("%d ", app->c.idCarta);
+                app = app->next;
+            }
+            stampaGiocatori(g, nGiocatori, t);
+
+
         } else {
             printf("Errore apertura salvataggio\n La partita iniziera' da capo\n");
             g = nuovaPartita(&nGiocatori, &m, t, log);
@@ -41,8 +59,20 @@ void gioco() {
     } else {
         g = nuovaPartita(&nGiocatori, &m, t, log);
     }
+    NodoC *app;
+    app = m.testa;
+
     fclose(log);
         while (fineGioco(nGiocatori) != true) {
+            printf("Vuoi salvare?\n Premi s per continuare\n");
+            getchar();
+            scanf("%c", &scelta);
+            if (scelta == 's' || scelta == 'S') {
+                saveFile = fopen("asu.rsk", "wb");
+                s = creaSalvataggio(nGiocatori, 0, g, 28, m, t);
+                fwrite(&s, sizeof(Salvataggio), 1, saveFile);
+                fclose(saveFile);
+            }
             for (i = 0; i < nGiocatori; i++) {
                 //pulisciConsole();
                 log = fopen(F_LOG, "a");
@@ -111,6 +141,38 @@ int leggiGiocatori(int min, int max) {
     } while ((x < min || x > max));
     return x;
 }
+
+
+Salvataggio creaSalvataggio(int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]) {
+    Salvataggio s;
+    int i = 0, j;
+    NodoC *app;
+    s.nGioc = nGiocatori;
+    s.currentP = currentP;
+    for (i = 0; i < nGiocatori; i++) {
+        strcpy(s.g[i].nome, g[i].nome);
+        s.g[i].c.id = g[i].c.id;
+        s.g[i].nCarte = g[i].nCarte;
+        if (g[i].nCarte > 0) {
+            app = g[i].ca.testa;
+            for (j = 0; j < g[i].nCarte; j++) {
+                s.g[i].vCarte[j] = app->c.idCarta;
+                app = app->next;
+            }
+        }
+    }
+    for (i = 0; i < N_TERRITORI; i++) {
+        s.t[i] = t[i];
+    }
+    s.nCarte = nC;
+    app = m.testa;
+    for (i = 0; i < nC; i++) {
+        s.carte[i] = app->c.idCarta;
+    }
+
+    return s;
+}
+
 
 /**
  * Procedura per leggere il nome del giocatore
@@ -303,7 +365,8 @@ void importaCarte(Mazzo *m) {
     NodoC *it;
     int a, t;
     Carta c;
-    int i = 0;
+    int i = 0, j = 0;
+    _Bool trovato;
     if (f == NULL) {
         printf("File carte.txt non trovato\n scaricalo da http://bit.ly/carteRisika \n e inseriscilo nella cartella: "
                "cmake-build-debug\n");
@@ -323,8 +386,8 @@ void importaCarte(Mazzo *m) {
             }
             i++;
         }
+        fclose(f);
     }
-    fclose(f);
 }
 
 NodoC *inserimentoInTesta(Carta c) {
@@ -1164,41 +1227,31 @@ void statisticheVittoria(Giocatore *g, Statistiche stat[]) {
     }
 }
 
-Salvataggio importaSalvataggio(FILE *f, Mazzo m, Tabellone t[]) {
+Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *cartedt) {
     Salvataggio s;
     _Bool trovato;
-    NodoC *app;
+    NodoC *app, *it;
     Carta c;
+    Carta *carte;
     int i, j, idC, idT, cF;
-    fread(&s.nGioc, sizeof(int), 1, f);
-    printf("Numero giocatori %d \n", s.nGioc);
-    fread(&s.currentP, sizeof(int), 1, f);
-    printf("Giocatore corrente %d \n", s.currentP);
-    for (i = 0; i < s.nGioc; i++) {
-        //printf("%d ",i);
+    int *carteDatrovare = NULL;
+    fread(nGioc, sizeof(int), 1, f);
+    fread(currentP, sizeof(int), 1, f);
+    for (i = 0; i < *nGioc; i++) {
         s.g[i].id = i;
         fread(&s.g[i].nome, sizeof(char) * 24, 1, f);
-        printf("Giocatore %d %s \n", s.g[i].id, s.g[i].nome);
         s.g[i].ca.testa = NULL;
         fread(&s.g[i].c.id, sizeof(int), 1, f);
         fread(&s.g[i].nCarte, sizeof(int), 1, f);
-        printf("Giocatore %d ha %d carte \n", s.g[i].id, s.g[i].nCarte);
         for (j = 0; j < s.g[i].nCarte; j++) {
             fread(&idC, sizeof(int), 1, f);
-            c = recuperaCarta(&m, idC);
+            c = recuperaCarta(m, idC);
             if (s.g[i].ca.testa == NULL) {
                 s.g[i].ca.testa = inserimentoInTesta(c);
             } else {
                 inserimentoInCoda(s.g[i].ca.testa, c);
             }
         }
-        app = s.g[i].ca.testa;
-        printf("Dentro importa Carte %s \n", s.g[i].nome);
-        while (app != NULL) {
-            printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
-            app = app->next;
-        }
-        printf("\n");
     }
     for (i = 0; i < N_TERRITORI; i++) {
         fseek(f, sizeof(int), SEEK_CUR);
@@ -1206,19 +1259,64 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo m, Tabellone t[]) {
         fread(&t[i].nArmate, sizeof(int), 1, f);
 
     }
-    for (i = 0; i < N_TERRITORI; i++) {
-        printf("%d %s %d  ownd by %s\n", i, t[i].t.nome, t[i].nArmate, s.g[t[i].idPropietario].nome);
-    }
+    //provo  a ordinare le carte
+
     fread(&s.nCarte, sizeof(int), 1, f);
     for (i = 0; i < s.nCarte; i++) {
-        fread(&idC, sizeof(int), 1, f);
-        printf("carta %d\n", idC);
+        fread(&s.carte[i], sizeof(int), 1, f);
     }
-    app = m.testa;
+
+    app = m->testa;
+    i = 0;
     while (app != NULL) {
-        printf("idC %d arma %d territorio %d \n", app->c.idCarta, app->c.a, app->c.idTerritorio);
-        app = app->next;
+        if (app->c.idCarta != s.carte[i]) {
+            it = app->next;
+            while (it->c.idCarta != s.carte[i]) {
+                it = it->next;
+            }
+            c = it->c;
+            it->c = app->c;
+            app->c = c;
+            i++;
+            app = app->next;
+        } else {
+            app = app->next;
+            i++;
+        }
     }
+
     fclose(f);
+
     return s;
+}
+
+Colore assegnaColore(int id) {
+    Colore colori[6] = {{0, "Rosso",  true},
+                        {1, "Nero",   true},
+                        {2, "Viola",  true},
+                        {3, "Verde",  true},
+                        {4, "Giallo", true},
+                        {5, "Blu",    true}};
+    Colore c;
+    switch (id) {
+        case Rosso:
+            c = colori[Rosso];
+            break;
+        case Nero:
+            c = colori[Nero];
+            break;
+        case Viola:
+            c = colori[Viola];
+            break;
+        case Verde:
+            c = colori[Verde];
+            break;
+        case Giallo:
+            c = colori[Giallo];
+            break;
+        case Blu:
+            c = colori[Blu];
+            break;
+    }
+    return c;
 }
