@@ -158,7 +158,7 @@ void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]);
 
 void importaTerritori(Tabellone t[]);
 
-Salvataggio creaSalvataggio(int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]);
+void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]);
 void ass(Mazzo *m, int nCarte);
 
 void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);

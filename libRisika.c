@@ -70,7 +70,13 @@ void gioco() {
             scanf("%c", &scelta);
             if (scelta == 's' || scelta == 'S') {
                 saveFile = fopen("asu.rsk", "wb");
-                s = creaSalvataggio(nGiocatori, 0, g, 28, m, t);
+                int nC = 0;
+                app = m.testa;
+                while (app != NULL) {
+                    nC++;
+                    app = app->next;
+                }
+                creaSalvataggio(saveFile, nGiocatori, 0, g, nC, m, t);
                 fwrite(&s, sizeof(Salvataggio), 1, saveFile);
                 fclose(saveFile);
             }
@@ -144,34 +150,36 @@ int leggiGiocatori(int min, int max) {
 }
 
 
-Salvataggio creaSalvataggio(int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]) {
-    Salvataggio s;
+void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]) {
+
     int i = 0, j;
     NodoC *app;
-    s.nGioc = nGiocatori;
-    s.currentP = currentP;
+    fwrite(&nGiocatori, sizeof(int), 1, f);
+    fwrite(&currentP, sizeof(int), 1, f);
     for (i = 0; i < nGiocatori; i++) {
-        strcpy(s.g[i].nome, g[i].nome);
-        s.g[i].c.id = g[i].c.id;
-        s.g[i].nCarte = g[i].nCarte;
+        fwrite(&g[i].nome, sizeof(char) * 24, 1, f);
+        fwrite(&g[i].id, sizeof(int), 1, f);
+        fwrite(&g[i].nCarte, sizeof(int), 1, f);
         if (g[i].nCarte > 0) {
             app = g[i].ca.testa;
             for (j = 0; j < g[i].nCarte; j++) {
-                s.g[i].vCarte[j] = app->c.idCarta;
+                fwrite(&app->c.idCarta, sizeof(int), 1, f);
                 app = app->next;
             }
         }
     }
     for (i = 0; i < N_TERRITORI; i++) {
-        s.t[i] = t[i];
+        fwrite(&i, sizeof(int), 1, f);
+        fwrite(&t[i].idPropietario, sizeof(int), 1, f);
+        fwrite(&t[i].nArmate, sizeof(int), 1, f);
     }
-    s.nCarte = nC;
+    fwrite(&nC, sizeof(int), 1, f);
     app = m.testa;
     for (i = 0; i < nC; i++) {
-        s.carte[i] = app->c.idCarta;
+        fwrite(&app->c.idCarta, sizeof(int), 1, f);
+        app = app->next;
     }
 
-    return s;
 }
 
 
