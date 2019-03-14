@@ -101,9 +101,7 @@ typedef struct {
     NodoC *testa;
 } TerritoriG;
 
-typedef struct {
-    NodoC *testa;
-} Carte;
+
 
 // struttura giocatore
 typedef struct {
@@ -114,7 +112,7 @@ typedef struct {
     int nCarte;
     int nArmateinG;
     TerritoriG t;
-    Carte ca;
+    Mazzo cg;
     int vCarte[N_CARTE];
 } Giocatore;
 
@@ -177,7 +175,7 @@ void importaCarte(Mazzo *m);
 Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori, Tabellone t[]);
 void inserimentoInCoda(NodoC *testa, Carta c);
 
-void bonusCarte(Giocatore *g, Tabellone t[]);
+int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m);
 
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
 void pulisciConsole();
@@ -190,10 +188,13 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
 int contaTerritoriGiocatore(Tabellone t[], int id);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
-void rinforzo(Giocatore *g,Tabellone t[]);
+
+void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
-Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *cartedt);
+int contaCarte(Mazzo *m);
+
+Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte);
 int trovaMax(int v[], int n);
 
 void contaArmateG(Tabellone t[], Giocatore *g);
@@ -205,9 +206,10 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]);
 
 _Bool fineGioco(int nGiocatori);
 
-void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP);
+void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m);
 
 Colore assegnaColore(int id);
 Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log);
-void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP);
+
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m);
 #endif //RISIKA_LIBRISIKA_H
