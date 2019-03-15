@@ -135,85 +135,51 @@ typedef struct {
 
 
 int leggiGiocatori(int min, int max);
-
 void leggiNome(char c[]);
-
 Giocatore *caricaGiocatori(int nGiocatori, FILE *f);
-
 int generaCasuale(int min, int max);
-
 void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f);
-
 void gioco();
-
 void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
-
 void sceltaColore(Giocatore *g, int nGiocatori, FILE *f);
-
 void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f);
-
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]);
-
 void importaTerritori(Tabellone t[]);
-
 void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]);
 void ass(Mazzo *m, int nCarte);
-
 void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);
-
 NodoC *nuovoNodoC();
-
 void rimuoviCarta(Mazzo *m);
-
 void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
-
 void stampaNomeTerritorio(int id, Tabellone t[]);
-
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
-
 Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori, Tabellone t[]);
 void inserimentoInCoda(NodoC *testa, Carta c);
-
 int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m);
-
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
 void pulisciConsole();
-
-_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori, Tabellone t[]);
-
 void sistemaTabellone(Tabellone t[], int oldId, int newId);
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
-
 int contaTerritoriGiocatore(Tabellone t[], int id);
 NodoC *inserimentoInTesta(Carta c);
 void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
-
 void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m);
 void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
-
 int contaCarte(Mazzo *m);
-
 Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte, FILE *log);
 int trovaMax(int v[], int n);
-
 void contaArmateG(Tabellone t[], Giocatore *g);
 Carta recuperaCarta(Mazzo *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
-
 void scriviStatistiche(FILE *f, Stat s[]);
-
 void statisticheVittoria(Giocatore *g, Stat s[]);
 void spostamentoStrategio(Giocatore *g, Tabellone t[]);
-
 void finePartita(Giocatore *g, FILE *log);
 _Bool fineGioco(int nGiocatori);
-
 void leggiStatistiche(FILE *f, Stat s[]);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m);
-
 Colore assegnaColore(int id);
 Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log);
-
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m);
 #endif //RISIKA_LIBRISIKA_H

@@ -11,45 +11,48 @@
  */
 void gioco() {
     //dichiarazione variabili essenziali per l'avvio corretto del gioco
-    Giocatore *g = NULL;
-    FILE *saveFile;
-    FILE *statistiche;
+    Giocatore *g = NULL;//vettore dinamico che conterra' i giocatori
+    FILE *saveFile;//file salvataggio
+    FILE *statistiche;//file statistiche
     Stat st[6] = {{"Rosso",  0},
                   {"Nero",   0},
                   {"Viola",  0},
                   {"Verde",  0},
                   {"Giallo", 0},
                   {"Blu",    0}};
-    statistiche = fopen("stat", "rb");
+    //vettore con le statistiche di vittoria per ogni colore
+    statistiche = fopen("stat", "rb");//apertura file statistiche
     if (statistiche != NULL) {
-        leggiStatistiche(statistiche, st);
-        fclose(statistiche);
+        leggiStatistiche(statistiche, st);//lettura e stampa delle statistiche aggiornate
+        fclose(statistiche);//chiusura del file
     }
-    saveFile = fopen("Salvataggio.rsk", "rb");
-    FILE *log;
-    log = fopen(F_LOG, "a+");
-    char scelta;
-    Mazzo m;
-    Tabellone t[N_TERRITORI];
-    m.testa = NULL;
-    importaTerritori(t);
-    importaCarte(&m);
-    Salvataggio s;
-
-    int nGiocatori, currentP, nCarte = 0;
-    int idP = -1;
+    saveFile = fopen("Salvataggio.rsk", "rb");//apertura file salvataggio
+    FILE *log;//file log
+    log = fopen(F_LOG, "a+");//apertura del file log
+    char scelta;//variabile dove memorizzero' la scelta del giocatore per la modalita' di gioco
+    Mazzo m;//struttura di tipo lista che conterra' le carte
+    Tabellone t[N_TERRITORI];//tabellone di gioco
+    m.testa = NULL;//inzializzazione della testa del mazzo di carte
+    importaTerritori(t);//importo i territori dal file in modo da avere i nomi e le facolta' gia' pronte
+    importaCarte(&m);//importo le carte per avere il tutto gia' pronto per le fasi sucessive di gioco
+    Salvataggio s;//struttura contenente alcuni campi necessari per il salvataggio
+    NodoC *app;
+    int nGiocatori, currentP, nCarte;
+    int idP = -1;//variabile che conterra' l'id del giocatore che ha appena perso
     int i = 0;
     fprintf(log, "%s", "Inizio nuova partita\n");
     nCarte = N_CARTE;
 
     printf("Benvenuto in Risika\n n)Per iniziare una nuova partita\n c)Per caricare un salvataggio\n");
     scanf("%c", &scelta);
+    //carico dal salvataggio
     if (scelta == 'c' || scelta == 'C') {
         if (saveFile != NULL) {
             fprintf(log, "%s", "Caricamento della partita dal file di salvataggio\n");
             printf("Caricamento della partita dal file di salvataggio\n");
             s = importaSalvataggio(saveFile, &m, t, &nGiocatori, &currentP, &nCarte, log);
             g = (Giocatore *) malloc(sizeof(Giocatore) * (nGiocatori));
+            //copio i giocatori appena letti dal file nel vettore a essi dedicato
             for (i = 0; i < nGiocatori; i++) {
                 g[i] = s.g[i];
             }
@@ -66,46 +69,65 @@ void gioco() {
         g = nuovaPartita(&nGiocatori, &m, t, log);
     }
     fclose(log);
+    //fase di gioco
         while (fineGioco(nGiocatori) != true) {
             printf("Vuoi salvare?\n Premi s per continuare\n");
             getchar();
             scanf("%c", &scelta);
             if (scelta == 's' || scelta == 'S') {
+                //apro il file di salvataggio
                 saveFile = fopen("Salvataggio.rsk", "wb");
+                //conto le carte presenti nel mazzo
                 nCarte = contaCarte(&m);
                 creaSalvataggio(saveFile, nGiocatori, 0, g, nCarte, m, t);
+                fprintf(log, "%s", "Partita salvata\n");
+                printf("Partita salvata\n");
                 fclose(saveFile);
-                if (saveFile == NULL) {
-                    fprintf(log, "%s", "Partita salvata\n");
-                    printf("Partita salvata\n");
-                }
             }
-            NodoC *app;
             for (i = 0; i < nGiocatori; i++) {
-                //pulisciConsole();
                 log = fopen(F_LOG, "a");
                 fprintf(log, "%s %s %s", "Gioca il giocatore", g[i].nome, "\n Fase di rinforzo\n");
                 rinforzo(&g[i], t, &m);
                 attacco(&g[i], g, t, &idP, &m);
+                //nel caso un giocatore abbia perso provedo a rimuoverlo
                 if (idP != -1) {
                     g = rimuoviGiocatore(g, idP, nGiocatori, t);
                     nGiocatori--;
+                    //riassegno  la sentinella a -1
+                    idP = -1;
                 }
-                spostamentoStrategio(&g[i], t);
+                if (nGiocatori > 1) {
+                    spostamentoStrategio(&g[i], t);
+                    pulisciConsole();
+                }
+                stampaGiocatori(g, nGiocatori, t);
                 fclose(log);
                 pulisciConsole();
-                stampaGiocatori(g, nGiocatori, t);
+
             }
         }
+    //fine della fase di gioco
     log = fopen(F_LOG, "a");
+    //apertura file statistiche
     statistiche = fopen("stat", "wb");
+    //calcolo delle nuove statistiche di vittoria
+    statisticheVittoria(&g[0], st);
+    //scrittura sul file delle nuove statistiche
     scriviStatistiche(statistiche, st);
+    //annuncio il vincitore
     finePartita(&g[0], log);
     fclose(log);
     fclose(statistiche);
 }
 
-
+/**
+ * Funzione per l'inizio di una nuova partita
+ * @param nGiocatori numero di giocatori
+ * @param m mazzo contenente le carte
+ * @param t tabellone coi territori
+ * @param log file di log
+ * @return indirizzo del vettore contenente i giocatori
+ */
 Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log) {
     Giocatore *giocatori;
     *nGiocatori = leggiGiocatori(MIN_G, MAX_G);
@@ -116,6 +138,11 @@ Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log) {
     return giocatori;
 }
 
+/**
+ * Funzione che determina la fine della partita
+ * @param nGiocatori //numero giocatori
+ * @return true se nGiocatori==1,altrimenti false
+ */
 _Bool fineGioco(int nGiocatori) {
     _Bool x = false;
 
@@ -124,7 +151,11 @@ _Bool fineGioco(int nGiocatori) {
     return x;
 }
 
-
+/**
+ * Procedura che annuncia la fine della partita
+ * @param g Vincitore
+ * @param log file di log
+ */
 void finePartita(Giocatore *g, FILE *log) {
     printf("Ha vinto %s!", g->nome);
     fprintf(log, "%s %s %s\n", "Ha vinto", g->nome, "!");
@@ -136,10 +167,15 @@ void finePartita(Giocatore *g, FILE *log) {
  * @param nGiocatori numero di giocatori
  */
 void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f) {
+    //ordinamento dei giocatori
     ordinaVettore(g, nGiocatori, f);
+    //scelta del colore delle armate
     sceltaColore(g, nGiocatori, f);
+    //assegnamento delle armate di base
     assegnaArmate(g, nGiocatori, f);
+    //assegnamento dei territori
     distribuisciCarte(nGiocatori, m, g);
+    //posizionamento armate base
     assegnaArmateTerritori(nGiocatori, g, t);
     //mischio il mazzo di carte principale
     ass(m, N_CARTE);
@@ -160,17 +196,30 @@ int leggiGiocatori(int min, int max) {
     return x;
 }
 
-
+/**
+ * Procedura che scrive il salvataggio
+ * @param f file di salvataggio
+ * @param nGiocatori numero di giocatori
+ * @param currentP giocatore corrente
+ * @param g vettore coi giocatori
+ * @param nC numero carte
+ * @param m mazzo di carte
+ * @param t tabellone
+ */
 void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]) {
 
     int i = 0, j;
     NodoC *app;
+    //scrittura del numero di giocatori
     fwrite(&nGiocatori, sizeof(int), 1, f);
+    //scrittura del giocatore corrente
     fwrite(&currentP, sizeof(int), 1, f);
     for (i = 0; i < nGiocatori; i++) {
+        //scrittura dati giocatore
         fwrite(&g[i].nome, sizeof(char) * 24, 1, f);
         fwrite(&g[i].id, sizeof(int), 1, f);
         fwrite(&g[i].nCarte, sizeof(int), 1, f);
+        //scrittura carte del singolo giocatore
         if (g[i].nCarte > 0) {
             app = g[i].cg.testa;
             for (j = 0; j < g[i].nCarte; j++) {
@@ -179,11 +228,13 @@ void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC
             }
         }
     }
+    //scrittura del tabellone, territorio,propietario e numero armate
     for (i = 0; i < N_TERRITORI; i++) {
         fwrite(&i, sizeof(int), 1, f);
         fwrite(&t[i].idPropietario, sizeof(int), 1, f);
         fwrite(&t[i].nArmate, sizeof(int), 1, f);
     }
+    //scrittura delle carte presenti nel mazzo
     fwrite(&nC, sizeof(int), 1, f);
     app = m.testa;
     for (i = 0; i < nC; i++) {
@@ -308,13 +359,16 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
             }
 
             scanf("%d", &col);
+            //controllo che l'utente non abbia inserito un valore out of range
             if (col >= 0 && col <= 6) {
+                //se il colore è gia' stato scelto non lo assegno e richiedo il colore
                 if (colori[col].inUse == true)
                     ok = false;
                 else
                     ok = true;
             }
         } while (ok != true);
+        //segno come in uso il colore appena scelto
         colori[col].inUse = true;
         g[i].c = colori[col];
         fprintf(f, "%s %s %s\n", g[i].nome, " ha scelto il colore: ", colori[col].nome);
@@ -323,6 +377,12 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
     }
 }
 
+/**
+ * Procedura per la stampa dei giocatori
+ * @param g giocatori
+ * @param nGiocatori
+ * @param t  tabellone
+ */
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
     int i, j;
     for (i = 0; i < nGiocatori; i++) {
@@ -337,6 +397,12 @@ void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]) {
 
 }
 
+/**
+ * Procedura per l'assegnamento delle armate di base
+ * @param g giocatori
+ * @param nGiocatori
+ * @param f log
+ */
 void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f) {
     int num, i;
     switch (nGiocatori) {
@@ -387,13 +453,16 @@ void importaTerritori(Tabellone t[]) {
 
 }
 
+/**
+ * Procedura per l'importazione delle carte dal file di testo
+ * @param m mazzo
+ */
 void importaCarte(Mazzo *m) {
     FILE *f = fopen("carte.txt", "r");
     NodoC *it;
     int a, t;
     Carta c;
-    int i = 0, j = 0;
-    _Bool trovato;
+    int i = 0;
     if (f == NULL) {
         printf("File carte.txt non trovato\n scaricalo da http://bit.ly/carteRisika \n e inseriscilo nella cartella: "
                "cmake-build-debug\n");
@@ -404,6 +473,7 @@ void importaCarte(Mazzo *m) {
             c.idCarta = i;
             c.a = a;
             c.idTerritorio = t;
+            //inserimento delle carte nel mazzo
             if (m->testa == NULL) {
                 //inserimento in testa
                 m->testa = inserimentoInTesta(c);
@@ -417,6 +487,11 @@ void importaCarte(Mazzo *m) {
     }
 }
 
+/**
+ * Funzione per l'inserimento di una carta in testa
+ * @param c carta da inserire
+ * @return indirizzo della nuova testa
+ */
 NodoC *inserimentoInTesta(Carta c) {
     NodoC *nuovo;
     nuovo = nuovoNodoC();
@@ -426,29 +501,40 @@ NodoC *inserimentoInTesta(Carta c) {
     return nuovo;
 }
 
+/**
+ * Procedura per l'inserimento di una carta in coda
+ * @param testa testa della lista
+ * @param c carta da inserire
+ */
 void inserimentoInCoda(NodoC *testa, Carta c) {
-    NodoC *nuovo, *it, *prev, *nex;
+    NodoC *nuovo, *it, *prev;
     prev = NULL;
-    if (testa == NULL)
-        testa = inserimentoInTesta(c);
-    else {
         it = testa;
+    //arrivo all'ultima posizione per salvarmi l'elemento precedente
         while (it != NULL) {
             prev = it;
             it = it->next;
         }
         it = prev;
+    //cerco l'elemento con next==null per inserire in codda
         while (it->next != NULL) {
             it = it->next;
         }
+    //creazione e assegnamento del nuovo nodo
         nuovo = nuovoNodoC();
         nuovo->c = c;
         nuovo->next = NULL;
         nuovo->prev = prev;
         it->next = nuovo;
-    }
 }
 
+
+/**
+ * Procedura per la distribuzione delle carte ai giocatori
+ * @param nGioc numero giocatori
+ * @param m mazzo
+ * @param g giocatori
+ */
 void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
     NodoC *it, *iS;
     Mazzo sJ;
@@ -471,7 +557,7 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
         }
         it = it->next;
     }
-    //ass asuniStupidSorting
+    //ass asuniStupidSorting mischio le carte
     ass(&sJ, N_CARTESJ);
     //distribuzione delle carte
     daiCarte(g, &sJ, nGioc, N_CARTESJ);
@@ -522,7 +608,10 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
     }
 }
 
-
+/**
+ * Procedura per rimuovere la prima carta dal mazzo
+ * @param m mazzo
+ */
 void rimuoviCarta(Mazzo *m) {
     NodoC *vecchia;
     if (m->testa->next != NULL) {
@@ -534,7 +623,11 @@ void rimuoviCarta(Mazzo *m) {
     }
 }
 
-
+/**
+ * Asuni stupid sorting, procedura per mischiare il mazzo di carte
+ * @param m mazzo
+ * @param nCarte numero carte
+ */
 void ass(Mazzo *m, int nCarte) {
     int i = 0, nIterazioni, j;
     NodoC *it = m->testa;
@@ -543,6 +636,7 @@ void ass(Mazzo *m, int nCarte) {
     _Bool ok;
     for (i = 0; i < nCarte; i++) {
         do {
+            //generazione della posizione della carta da scambiare con quella attuale
             nIterazioni = generaCasuale(0, nCarte) + generaCasuale(0, 2);
             if (nIterazioni < nCarte) {
                 ok = true;
@@ -550,17 +644,23 @@ void ass(Mazzo *m, int nCarte) {
                 ok = false;
         } while (ok != true);
         app = m->testa;
+        //ricerca della carta da prendere
         for (j = 0; j < nIterazioni; j++) {
             app = app->next;
         }
+        //scambio delle carte
         c = it->c;
         it->c = app->c;
         app->c = c;
+        //passo alla prossima carta
         it = it->next;
     }
 }
 
-
+/**
+ * Funzione per la allocazione di un nuovo NodoC
+ * @return indirizzo del nuovo nodo
+ */
 NodoC *nuovoNodoC() {
     NodoC *nuovoNodo = (NodoC *) malloc(sizeof(NodoC)); //Allocazione
 
@@ -570,12 +670,21 @@ NodoC *nuovoNodoC() {
     return nuovoNodo;
 }
 
+/**
+ * Procedura per stampare il nome e l'id di un territorio
+ * @param id id territorio
+ * @param t tabellone
+ */
 void stampaNomeIdTerritorio(int id, Tabellone t[]) {
     printf("%d)", t[id].t.id);
     stampaNomeTerritorio(id, t);
 }
 
-
+/**
+ * Procedura per stampare il nome di un territorio
+ * @param id id territorio
+ * @param t tabellone
+ */
 void stampaNomeTerritorio(int id, Tabellone t[]) {
     printf("%s \n", t[id].t.nome);
 }
@@ -632,6 +741,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                     }
                 }
                 pulisciConsole();
+                //procedura che posiziona effetivamente le armate
                 posizionaArmate(&g[j], t, scelta);
                 pulisciConsole();
                 j++;
@@ -643,31 +753,36 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
     }
 }
 
+/**
+ * Procedura che chiama i vari posizioni delle armate in base alla scelta
+ * @param g giocatore
+ * @param t tabellone
+ * @param scelta tipologia di posizionamento
+ */
 void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
 
     switch (scelta) {
-        case TREAINT:
+        case TREAINT: //tre armate in un solo territorio
             armateInT(g, t, 1, 3);
             break;
 
-        case DUEAINTET:
+        case DUEAINTET: //due armate in un territorio e una in un altro
             armateInT(g, t, 1, 2);
             armateInT(g, t, 1, 1);
             break;
 
-        case TREDIVERSO:
+        case TREDIVERSO: //una armata in tre territori diversi
             armateInT(g, t, 3, 1);
             break;
-
-        case DUEINT:
+        case DUEINT: //due armate in un territorio
             armateInT(g, t, 1, 2);
             break;
 
-        case DUET:
+        case DUET: // una armata in due territori diversi
             armateInT(g, t, 2, 1);
             break;
 
-        case AINT:
+        case AINT: //una armata in un singolo territorio
             armateInT(g, t, 1, 1);
             break;
 
@@ -696,7 +811,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
                 printf("In che territorio vuoi mettere questa armata ?\n");
             else
                 printf("In che territorio vuoi mettere queste %d armate ?\n", nA);
-
+            //stampa dei territori del giocatore
             for (j = 0; j < N_TERRITORI; j++) {
                 if (t[j].idPropietario == g->id) {
                     stampaNomeIdTerritorio(j, t);
@@ -712,7 +827,7 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             if (t[idTer].idPropietario == g->id)
                 ok = true;
         } while (ok != true);
-
+        //se il numero attuale di armate+ le nuove fa superare i 100 diminuisco il numero di armate
         if (g->nArmateinG + nA > 100) {
             nA = 100 - g->nArmateinG;
             t[idTer].nArmate += nA;
@@ -754,12 +869,14 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
                                        {NUM_BF,  4},
                                        {NUM_ING, 4},
                                        {NUM_FS,  2}};
-
+    //calcolo il numero di armate in base al numero di territori
     nTerritori = contaTerritoriGiocatore(t, g->id);
     nTerritori=nTerritori/3;
     g->nArmate = nTerritori;
+    //ciclo per la verifica delle armate bonus in base ai territori di una certa facolta'
     for (i = 0; i < NUM_FACOLTA; i++) {
         numF = 0;
+        //controllo se il giocatore ha tutti i territori di una certa facolta
         for (j = 0; j < N_TERRITORI; j++) {
             if (t[j].idPropietario == g->id) {
                 if (t[j].t.f == f[i]) {
@@ -767,16 +884,18 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
                 }
             }
         }
+        //se ha tutti i territori do l'incremento di armate
         if (numF == numeroF[i].nf)
             g->nArmate += numeroF[i].incr;
     }
+    //conto le carte per vedere se puo' giocare un tris
     app = g->cg.testa;
     while (app != NULL) {
-
         nCarte++;
         app = app->next;
     }
     g->nCarte = nCarte;
+    //conto le armate in gioco per vedere se può' usufrire di questo incremento
     contaArmateG(t, g);
     if (g->nArmateinG < 100) {
         if (nCarte >= 3) {
@@ -824,14 +943,20 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
     }
 }
 
+/**
+ * Procedura per l'attacco
+ * @param g giocatore attaccante
+ * @param giocatori vettore coi giocatori
+ * @param t tabellone
+ * @param idP id Giocatore perdente
+ * @param m mazzo di carte
+ */
 void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m) {
     char scelta, continuo;
     int tB, nA, tA = -1, difesa;
     _Bool ok = false;
 
-    printf("Vuoi attaccare? Premi s\n",
-           g->nome,
-           g->nArmate);
+    printf("%s Vuoi attaccare? Premi s\n", g->nome);
 
     //pulizia buffer in modo da poter leggere la scelta dell'utente
     getchar();
@@ -841,16 +966,20 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo
         do {
             //ok=false;
             do {
+                //richiesta della base d'attacco, se la procedura restituisce -1 vuol dire che non si dispongono
+                //territori da cui e' possibile attaccare
                 baseAttacco(g, t, &tB);
                 if (tB != -1) {
-
+                    //richiedo il numero di armate con cui si vuole attaccare
                     nA = richiestaNumeroArmate(*g, 1);
                     if (t[tB].nArmate - nA == 0) {
                         printf("Non puoi lasciare un territorio scoperto!\n");
                         ok = false;
                     } else {
+                        //scelta del territorio da attaccare
                         if (sceltaTerritorioAttacco(*g, t, tB, &tA)) {
                             do {
+                                //chiedo al propietario del giocatore attaccato con quante armate si vuole difendere
                                 difesa = richiestaNumeroArmate(giocatori[t[tA].idPropietario], 2);
                                 if (t[tA].nArmate - difesa < 0) {
                                     printf("Non puoi lasciare un territorio scoperto!\n");
@@ -859,8 +988,10 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo
                                     ok = true;
                             } while (ok != true);
                             pulisciConsole();
+                            //fase d'attacco
                             attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa, idP, m);
-                            if (g->t.testa != NULL) {
+                            //se il giocatore ha ancora armate in gioco chiedo se vuole continuare ad attaccare
+                            if (g->nArmateinG > 0) {
                                 printf("Vuoi continuare l'attacco?\n premi qualsiasi tasto per continuare\n"
                                        "altrimenti premi f per terminare la fase d'attacco\n");
                                 getchar();
@@ -871,20 +1002,22 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo
                     }
 
                 } else {
-                    printf("Non puoi attaccare da nessun territorio,sistema meglio le armate nella fase di rinforzo\n");
+                    printf("Non puoi attaccare da nessun territorio,sistema meglio le armate nella fase di spostamento strategico\n");
                     ok = true;
                     continuo = 'f';
                 }
             } while (ok != true);
-
-            //ok=false;
-
         } while (continuo != 'f' && continuo != 'F'); //caso 0 l'utente non vuole più attaccare
-
-
     }
 }
 
+/**
+ * Funzione per la richiesta della base d'attacco
+ * @param g Giocatore
+ * @param t tabellone
+ * @param tB id base
+ * @return true in fase di successo
+ */
 _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
     int c = 0;
     _Bool ok = false;
@@ -893,13 +1026,13 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
     for (i = 0; i < N_TERRITORI; i++) {
         if (t[i].idPropietario == g->id) {
             if (t[i].nArmate > 1) {
-                //controllo se ha territori attacabili da questo territorio
+                //conto le adiacenze
                 a = 0;
                 for (j = 0; j < N_TERRITORI; j++) {
                     if (isAdjacent(t[i].t.id, t[j].t.id) && t[j].idPropietario != g->id)
                         a++;
                 }
-                c = 0;
+                //conto i territori da cui posso effetivamente far partire un attacco
                 if (a > 0) {
                     c++;
                     stampaNomeIdTerritorio(t[i].t.id, t);
@@ -908,15 +1041,19 @@ _Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB) {
             }
         }
     }
+    //se il giocatore ha almeno un territorio leggo il territorio da cui vuole attaccare
     if (c > 0) {
         scanf("%d", tB);
         if (t[*tB].idPropietario == g->id)
             ok = true;
     } else
-        *tB = -1;
+        *tB = -1; //altrimenti restituisco -1
     return ok;
 }
 
+/**
+ * Procedura che pulisce la console in base al sistema su cui viene eseguito il programma
+ */
 void pulisciConsole() {
 #ifdef _WIN32
     system("cls");
@@ -926,6 +1063,14 @@ void pulisciConsole() {
 #endif
 }
 
+/**
+ * Funzione per la scelta del territorio da attaccare
+ * @param g giocatore
+ * @param t tabellone
+ * @param tB base d'attacco
+ * @param tA terriotorio da attaccare
+ * @return true in caso di successo
+ */
 _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
     int i = 0, app = 0;
 
@@ -934,6 +1079,7 @@ _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
     printf("%s, Scegli il territorio da attaccare\n"
            "Se vedi un elenco vuoto premi -1 per cambiare base d'attacco\n", g.nome);
     while (i < N_TERRITORI) {
+        //stampo tutti i territori adiacenti alla base e che non appartengono all'attaccante
         if (isAdjacent(tB, t[i].t.id) && t[i].idPropietario != g.id) {
             stampaNomeIdTerritorio(i, t);
             printf("%d\n", t[i].nArmate);
@@ -957,31 +1103,44 @@ _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
     return ok;
 }
 
+/**
+ * Procedura per l'attacco
+ * @param g1 giocatore attaccante
+ * @param g2 giocatore difensore
+ * @param t tabellone
+ * @param tA territorio attacato
+ * @param tB base dell'attacco
+ * @param nA numero armate attacco
+ * @param nAD numero armate difesa
+ * @param idP id giocatore perdente
+ * @param m mazzo
+ */
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m) {
     int i, j, tg, td;
     int dA[3] = {0, 0, 0};
     int dD[3] = {0, 0, 0};
-    _Bool haiPerso = false;
-    Carta app;
-    NodoC *it;
+    //tiro i dati per il giocatore che attacca
     for (i = 0; i < nA; i++) {
         dA[i] = generaCasuale(1, 6);
         printf(" attacco %d ", dA[i]);
     }
+    //tiro i dadi per il difensore
     for (j = 0; j < nAD; j++) {
         dD[j] = generaCasuale(1, 6);
         printf(" difesa %d ", dD[j]);
     }
     i = j = 0;
-    while (i < nA && j < nAD && haiPerso != true) {
+
+    while (i < nA && j < nAD) {
+        //trovo il valore massimo fra i vari dadi tirati
         tg = trovaMax(dA, nA);
         td = trovaMax(dD, nAD);
         printf("max giocatore %d  max difesa %d\n", tg, td);
         if (tg == td) {
+            //pareggio
             printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
             t[tB].nArmate--;
             g1->nArmateinG--;
-            //g1->nArmate--;
         } else {
             if (tg > td) {
                 printf("%d %d \n Dado %d vince l'attaccante\n", tg, td, i);
@@ -990,13 +1149,23 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                 //g2->nArmate--;
                 if (t[tA].nArmate == 0) {
                     printf("%s hai perso il territorio %s\n", g2->nome, t[tA].t.nome);
+                    //aggiornamento del territorio appena conquistato
                     t[tA].idPropietario = g1->id;
                     t[tA].nArmate = nA;
-                    inserimentoInCoda(g1->cg.testa, m->testa->c);
-                    g1->nCarte++;
-                    rimuoviCarta(m);
-                    //rimuovi elemento
+                    //dopo aver conquistato un territorio pesco una carta
+                    if (m->testa != NULL) {
+                        if (g1->cg.testa == NULL) {
+                            g1->cg.testa = inserimentoInTesta(m->testa->c);
+                        } else {
+                            inserimentoInCoda(g1->cg.testa, m->testa->c);
+                        }
+                        g1->nCarte++;
+                        //rimuovo la carta appena presa dal mazzo
+                        rimuoviCarta(m);
+                    }
+                    //se il giocatore attaccato si ritrova senza territori dichiaro la sconfitta
                     if (contaTerritoriGiocatore(t, g2->id) == 0) {
+                        //copio le carte del giocatore che ha appena perso
                         *idP = g2->id;
                         while (g2->cg.testa != NULL) {
                             if (g1->cg.testa == NULL) {
@@ -1020,20 +1189,33 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
     }
 }
 
+/**
+ * Funzione che trova il valore massimo
+ * @param v vettore contenente i risultati dei vari tiri di dado
+ * @param n numero dei dadi tirati
+ * @return valore massimo
+ */
 int trovaMax(int v[], int n) {
     int m, i, posM = 0;
     m = v[0];
+    //cerco il valore massimo
     for (i = 1; i < n; i++) {
         if (m < v[i]) {
             m = v[i];
             posM = i;
         }
     }
+    //dopo aver trovato il valore massimo do un valore ''nullo'' al tiro per ignorarlo alla prossima chiamata
     v[posM] = 0;
     return m;
 }
 
-
+/**
+ * Procedura che restituisce la carta noto l'id
+ * @param m mazzo
+ * @param el id da cercare
+ * @return Carta trovata
+ */
 Carta recuperaCarta(Mazzo *m, int el) {
     Carta c;
     NodoC *app, *prev;
@@ -1041,7 +1223,6 @@ Carta recuperaCarta(Mazzo *m, int el) {
     //Cerco la carta da eliminare
     if (app->next == NULL) {
         c = app->c;
-        m->testa = NULL;
     } else {
         while (app->c.idCarta != el) {
             app = app->next;
@@ -1052,7 +1233,6 @@ Carta recuperaCarta(Mazzo *m, int el) {
             if (app->next != NULL) {
                 m->testa = app->next;
             } else {
-                printf("Hai perso!\n");
                 m->testa = NULL;
             }
             m->testa->prev = NULL;
@@ -1072,13 +1252,15 @@ Carta recuperaCarta(Mazzo *m, int el) {
             }
         }
     }
-    //free(app);
-
-    //printf("sa sa sa %d %d \n ari sa sa %d %d \n", app->c.idTerritorio, app->c.a, prev->c.idTerritorio, prev->c.a);
     return c;
 }
 
-
+/**
+ * Funzione che chiede il numero di armate con cui si vuole attaccare o ci si vuole difendere
+ * @param g giocatore
+ * @param caso 1 per attacco 2 per difesa
+ * @return numero di armate
+ */
 int richiestaNumeroArmate(Giocatore g, int caso) {
     int nA;
     switch (caso) {
@@ -1102,20 +1284,12 @@ int richiestaNumeroArmate(Giocatore g, int caso) {
     return nA;
 }
 
-_Bool eliminaGiocatore(Giocatore *g, int id, int nGioc, Giocatore *giocatori, Tabellone t[]) {
-    NodoC *app;
-
-    //printf("%s hai perso! \n", g[id].nome);
-    _Bool ok = false;
-    if (app == NULL) {
-        printf("%s hai perso! \n", g[id].nome);
-        giocatori = rimuoviGiocatore(giocatori, id, nGioc, t);
-    }
-
-    return ok;
-
-}
-
+/**
+ * Funzione che conta i territori di un giocatore
+ * @param t tabellone
+ * @param id id giocatore
+ * @return numero territori
+ */
 int contaTerritoriGiocatore(Tabellone t[], int id) {
     int i, c = 0;
     for (i = 0; i < N_TERRITORI; i++) {
@@ -1125,6 +1299,11 @@ int contaTerritoriGiocatore(Tabellone t[], int id) {
     return c;
 }
 
+/**
+ * Procedura che assegna al giocatore il numero di armate presenti nel tabellone
+ * @param t tabellone
+ * @param g giocatore
+ */
 void contaArmateG(Tabellone t[], Giocatore *g) {
     int i, c = 0;
     for (i = 0; i < N_TERRITORI; i++) {
@@ -1135,18 +1314,23 @@ void contaArmateG(Tabellone t[], Giocatore *g) {
     g->nArmateinG = c;
 }
 
-
+/**
+ * Funzione per giocare i tris di carte
+ * @param g giocatore
+ * @param t tabellone
+ * @param m mazzo
+ * @return
+ */
 int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
     NodoC *app;
-    int i = 0, vino, caffe, birra, jolly, incremento, scelta, tI, cApp, j, l;
-    int carte[3] = {-1, -1, -1};
-    Carta carteG[g->nCarte];
+    int i = 0, vino, caffe, birra, jolly, incremento, cApp, j, l;
+    int carte[3] = {-1, -1, -1}; //vettore con le carte giocate
+    Carta carteG[g->nCarte]; //vettore d'appoggio
     Carta c;
-    _Bool t1, t2, t3, ok;
-    t1 = t2 = t3 = false;
+    _Bool ok;
     vino = caffe = birra = jolly = incremento = 0;
-    scelta = -1;
     app = g->cg.testa;
+    //copio le carte nel vettore d'appoggio
     while (app != NULL) {
         carteG[i] = app->c;
         i++;
@@ -1157,6 +1341,7 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
         do {
             for (j = 0; j < g->nCarte; j++) {
                 ok = true;
+                //controllo se la carta che sto per stampare e' gia' stata scelta
                 for (l = 0; l < 3; l++) {
                     if (carte[l] == carteG[j].idCarta)
                         ok = false;
@@ -1166,6 +1351,7 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
             }
             scanf("%d", &cApp);
             ok = false;
+            //controllo se la carta giocata mi appartiene
             for (j = 0; j < g->nCarte; j++) {
                 if (cApp == carteG[j].idCarta) {
                     ok = true;
@@ -1182,11 +1368,13 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
         ok = false;
         j = 0;
         while (ok != true) {
+            //recupero la carte scelte dal giocatore per verificare i bonus
             if (carteG[j].idCarta != carte[i]) {
                 j++;
             } else
                 ok = true;
         }
+        //se la carta giocata contiene un territorio posseduto dal giocatore incremento di uno le armate
         if (t[carteG[j].idTerritorio].idPropietario == g->id)
             incremento++;
         switch (carteG[j].a) {
@@ -1225,6 +1413,7 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
 
     if (incremento > 0) {
         for (i = 0; i < 3; i++) {
+            //rimetto nel mazzo le carte appena giocate
             c = recuperaCarta(&g->cg, carte[i]);
             inserimentoInCoda(m->testa, c);
         }
@@ -1236,10 +1425,18 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
     return incremento;
 }
 
+/**
+ * Funzione che rimuove il giocatore che ha appena perso
+ * @param g giocatori
+ * @param id idperdente
+ * @param nGiocatori numero giocatori
+ * @param t tabellone
+ * @return indirizzo del nuovo vettore
+ */
 Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori, Tabellone t[]) {
     Giocatore app[nGiocatori - 1];
     printf("%s hai perso!\n", g[id].nome);
-    printf("copio i giocatori ad ecezione del giocatore da eliminare\n");
+    //copio i giocatori ad ecezione del giocatore da eliminare
     int i = 0, j = 0, idV;
     while (i < nGiocatori) {
         if (g[i].id != id) {
@@ -1253,15 +1450,21 @@ Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori, Tabellone t[])
         }
         i++;
     }
-    printf("Sto riallocando la memoria associata al vettore di giocatori\n");
+    //Sto riallocando la memoria associata al vettore di giocatori
     g = (Giocatore *) realloc(g, sizeof(Giocatore) * nGiocatori - 1);
     for (i = 0; i < nGiocatori - 1; i++) {
-        printf("Sto copiando il giocatore %d %s\n", app[i].id, app[i].nome);
+        //printf("Sto copiando il giocatore %d %s\n", app[i].id, app[i].nome);
         g[i] = app[i];
     }
     return g;
 }
 
+/**
+ * Procedura che viene chiamata dopo l'eliminazione di un giocatore in caso di aggiornamento dell'idi di uno dei giocatori
+ * @param t tabellone
+ * @param oldId vecchio id del giocatore
+ * @param newId nuovo id del giocatore
+ */
 void sistemaTabellone(Tabellone t[], int oldId, int newId) {
     int i;
     for (i = 0; i < N_TERRITORI; i++) {
@@ -1271,6 +1474,11 @@ void sistemaTabellone(Tabellone t[], int oldId, int newId) {
     }
 }
 
+/**
+ * Procedura per svolgere lo spostamento strategico
+ * @param g Giocatore
+ * @param t tabellone
+ */
 void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
     char scelta;
     int tB, tD, i, j, nA, nT = 0;
@@ -1283,6 +1491,7 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
             printf("Da che territorio vuoi spostare delle armate?\n");
             for (j = 0; j < N_TERRITORI; j++) {
                 nT = 0;
+                //stampo solo i territori da cui e' possibile svolgere uno spostamento
                 if (t[j].idPropietario == g->id) {
                     for (i = 0; i < N_TERRITORI; i++) {
                         if (isAdjacent(t[j].t.id, t[i].t.id) && t[i].idPropietario == g->id) {
@@ -1309,7 +1518,7 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
                 }
             }
             scanf("%d", &tD);
-            if (t[tD].idPropietario == g->id)
+            if (t[tD].idPropietario == g->id && isAdjacent(tB, tD))
                 ok = true;
         } while (ok != true);
         ok = false;
@@ -1327,7 +1536,11 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
     }
 }
 
-//typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
+/**
+ * Procedura per l'aggiornamento delle statistiche di vittoria
+ * @param g giocatore
+ * @param s vettore con le statistiche
+ */
 void statisticheVittoria(Giocatore *g, Stat s[]) {
     switch (g->c.id) {
         case Rosso:
@@ -1351,23 +1564,40 @@ void statisticheVittoria(Giocatore *g, Stat s[]) {
     }
 }
 
+/**
+ * Funzione per l'importazione dei dati dal salvataggio
+ * @param f salvataggio
+ * @param m mazzo
+ * @param t tabellone
+ * @param nGioc numero giocatori
+ * @param currentP giocatore corrente
+ * @param nCarte numero carte
+ * @param log log
+ * @return Struttura salvataggio
+ */
 Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte, FILE *log) {
     Salvataggio s;
     NodoC *app, *it;
     Carta c;
     int i, j, idC;
+    //lettura del numero di giocatori
     fread(nGioc, sizeof(int), 1, f);
     fprintf(log, "%s %d\n", "Numero giocatori: ", *nGioc);
+    //lettura del giocatore corrente
     fread(currentP, sizeof(int), 1, f);
+    //copia dei giocatori
     for (i = 0; i < *nGioc; i++) {
         s.g[i].id = i;
         fread(&s.g[i].nome, sizeof(char) * 24, 1, f);
         s.g[i].cg.testa = NULL;
+        //assegnamento colore
         fread(&s.g[i].c.id, sizeof(int), 1, f);
         s.g[i].c = assegnaColore(s.g[i].c.id);
+        //copia delle carte possedute dal giocatore
         fread(&s.g[i].nCarte, sizeof(int), 1, f);
         for (j = 0; j < s.g[i].nCarte; j++) {
             fread(&idC, sizeof(int), 1, f);
+            //rimozione della carta dal mazzo
             c = recuperaCarta(m, idC);
             if (s.g[i].cg.testa == NULL) {
                 s.g[i].cg.testa = inserimentoInTesta(c);
@@ -1378,16 +1608,19 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int
         fprintf(log, "%s %s\n%s %s\n", "Inserito giocatore: ", s.g[i].nome, "Il giocatore usa le armate: ",
                 s.g[i].c.nome);
     }
+    //lettura dello stato del tabellone
     for (i = 0; i < N_TERRITORI; i++) {
+        //ignoro l'id del territorio
         fseek(f, sizeof(int), SEEK_CUR);
         fread(&t[i].idPropietario, sizeof(int), 1, f);
         fread(&t[i].nArmate, sizeof(int), 1, f);
     }
-
+    //conto il numero di armate in gioco per ogni giocatore
     for (i = 0; i < *nGioc; i++) {
         contaArmateG(t, &s.g[i]);
         fprintf(log, "%s %s %d %s\n", s.g[i].nome, "ha ", s.g[i].nArmateinG, "armate nel tabellone");
     }
+    //copia delle carte rimaste nel mazzo
     fread(nCarte, sizeof(int), 1, f);
     for (i = 0; i < *nCarte; i++) {
         fread(&s.carte[i], sizeof(int), 1, f);
@@ -1415,6 +1648,11 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int
     return s;
 }
 
+/**
+ * Funzione che assegna al giocatore il colore da lui scelto
+ * @param id id colore
+ * @return variabile di tipo colore corrispondente
+ */
 Colore assegnaColore(int id) {
     Colore colori[6] = {{0, "Rosso",  true},
                         {1, "Nero",   true},
@@ -1446,6 +1684,11 @@ Colore assegnaColore(int id) {
     return c;
 }
 
+/**
+ * Funzione per contare le carte presenti in un mazzo
+ * @param m mazzo
+ * @return ncarte
+ */
 int contaCarte(Mazzo *m) {
     NodoC *app;
     int c = 0;

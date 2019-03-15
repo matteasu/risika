@@ -323,3 +323,626 @@ Alessandro ha  44 armate nel tabellone
 Giorgia ha  37 armate nel tabellone
 Fabio ha  53 armate nel tabellone
 Federico ha  69 armate nel tabellone
+Inizio nuova partita
+Inizia la fase di preparazione
+Ho inserito un giocatore, si chiama:  ma 
+Ho inserito un giocatore, si chiama:  tt 
+Ho inserito un giocatore, si chiama:  eo 
+Ordino casualmente il vettore dei giocatori
+eo e' il primo giocatore
+eo  ha scelto il colore:  Rosso
+ma  ha scelto il colore:  Nero
+tt  ha scelto il colore:  Viola
+eo  Ha ricevuto  35  armate 
+ma  Ha ricevuto  35  armate 
+tt  Ha ricevuto  35  armate 
+Gioca il giocatore eo 
+ Fase di rinforzo
+Gioca il giocatore ma 
+ Fase di rinforzo
+Gioca il giocatore tt 
+ Fase di rinforzo
+Gioca il giocatore eo 
+ Fase di rinforzo
+Gioca il giocatore ma 
+ Fase di rinforzo
+Gioca il giocatore tt 
+ Fase di rinforzo
+Gioca il giocatore eo 
+ Fase di rinforzo
+Gioca il giocatore ma 
+ Fase di rinforzo
+Gioca il giocatore tt 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  88 armate nel tabellone
+Mattia ha  34 armate nel tabellone
+Francesca ha  42 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  85 armate nel tabellone
+Mattia ha  32 armate nel tabellone
+Francesca ha  41 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  99 armate nel tabellone
+Mattia ha  63 armate nel tabellone
+Francesca ha  1 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  99 armate nel tabellone
+Mattia ha  63 armate nel tabellone
+Francesca ha  1 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Francesca 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  99 armate nel tabellone
+Mattia ha  66 armate nel tabellone
+Francesca ha  1 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  3
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Francesca
+Il giocatore usa le armate:  Viola
+Riccardo ha  99 armate nel tabellone
+Mattia ha  66 armate nel tabellone
+Francesca ha  1 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Riccardo ha  97 armate nel tabellone
+Mattia ha  87 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Riccardo
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Nero
+Riccardo ha  73 armate nel tabellone
+Mattia ha  90 armate nel tabellone
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Gioca il giocatore Riccardo 
+ Fase di rinforzo
+Gioca il giocatore Mattia 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  86 armate nel tabellone
+Sebastian ha  57 armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  14 armate nel tabellone
+Sebastian ha  57 armate nel tabellone
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Ha vinto Sebastian !
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  2 armate nel tabellone
+Sebastian ha  109 armate nel tabellone
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  86 armate nel tabellone
+Sebastian ha  57 armate nel tabellone
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Ha vinto Sebastian !
