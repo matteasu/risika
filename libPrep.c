@@ -1,5 +1,5 @@
 //
-// Created by Matteo on 15/03/2019.
+// Liberia contenente le funzioni e le proceudre necessarie alla fase di preparazione del gioco
 //
 
 #include "libPrep.h"
@@ -87,11 +87,12 @@ void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f
     //assegnamento delle armate di base
     assegnaArmate(g, nGiocatori, f);
     //assegnamento dei territori
-    distribuisciCarte(nGiocatori, m, g);
+    distribuisciCarte(nGiocatori, m, g, f);
     //posizionamento armate base
-    assegnaArmateTerritori(nGiocatori, g, t);
+    assegnaArmateTerritori(nGiocatori, g, t, f);
     //mischio il mazzo di carte principale
     ass(m, N_CARTE);
+    fprintf(f, "Mazzo di carte mischiato");
 }
 
 /**
@@ -213,7 +214,7 @@ void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f) {
  * @param m mazzo
  * @param g giocatori
  */
-void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
+void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g, FILE *log) {
     NodoC *it, *iS;
     Mazzo sJ;
     Carta c;
@@ -238,7 +239,8 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
     //ass asuniStupidSorting mischio le carte
     ass(&sJ, N_CARTESJ);
     //distribuzione delle carte
-    daiCarte(g, &sJ, nGioc, N_CARTESJ);
+    fprintf(log, "%s\n", "Inizio la distribuzione delle carte");
+    daiCarte(g, &sJ, nGioc, N_CARTESJ, log);
     free(sJ.testa);
 }
 
@@ -250,7 +252,7 @@ void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g) {
  * @param nGioc numero di giocatori
  * @param nCarte numero di carte da distribuire
  */
-void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
+void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte, FILE *log) {
     int i, j = 0, carteDaDare, cr;
     //i e j son dei contatori
     NodoC *app;
@@ -266,6 +268,7 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
                 app = g[i].t.testa;
                 inserimentoInCoda(app, m->testa->c);
             }
+            fprintf(log, "%s %s %d\n", g[i].nome, "Ha ricevuto il territorio: ", m->testa->c.idTerritorio);
             j++;//dopo che la carta e' stata correttamente inserita nel nuovo mazzo vado avanti
             //eliminazione in testa dal mazzo principale
             rimuoviCarta(m);
@@ -277,6 +280,7 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte) {
         //nodo d'appoggio per scorrere il mazzo del giocatore
         app = g[i].t.testa;
         inserimentoInCoda(app, m->testa->c);
+        fprintf(log, "%s %s %d\n", g[i].nome, "Ha ricevuto il territorio: ", m->testa->c.idTerritorio);
         //eliminazione in testa
         rimuoviCarta(m);
         //passo al prossimo giocatore
@@ -328,9 +332,9 @@ void ass(Mazzo *m, int nCarte) {
  * @param g vettore contenente i giocatori
  * @param t tabellone di gioco
  */
-void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
+void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[], FILE *log) {
     int i = 0, j, scelta = -1;
-
+    fprintf(log, "%s\n", "Inizia l'assegnamento delle armate nei territori");
     NodoC *it;
     for (i = 0; i < nGiocatori; i++) {
         it = g[i].t.testa;
@@ -341,9 +345,12 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
             g[i].nArmate--;
             g[i].nArmateinG++;
             it = it->next;
+            fprintf(log, "%s %s\n", t[it->c.idTerritorio].t.nome, "Ha ricevuto una armata");
         }
+        fprintf(log, "%s %s %d\n", "Numero armate ", g[i].nome, g[i].nArmate);
     }
     i = 0;
+    fprintf(log, "%s\n", "Posizionamento armate rimanenti");
     while (i < nGiocatori) {
         j = i;
         while (j < nGiocatori) {
@@ -374,7 +381,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
                 }
                 pulisciConsole();
                 //procedura che posiziona effetivamente le armate
-                posizionaArmate(&g[j], t, scelta);
+                posizionaArmate(&g[j], t, scelta, log);
                 pulisciConsole();
                 j++;
             } else {
@@ -383,6 +390,7 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
             }
         }
     }
+    fprintf(log, "%s\n", "Fine dell'assegnamento delle armate nei territori");
 }
 
 /**
@@ -391,31 +399,31 @@ void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]) {
  * @param t tabellone
  * @param scelta tipologia di posizionamento
  */
-void posizionaArmate(Giocatore *g, Tabellone t[], int scelta) {
+void posizionaArmate(Giocatore *g, Tabellone t[], int scelta, FILE *log) {
 
     switch (scelta) {
         case TREAINT: //tre armate in un solo territorio
-            armateInT(g, t, 1, 3);
+            armateInT(g, t, 1, 3, log);
             break;
 
         case DUEAINTET: //due armate in un territorio e una in un altro
-            armateInT(g, t, 1, 2);
-            armateInT(g, t, 1, 1);
+            armateInT(g, t, 1, 2, log);
+            armateInT(g, t, 1, 1, log);
             break;
 
         case TREDIVERSO: //una armata in tre territori diversi
-            armateInT(g, t, 3, 1);
+            armateInT(g, t, 3, 1, log);
             break;
         case DUEINT: //due armate in un territorio
-            armateInT(g, t, 1, 2);
+            armateInT(g, t, 1, 2, log);
             break;
 
         case DUET: // una armata in due territori diversi
-            armateInT(g, t, 2, 1);
+            armateInT(g, t, 2, 1, log);
             break;
 
         case AINT: //una armata in un singolo territorio
-            armateInT(g, t, 1, 1);
+            armateInT(g, t, 1, 1, log);
             break;
 
         default:

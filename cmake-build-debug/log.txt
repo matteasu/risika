@@ -946,3 +946,49 @@ Gioca il giocatore Fabio
 Gioca il giocatore Sebastian 
  Fase di rinforzo
 Ha vinto Sebastian !
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  86 armate nel tabellone
+Sebastian ha  57 armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  86 armate nel tabellone
+Sebastian ha  57 armate nel tabellone
+Fine fase di preparazione
+Gioca il giocatore Fabio 
+ Fase di rinforzo
+Il giocatore ha ricevuto  4 armate
+Fabio Ha posizionato  4 nel territorio  Ing_Civile
+Fine fase rinforzi
+Inizio fase di attacco
+Fabio attacca  Informatica ( Sebastian ) da ,Fisica
+Fabio  atacca con  3 armate
+Sebastian  si difende con  3 armate
+Fabio ha totalizzato i seguenti dadi  
+3 -6 -4 -
+Sebastian ha totalizzato i seguenti dadi  
+1 -1 -1 -
+Fine fase attacco
+Inizio Spostamento strategico
+Fabio  non procede con lo spostamento strategico
+Fine Spostamento strategico
+Gioca il giocatore Sebastian 
+ Fase di rinforzo
+Il giocatore ha ricevuto  4 armate
+Sebastian Ha posizionato  4 nel territorio  Architettura
+Fine fase rinforzi
+Inizio fase di attacco
+Fine fase attacco
+Inizio Spostamento strategico
+Sebastian  non procede con lo spostamento strategico
+Fine Spostamento strategico

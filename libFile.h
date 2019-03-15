@@ -1,5 +1,5 @@
 //
-// Created by Matteo on 15/03/2019.
+// Libreria contenente le funzioni e le procedure usate per la gestione dei file all'interno del gioco
 //
 
 #ifndef RISIKA_LIBFILE_H

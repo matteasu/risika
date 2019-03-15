@@ -1,5 +1,5 @@
 //
-// Created by Matteo on 15/03/2019.
+// Libreria contenente le funzioni e le procedure usate per le fasi di gioco
 //
 
 #include "libGioco.h"
@@ -10,7 +10,7 @@
  * @param g giocatore attuale
  * @param t tabellone di gioco
  */
-void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
+void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m, FILE *log) {
     NodoC *app; //Puntatore utilizzato per scorrere la lista coi territori del giocatore
     char scelta;
     int tI, sceltaIn;
@@ -24,16 +24,17 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
                               Ingegneria_Architettura, Facolta_di_Scienze};
     //struttura contenente il numero di territori di ogni facolta e il rispettivo incremento nel caso si abbiano tutti i
     //territori
-    Incrementi numeroF[NUM_FACOLTA] = {{NUM_SU,  3},
-                                       {NUM_SE,  2},
-                                       {NUM_MC,  2},
-                                       {NUM_BF,  4},
-                                       {NUM_ING, 4},
-                                       {NUM_FS,  2}};
+    Incrementi numeroF[NUM_FACOLTA] = {{NUM_SU,  INCR_SU},
+                                       {NUM_SE,  INCR_SE},
+                                       {NUM_MC,  INCR_MC},
+                                       {NUM_BF,  INCR_BF},
+                                       {NUM_ING, INCR_ING},
+                                       {NUM_FS,  INCR_FS}};
     //calcolo il numero di armate in base al numero di territori
     nTerritori = contaTerritoriGiocatore(t, g->id);
     nTerritori = nTerritori / 3;
     g->nArmate = nTerritori;
+    fprintf(log, "%s %d %s\n", "Il giocatore ha ricevuto ", g->nArmate, "armate");
     //ciclo per la verifica delle armate bonus in base ai territori di una certa facolta'
     for (i = 0; i < NUM_FACOLTA; i++) {
         numF = 0;
@@ -63,8 +64,10 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
             printf("%s Vuoi giocare un bonus di carte? s per si,altrimenti premi un altro tasto\n", g->nome);
             getchar();
             scanf("%c", &scelta);
-            if (scelta == 's' || scelta == 'S')
+            if (scelta == 's' || scelta == 'S') {
+                fprintf(log, "%s %s\n", g->nome, " gioca un tris di carte");
                 g->nArmate += bonusCarte(g, t, m);
+            }
         }
         if (g->nArmateinG + g->nArmate > 100) {
             g->nArmate = 100 - g->nArmateinG;
@@ -74,24 +77,24 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
                    "Come vuoi giocarle?\n", g->nArmate);
             do {
                 if (g->nArmate == 1) {
-                    armateInT(g, t, 1, 1);
+                    armateInT(g, t, 1, 1, log);
                 } else {
                     printf("1) Tutte in un territorio\n 2)Voglio dividerle in piu' territori\n");
                     scanf("%d", &sceltaIn);
                     if (sceltaIn == 1) {
-                        armateInT(g, t, 1, g->nArmate);
+                        armateInT(g, t, 1, g->nArmate, log);
                         g->nArmate = 0;
                     } else {
                         do {
                             if (g->nArmate == 1) {
-                                armateInT(g, t, 1, 1);
+                                armateInT(g, t, 1, 1, log);
                             } else {
                                 do {
                                     printf("Scegli da 1 a %d armate da mettere in un territorio\n", g->nArmate);
                                     scanf("%d", &tI);
 
                                 } while (tI < 1 || tI > g->nArmate);
-                                armateInT(g, t, 1, tI);
+                                armateInT(g, t, 1, tI, log);
                             }
                         } while (g->nArmate != 0);
                     }
@@ -225,7 +228,7 @@ int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m) {
  * @param idP id Giocatore perdente
  * @param m mazzo di carte
  */
-void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m) {
+void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m, FILE *log) {
     char scelta, continuo;
     int tB, nA, tA = -1, difesa;
     _Bool ok = false;
@@ -263,7 +266,7 @@ void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo
                             } while (ok != true);
                             pulisciConsole();
                             //fase d'attacco
-                            attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa, idP, m);
+                            attacca(g, &giocatori[t[tA].idPropietario], t, tA, tB, nA, difesa, idP, m, log);
                             //se il giocatore ha ancora armate in gioco chiedo se vuole continuare ad attaccare
                             if (g->nArmateinG > 0) {
                                 printf("Vuoi continuare l'attacco?\n premi qualsiasi tasto per continuare\n"
@@ -378,7 +381,8 @@ _Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA) {
  * @param idP id giocatore perdente
  * @param m mazzo
  */
-void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m) {
+void
+attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m, FILE *log) {
     int i, j, tg, td;
     int dA[3] = {0, 0, 0};
     int dD[3] = {0, 0, 0};
@@ -393,7 +397,19 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
         printf(" difesa %d ", dD[j]);
     }
     i = j = 0;
-
+    fprintf(log, "%s %s %s %s %s %s%s\n", g1->nome, "attacca ", t[tA].t.nome, "(", g2->nome, ") da ", t[tB].t.nome);
+    fprintf(log, "%s %s %d %s\n", g1->nome, " atacca con ", nA, "armate");
+    fprintf(log, "%s %s %d %s\n", g2->nome, " si difende con ", nAD, "armate");
+    fprintf(log, "%s %s \n", g1->nome, "ha totalizzato i seguenti dadi ");
+    for (i = 0; i < nA; i++) {
+        fprintf(log, "%d %s", dA[i], "-");
+    }
+    fprintf(log, "\n");
+    fprintf(log, "%s %s \n", g2->nome, "ha totalizzato i seguenti dadi ");
+    for (i = 0; i < nAD; i++) {
+        fprintf(log, "%s %d", "-", dD[i]);
+    }
+    fprintf(log, "\n");
     while (i < nA && j < nAD) {
         //trovo il valore massimo fra i vari dadi tirati
         tg = trovaMax(dA, nA);
@@ -402,6 +418,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
         if (tg == td) {
             //pareggio
             printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
+            fprintf(log, "%s %s\n", g1->nome, " ha perso una armata");
             t[tB].nArmate--;
             g1->nArmateinG--;
         } else {
@@ -412,6 +429,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                 //g2->nArmate--;
                 if (t[tA].nArmate == 0) {
                     printf("%s hai perso il territorio %s\n", g2->nome, t[tA].t.nome);
+                    fprintf(log, "%s %s %s\n", g2->nome, " ha perso il territorio ", t[tA].t.nome);
                     //aggiornamento del territorio appena conquistato
                     t[tA].idPropietario = g1->id;
                     t[tA].nArmate = nA;
@@ -442,6 +460,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                 }
             } else {
                 printf("%d %d \n Dado %d vince la difesa\n", tg, td, i);
+                fprintf(log, "%s %s\n", g1->nome, " ha perso una armata");
                 t[tB].nArmate--;
                 g1->nArmateinG--;
                 //g1->nArmate--;
@@ -485,9 +504,10 @@ int richiestaNumeroArmate(Giocatore g, int caso) {
  * @param t tabellone
  * @return indirizzo del nuovo vettore
  */
-Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori, Tabellone t[]) {
+Giocatore *rimuoviGiocatore(Giocatore *g, int id, int nGiocatori, Tabellone t[], FILE *log) {
     Giocatore app[nGiocatori - 1];
     printf("%s hai perso!\n", g[id].nome);
+    fprintf(log, "%s %s\n", g[id].nome, " ha perso");
     //copio i giocatori ad ecezione del giocatore da eliminare
     int i = 0, j = 0, idV;
     while (i < nGiocatori) {
@@ -531,7 +551,7 @@ void sistemaTabellone(Tabellone t[], int oldId, int newId) {
  * @param g Giocatore
  * @param t tabellone
  */
-void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
+void spostamentoStrategio(Giocatore *g, Tabellone t[], FILE *log) {
     char scelta;
     int tB, tD, i, j, nA, nT = 0;
     _Bool ok = false;
@@ -585,6 +605,9 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
         t[tB].nArmate -= nA;
         t[tD].nArmate += nA;
         printf("Hai spostato %d armate da %s a %s\n", nA, t[tB].t.nome, t[tD].t.nome);
+        fprintf(log, "%s %s %d %s %s %s %s\n", g->nome, "ha spostato ", nA, " da ", t[tB].t.nome, "a", t[tD].t.nome);
+    } else {
+        fprintf(log, "%s %s\n", g->nome, " non procede con lo spostamento strategico");
     }
 }
 

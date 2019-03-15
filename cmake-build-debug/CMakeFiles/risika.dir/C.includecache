@@ -10,10 +10,6 @@ C:/Users/Matteo/CLionProjects/risika/docente.h
 stdbool.h
 -
 
-C:/Users/Matteo/CLionProjects/risika/libFile.c
-libFile.h
-C:/Users/Matteo/CLionProjects/risika/libFile.h
-
 C:/Users/Matteo/CLionProjects/risika/libFile.h
 stdio.h
 C:/Users/Matteo/CLionProjects/risika/stdio.h
@@ -31,12 +27,6 @@ stdio.h
 -
 stdbool.h
 -
-libPrep.h
-C:/Users/Matteo/CLionProjects/risika/libPrep.h
-libRisika.h
-C:/Users/Matteo/CLionProjects/risika/libRisika.h
-
-C:/Users/Matteo/CLionProjects/risika/libPrep.c
 libPrep.h
 C:/Users/Matteo/CLionProjects/risika/libPrep.h
 libRisika.h
@@ -73,10 +63,4 @@ libGioco.h
 C:/Users/Matteo/CLionProjects/risika/libGioco.h
 libFile.h
 C:/Users/Matteo/CLionProjects/risika/libFile.h
-
-C:/Users/Matteo/CLionProjects/risika/main.c
-stdio.h
--
-libRisika.h
-C:/Users/Matteo/CLionProjects/risika/libRisika.h
 

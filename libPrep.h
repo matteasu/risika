@@ -1,12 +1,13 @@
 //
-// Created by Matteo on 15/03/2019.
+// Liberia contenente le funzioni e le proceudre necessarie alla fase di preparazione del gioco
 //
 
 #ifndef RISIKA_LIBPREP_H
 #define RISIKA_LIBPREP_H
 // struttura giocatore
-#include <stdio.h>
 
+#define MIN_G 3
+#define MAX_G 6
 #define N_CARTE 28
 #define N_CARTESJ 26
 #define TREAINT 1 //3 armate nello stesso territorio
@@ -15,6 +16,9 @@
 #define DUEINT 4//2 armate in un territorio
 #define DUET 5//una armata in un territorio e una in un altro
 #define AINT 6//una armata in un territorio
+
+#include <stdio.h>
+
 typedef enum {
     Studi_Umanistici,
     Scienze_Economiche_Giuridiche_Politiche,
@@ -102,14 +106,14 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f);
 
 void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f);
 
-void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g);
+void distribuisciCarte(int nGioc, Mazzo *m, Giocatore *g, FILE *log);
 
-void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
+void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte, FILE *log);
 
 void ass(Mazzo *m, int nCarte);
 
-void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
+void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[], FILE *log);
 
-void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
+void posizionaArmate(Giocatore *g, Tabellone t[], int scelta, FILE *log);
 
 #endif //RISIKA_LIBPREP_H

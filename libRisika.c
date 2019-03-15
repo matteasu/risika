@@ -1,5 +1,5 @@
 //
-// Created by Matteo on 24/01/2019.
+// Libreria contenente le macro principali e le funzioni generiche che vengono chiamate piu' volte durante l'esecuzione
 //
 
 #include "libRisika.h"
@@ -26,7 +26,7 @@ void gioco() {
         leggiStatistiche(statistiche, st);//lettura e stampa delle statistiche aggiornate
         fclose(statistiche);//chiusura del file
     }
-    saveFile = fopen("Salvataggio.rsk", "rb");//apertura file salvataggio
+    saveFile = fopen(F_SAVE, "rb");//apertura file salvataggio
     FILE *log;//file log
     log = fopen(F_LOG, "a+");//apertura del file log
     char scelta;//variabile dove memorizzero' la scelta del giocatore per la modalita' di gioco
@@ -68,48 +68,54 @@ void gioco() {
         fprintf(log, "%s", "Inizia la fase di preparazione\n");
         g = nuovaPartita(&nGiocatori, &m, t, log);
     }
+    fprintf(log, "%s\n", "Fine fase di preparazione");
     fclose(log);
     //fase di gioco
-        while (fineGioco(nGiocatori) != true) {
-            printf("Vuoi salvare?\n Premi s per continuare\n");
-            getchar();
-            scanf("%c", &scelta);
-            if (scelta == 's' || scelta == 'S') {
-                //apro il file di salvataggio
-                saveFile = fopen("Salvataggio.rsk", "wb");
-                //conto le carte presenti nel mazzo
-                nCarte = contaCarte(&m);
-                creaSalvataggio(saveFile, nGiocatori, 0, g, nCarte, m, t);
-                fprintf(log, "%s", "Partita salvata\n");
-                printf("Partita salvata\n");
-                fclose(saveFile);
-            }
-            for (i = 0; i < nGiocatori; i++) {
-                log = fopen(F_LOG, "a");
-                fprintf(log, "%s %s %s", "Gioca il giocatore", g[i].nome, "\n Fase di rinforzo\n");
-                rinforzo(&g[i], t, &m);
-                attacco(&g[i], g, t, &idP, &m);
-                //nel caso un giocatore abbia perso provedo a rimuoverlo
-                if (idP != -1) {
-                    g = rimuoviGiocatore(g, idP, nGiocatori, t);
-                    nGiocatori--;
-                    //riassegno  la sentinella a -1
-                    idP = -1;
-                }
-                if (nGiocatori > 1) {
-                    spostamentoStrategio(&g[i], t);
-                    pulisciConsole();
-                }
-                stampaGiocatori(g, nGiocatori, t);
-                fclose(log);
-                pulisciConsole();
-
-            }
+    while (fineGioco(nGiocatori) != true) {
+        printf("Vuoi salvare?\n Premi s per continuare\n");
+        getchar();
+        scanf("%c", &scelta);
+        if (scelta == 's' || scelta == 'S') {
+            //apro il file di salvataggio
+            saveFile = fopen(F_SAVE, "wb");
+            //conto le carte presenti nel mazzo
+            nCarte = contaCarte(&m);
+            creaSalvataggio(saveFile, nGiocatori, 0, g, nCarte, m, t);
+            fprintf(log, "%s", "Partita salvata\n");
+            printf("Partita salvata\n");
+            fclose(saveFile);
         }
+        for (i = 0; i < nGiocatori; i++) {
+            log = fopen(F_LOG, "a");
+            fprintf(log, "%s %s %s", "Gioca il giocatore", g[i].nome, "\n Fase di rinforzo\n");
+            rinforzo(&g[i], t, &m, log);
+            fprintf(log, "%s\n", "Fine fase rinforzi");
+            fprintf(log, "%s\n", "Inizio fase di attacco");
+            attacco(&g[i], g, t, &idP, &m, log);
+            fprintf(log, "%s\n", "Fine fase attacco");
+            //nel caso un giocatore abbia perso provedo a rimuoverlo
+            if (idP != -1) {
+                g = rimuoviGiocatore(g, idP, nGiocatori, t, log);
+                nGiocatori--;
+                //riassegno  la sentinella a -1
+                idP = -1;
+            }
+            if (nGiocatori > 1) {
+                fprintf(log, "%s\n", "Inizio Spostamento strategico");
+                spostamentoStrategio(&g[i], t, log);
+                fprintf(log, "%s\n", "Fine Spostamento strategico");
+                pulisciConsole();
+            }
+            stampaGiocatori(g, nGiocatori, t);
+            fclose(log);
+            pulisciConsole();
+
+        }
+    }
     //fine della fase di gioco
     log = fopen(F_LOG, "a");
     //apertura file statistiche
-    statistiche = fopen("stat", "wb");
+    statistiche = fopen(F_STAT, "wb");
     //calcolo delle nuove statistiche di vittoria
     statisticheVittoria(&g[0], st);
     //scrittura sul file delle nuove statistiche
@@ -131,6 +137,7 @@ int generaCasuale(int min, int max) {
     r = min + rand() % (max - min + 1);
     return r;
 }
+
 /**
  * Procedura per la stampa dei giocatori
  * @param g giocatori
@@ -233,23 +240,23 @@ NodoC *inserimentoInTesta(Carta c) {
 void inserimentoInCoda(NodoC *testa, Carta c) {
     NodoC *nuovo, *it, *prev;
     prev = NULL;
-        it = testa;
+    it = testa;
     //arrivo all'ultima posizione per salvarmi l'elemento precedente
-        while (it != NULL) {
-            prev = it;
-            it = it->next;
-        }
-        it = prev;
+    while (it != NULL) {
+        prev = it;
+        it = it->next;
+    }
+    it = prev;
     //cerco l'elemento con next==null per inserire in codda
-        while (it->next != NULL) {
-            it = it->next;
-        }
+    while (it->next != NULL) {
+        it = it->next;
+    }
     //creazione e assegnamento del nuovo nodo
-        nuovo = nuovoNodoC();
-        nuovo->c = c;
-        nuovo->next = NULL;
-        nuovo->prev = prev;
-        it->next = nuovo;
+    nuovo = nuovoNodoC();
+    nuovo->c = c;
+    nuovo->next = NULL;
+    nuovo->prev = prev;
+    it->next = nuovo;
 }
 
 
@@ -308,7 +315,7 @@ void stampaNomeTerritorio(int id, Tabellone t[]) {
  * @param nRip numero di  volte in cui devo chiedere in quale territorio mettere le armate
  * @param nA numero di armate da impiegare
  */
-void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
+void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA, FILE *log) {
     int i = 0, j;
     int idTer, nT = 0;
     _Bool ok;
@@ -346,11 +353,13 @@ void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA) {
             g->nArmateinG += nA;
             g->nArmate -= nA;
         }
-            i++;
+        fprintf(log, "%s %s %d %s %s\n", g[i].nome, "Ha posizionato ", nA, "nel territorio ", t[idTer].t.nome);
+        i++;
 
     }
     pulisciConsole();
 }
+
 /**
  * Procedura che pulisce la console in base al sistema su cui viene eseguito il programma
  */
@@ -362,6 +371,7 @@ void pulisciConsole() {
     system("clear");
 #endif
 }
+
 /**
  * Funzione che trova il valore massimo
  * @param v vettore contenente i risultati dei vari tiri di dado
@@ -427,6 +437,7 @@ Carta recuperaCarta(Mazzo *m, int el) {
     }
     return c;
 }
+
 /**
  * Funzione che conta i territori di un giocatore
  * @param t tabellone
@@ -456,6 +467,7 @@ void contaArmateG(Tabellone t[], Giocatore *g) {
     }
     g->nArmateinG = c;
 }
+
 /**
  * Funzione per contare le carte presenti in un mazzo
  * @param m mazzo
