@@ -1,752 +1,325 @@
 Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-tt e' il primo giocatore
-tt  ha scelto il colore:  Rosso
-eo  ha scelto il colore:  Nero
-ma  ha scelto il colore:  Viola
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  100   armate nel tabellone
+Sebastian ha  61   armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  2
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Sebastian
+Il giocatore usa le armate:  Nero
+Fabio ha  100 armate nel tabellone
+Sebastian ha  61 armate nel tabellone
+Inizio nuova partita
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  5
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Verde
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Giallo
+Alessandro ha  34 armate nel tabellone
+Giorgia ha  27 armate nel tabellone
+Mattia ha  15 armate nel tabellone
+Fabio ha  39 armate nel tabellone
+Federico ha  56 armate nel tabellone
 Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-eo e' il primo giocatore
-eo  ha scelto il colore:  Rosso
-ma  ha scelto il colore:  Nero
-tt  ha scelto il colore:  Viola
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-tt e' il primo giocatore
-tt  ha scelto il colore:  Rosso
-eo  ha scelto il colore:  Nero
-ma  ha scelto il colore:  Viola
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-eo e' il primo giocatore
-eo  ha scelto il colore:  Rosso
-ma  ha scelto il colore:  Nero
-tt  ha scelto il colore:  Viola
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  5
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Verde
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Giallo
+Alessandro ha  34 armate nel tabellone
+Giorgia ha  27 armate nel tabellone
+Mattia ha  15 armate nel tabellone
+Fabio ha  39 armate nel tabellone
+Federico ha  56 armate nel tabellone
 Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-tt e' il primo giocatore
-tt  ha scelto il colore:  Rosso
-eo  ha scelto il colore:  Nero
-ma  ha scelto il colore:  Viola
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-tt e' il primo giocatore
-tt  ha scelto il colore:  Rosso
-eo  ha scelto il colore:  Nero
-ma  ha scelto il colore:  Viola
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  5
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Verde
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Giallo
+Alessandro ha  34 armate nel tabellone
+Giorgia ha  27 armate nel tabellone
+Mattia ha  15 armate nel tabellone
+Fabio ha  39 armate nel tabellone
+Federico ha  56 armate nel tabellone
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Inizio nuova partita
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-tt e' il primo giocatore
-tt  ha scelto il colore:  Rosso
-eo  ha scelto il colore:  Nero
-ma  ha scelto il colore:  Viola
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-eo e' il primo giocatore
-eo  ha scelto il colore:  Rosso
-ma  ha scelto il colore:  Nero
-tt  ha scelto il colore:  Viola
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-eo e' il primo giocatore
-eo  ha scelto il colore:  Rosso
-ma  ha scelto il colore:  Nero
-tt  ha scelto il colore:  Viola
-eo  Ha ricevuto  35  armate 
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-Inizio nuova partita
-Ho inserito un giocatore, si chiama:  ma 
-Ho inserito un giocatore, si chiama:  tt 
-Ho inserito un giocatore, si chiama:  eo 
-Ordino casualmente il vettore dei giocatori
-ma e' il primo giocatore
-ma  ha scelto il colore:  Rosso
-tt  ha scelto il colore:  Nero
-eo  ha scelto il colore:  Viola
-ma  Ha ricevuto  35  armate 
-tt  Ha ricevuto  35  armate 
-eo  Ha ricevuto  35  armate 
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Inizio nuova partita
 Inizio nuova partita
-Gioca il giocatore 
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  5
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Verde
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Giallo
+Alessandro ha  34 armate nel tabellone
+Giorgia ha  27 armate nel tabellone
+Mattia ha  15 armate nel tabellone
+Fabio ha  39 armate nel tabellone
+Federico ha  56 armate nel tabellone
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Inizio nuova partita
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
 Inizio nuova partita
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  5
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Mattia
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Verde
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Giallo
+Alessandro ha  43 armate nel tabellone
+Giorgia ha  36 armate nel tabellone
+Mattia ha  1 armate nel tabellone
+Fabio ha  51 armate nel tabellone
+Federico ha  63 armate nel tabellone
+Gioca il giocatore Alessandro 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Giorgia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Mattia 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Fabio 
  Fase di rinforzo
-Gioca il giocatore 
+Gioca il giocatore Federico 
  Fase di rinforzo
 Inizio nuova partita
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
-Gioca il giocatore 
- Fase di rinforzo
+Caricamento della partita dal file di salvataggio
+Numero giocatori:  4
+Inserito giocatore:  Alessandro
+Il giocatore usa le armate:  Rosso
+Inserito giocatore:  Giorgia
+Il giocatore usa le armate:  Nero
+Inserito giocatore:  Fabio
+Il giocatore usa le armate:  Viola
+Inserito giocatore:  Federico
+Il giocatore usa le armate:  Verde
+Alessandro ha  44 armate nel tabellone
+Giorgia ha  37 armate nel tabellone
+Fabio ha  53 armate nel tabellone
+Federico ha  69 armate nel tabellone

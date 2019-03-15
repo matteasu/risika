@@ -13,6 +13,18 @@ void gioco() {
     //dichiarazione variabili essenziali per l'avvio corretto del gioco
     Giocatore *g = NULL;
     FILE *saveFile;
+    FILE *statistiche;
+    Stat st[6] = {{"Rosso",  0},
+                  {"Nero",   0},
+                  {"Viola",  0},
+                  {"Verde",  0},
+                  {"Giallo", 0},
+                  {"Blu",    0}};
+    statistiche = fopen("stat", "rb");
+    if (statistiche != NULL) {
+        leggiStatistiche(statistiche, st);
+        fclose(statistiche);
+    }
     saveFile = fopen("Salvataggio.rsk", "rb");
     FILE *log;
     log = fopen(F_LOG, "a+");
@@ -23,6 +35,7 @@ void gioco() {
     importaTerritori(t);
     importaCarte(&m);
     Salvataggio s;
+
     int nGiocatori, currentP, nCarte = 0;
     int idP = -1;
     int i = 0;
@@ -33,7 +46,9 @@ void gioco() {
     scanf("%c", &scelta);
     if (scelta == 'c' || scelta == 'C') {
         if (saveFile != NULL) {
-            s = importaSalvataggio(saveFile, &m, t, &nGiocatori, &currentP, &nCarte);
+            fprintf(log, "%s", "Caricamento della partita dal file di salvataggio\n");
+            printf("Caricamento della partita dal file di salvataggio\n");
+            s = importaSalvataggio(saveFile, &m, t, &nGiocatori, &currentP, &nCarte, log);
             g = (Giocatore *) malloc(sizeof(Giocatore) * (nGiocatori));
             for (i = 0; i < nGiocatori; i++) {
                 g[i] = s.g[i];
@@ -42,10 +57,12 @@ void gioco() {
 
 
         } else {
+            fprintf(log, "%s", "Errore apertura salvataggio\n La partita iniziera' da capo\n");
             printf("Errore apertura salvataggio\n La partita iniziera' da capo\n");
             g = nuovaPartita(&nGiocatori, &m, t, log);
         }
     } else {
+        fprintf(log, "%s", "Inizia la fase di preparazione\n");
         g = nuovaPartita(&nGiocatori, &m, t, log);
     }
     fclose(log);
@@ -54,16 +71,20 @@ void gioco() {
             getchar();
             scanf("%c", &scelta);
             if (scelta == 's' || scelta == 'S') {
-                saveFile = fopen("asu.rsk", "wb");
+                saveFile = fopen("Salvataggio.rsk", "wb");
                 nCarte = contaCarte(&m);
                 creaSalvataggio(saveFile, nGiocatori, 0, g, nCarte, m, t);
                 fclose(saveFile);
+                if (saveFile == NULL) {
+                    fprintf(log, "%s", "Partita salvata\n");
+                    printf("Partita salvata\n");
+                }
             }
             NodoC *app;
             for (i = 0; i < nGiocatori; i++) {
                 //pulisciConsole();
                 log = fopen(F_LOG, "a");
-                fprintf(log, "%s", "Gioca il giocatore \n Fase di rinforzo\n");
+                fprintf(log, "%s %s %s", "Gioca il giocatore", g[i].nome, "\n Fase di rinforzo\n");
                 rinforzo(&g[i], t, &m);
                 attacco(&g[i], g, t, &idP, &m);
                 if (idP != -1) {
@@ -76,8 +97,12 @@ void gioco() {
                 stampaGiocatori(g, nGiocatori, t);
             }
         }
-    stampaGiocatori(g, nGiocatori, t);
-
+    log = fopen(F_LOG, "a");
+    statistiche = fopen("stat", "wb");
+    scriviStatistiche(statistiche, st);
+    finePartita(&g[0], log);
+    fclose(log);
+    fclose(statistiche);
 }
 
 
@@ -97,6 +122,12 @@ _Bool fineGioco(int nGiocatori) {
     if (nGiocatori == 1)
         x = true;
     return x;
+}
+
+
+void finePartita(Giocatore *g, FILE *log) {
+    printf("Ha vinto %s!", g->nome);
+    fprintf(log, "%s %s %s\n", "Ha vinto", g->nome, "!");
 }
 
 /**
@@ -255,7 +286,7 @@ void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f) {
  */
 void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
     int i, j, col;
-
+    _Bool ok;
     int nColori = 6;
     /**
      * Vettore con i possibili colori, il campo booleano serve per indicare se il colore è in uso o meno
@@ -277,7 +308,13 @@ void sceltaColore(Giocatore *g, int nGiocatori, FILE *f) {
             }
 
             scanf("%d", &col);
-        } while (col < 0 || col > 6);
+            if (col >= 0 && col <= 6) {
+                if (colori[col].inUse == true)
+                    ok = false;
+                else
+                    ok = true;
+            }
+        } while (ok != true);
         colori[col].inUse = true;
         g[i].c = colori[col];
         fprintf(f, "%s %s %s\n", g[i].nome, " ha scelto il colore: ", colori[col].nome);
@@ -492,6 +529,8 @@ void rimuoviCarta(Mazzo *m) {
         vecchia = m->testa->next;
         free(m->testa);
         m->testa = vecchia;
+    } else {
+        m->testa = NULL;
     }
 }
 
@@ -750,34 +789,36 @@ void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m) {
         if (g->nArmateinG + g->nArmate > 100) {
             g->nArmate = 100 - g->nArmateinG;
         }
-        printf("Devi utilizzare queste %d armate\n"
-               "Come vuoi giocarle?\n", g->nArmate);
-        do {
-            if (g->nArmate == 1) {
-                armateInT(g, t, 1, 1);
-            } else {
-                printf("1) Tutte in un territorio\n 2)Voglio dividerle in piu' territori\n");
-                scanf("%d", &sceltaIn);
-                if (sceltaIn == 1) {
-                    armateInT(g, t, 1, g->nArmate);
-                    g->nArmate = 0;
+        if (g->nArmate > 0) {
+            printf("Devi utilizzare queste %d armate\n"
+                   "Come vuoi giocarle?\n", g->nArmate);
+            do {
+                if (g->nArmate == 1) {
+                    armateInT(g, t, 1, 1);
                 } else {
-                    do {
-                        if (g->nArmate == 1) {
-                            armateInT(g, t, 1, 1);
-                        } else {
-                            do {
-                                printf("Scegli da 1 a %d armate da mettere in un territorio\n", g->nArmate);
-                                scanf("%d", &tI);
+                    printf("1) Tutte in un territorio\n 2)Voglio dividerle in piu' territori\n");
+                    scanf("%d", &sceltaIn);
+                    if (sceltaIn == 1) {
+                        armateInT(g, t, 1, g->nArmate);
+                        g->nArmate = 0;
+                    } else {
+                        do {
+                            if (g->nArmate == 1) {
+                                armateInT(g, t, 1, 1);
+                            } else {
+                                do {
+                                    printf("Scegli da 1 a %d armate da mettere in un territorio\n", g->nArmate);
+                                    scanf("%d", &tI);
 
-                            } while (tI < 1 || tI > g->nArmate);
-                            armateInT(g, t, 1, tI);
-                        }
-                    } while (g->nArmate != 0);
+                                } while (tI < 1 || tI > g->nArmate);
+                                armateInT(g, t, 1, tI);
+                            }
+                        } while (g->nArmate != 0);
+                    }
                 }
-            }
 
-        } while (sceltaIn != 1 && sceltaIn != 2 && g->nArmate != 0);
+            } while (sceltaIn != 1 && sceltaIn != 2 && g->nArmate != 0);
+        }
     } else {
         printf("Hai raggiunto il numero massimo di armate nel tabellone\n");
     }
@@ -922,6 +963,7 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
     int dD[3] = {0, 0, 0};
     _Bool haiPerso = false;
     Carta app;
+    NodoC *it;
     for (i = 0; i < nA; i++) {
         dA[i] = generaCasuale(1, 6);
         printf(" attacco %d ", dA[i]);
@@ -950,27 +992,20 @@ void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA
                     printf("%s hai perso il territorio %s\n", g2->nome, t[tA].t.nome);
                     t[tA].idPropietario = g1->id;
                     t[tA].nArmate = nA;
-                    NodoC *it;
-                    it = g1->cg.testa;
-                    while (it != NULL) {
-                        printf("%d ", it->c.idCarta);
-                    }
                     inserimentoInCoda(g1->cg.testa, m->testa->c);
                     g1->nCarte++;
                     rimuoviCarta(m);
-                    it = g1->cg.testa;
-                    while (it != NULL) {
-                        printf("%d ", it->c.idCarta);
-                    }
                     //rimuovi elemento
                     if (contaTerritoriGiocatore(t, g2->id) == 0) {
                         *idP = g2->id;
-                        if (g1->cg.testa == NULL) {
-                            g1->cg.testa = inserimentoInTesta(g2->cg.testa->c);
-                        } else
-                            inserimentoInCoda(g1->cg.testa, g2->cg.testa->c);
-                        g1->nCarte++;
-                        rimuoviCarta(&g2->cg);
+                        while (g2->cg.testa != NULL) {
+                            if (g1->cg.testa == NULL) {
+                                g1->cg.testa = inserimentoInTesta(g2->cg.testa->c);
+                            } else
+                                inserimentoInCoda(g1->cg.testa, g2->cg.testa->c);
+                            g1->nCarte++;
+                            rimuoviCarta(&g2->cg);
+                        }
                     }
                 }
             } else {
@@ -1293,35 +1328,36 @@ void spostamentoStrategio(Giocatore *g, Tabellone t[]) {
 }
 
 //typedef enum {Rosso,Nero,Viola,Verde,Giallo,Blu}Colore;
-void statisticheVittoria(Giocatore *g, Statistiche stat[]) {
+void statisticheVittoria(Giocatore *g, Stat s[]) {
     switch (g->c.id) {
         case Rosso:
-            stat[Rosso].npv++;
+            s[Rosso].nP++;
             break;
         case Nero:
-            stat[Nero].npv++;
+            s[Nero].nP++;
             break;
         case Viola:
-            stat[Viola].npv++;
+            s[Viola].nP++;
             break;
         case Verde:
-            stat[Verde].npv++;
+            s[Verde].nP++;
             break;
         case Giallo:
-            stat[Giallo].npv++;
+            s[Giallo].nP++;
             break;
         case Blu:
-            stat[Blu].npv++;
+            s[Blu].nP++;
             break;
     }
 }
 
-Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte) {
+Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte, FILE *log) {
     Salvataggio s;
     NodoC *app, *it;
     Carta c;
     int i, j, idC;
     fread(nGioc, sizeof(int), 1, f);
+    fprintf(log, "%s %d\n", "Numero giocatori: ", *nGioc);
     fread(currentP, sizeof(int), 1, f);
     for (i = 0; i < *nGioc; i++) {
         s.g[i].id = i;
@@ -1339,16 +1375,18 @@ Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int
                 inserimentoInCoda(s.g[i].cg.testa, c);
             }
         }
+        fprintf(log, "%s %s\n%s %s\n", "Inserito giocatore: ", s.g[i].nome, "Il giocatore usa le armate: ",
+                s.g[i].c.nome);
     }
     for (i = 0; i < N_TERRITORI; i++) {
         fseek(f, sizeof(int), SEEK_CUR);
         fread(&t[i].idPropietario, sizeof(int), 1, f);
         fread(&t[i].nArmate, sizeof(int), 1, f);
-
     }
 
     for (i = 0; i < *nGioc; i++) {
         contaArmateG(t, &s.g[i]);
+        fprintf(log, "%s %s %d %s\n", s.g[i].nome, "ha ", s.g[i].nArmateinG, "armate nel tabellone");
     }
     fread(nCarte, sizeof(int), 1, f);
     for (i = 0; i < *nCarte; i++) {
@@ -1417,4 +1455,21 @@ int contaCarte(Mazzo *m) {
         app = app->next;
     }
     return c;
+}
+
+void leggiStatistiche(FILE *f, Stat s[]) {
+    int i;
+    for (i = 0; i < 6; i++) {
+        fread(&s[i].colore, sizeof(char) * 10, 1, f);
+        fread(&s[i].nP, sizeof(int), 1, f);
+        printf("Partite vinte dalle armate %s: %d\n", s[i].colore, s[i].nP);
+    }
+}
+
+void scriviStatistiche(FILE *f, Stat s[]) {
+    int i;
+    for (i = 0; i < 6; i++) {
+        fwrite(&s[i].colore, sizeof(char) * 10, 1, f);
+        fwrite(&s[i].nP, sizeof(int), 1, f);
+    }
 }

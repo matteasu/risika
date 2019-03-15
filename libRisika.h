@@ -59,9 +59,9 @@ typedef struct {
 } Colore;
 
 typedef struct {
-    Colore c;
-    int npv;
-} Statistiche;
+    char colore[10];
+    int nP;
+} Stat;
 
 // struttura territorio
 typedef struct {
@@ -194,18 +194,22 @@ void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
 
 int contaCarte(Mazzo *m);
 
-Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte);
+Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte, FILE *log);
 int trovaMax(int v[], int n);
 
 void contaArmateG(Tabellone t[], Giocatore *g);
 Carta recuperaCarta(Mazzo *m, int el);
 int richiestaNumeroArmate(Giocatore g, int caso);
 
-void statisticheVittoria(Giocatore *g, Statistiche stat[]);
+void scriviStatistiche(FILE *f, Stat s[]);
+
+void statisticheVittoria(Giocatore *g, Stat s[]);
 void spostamentoStrategio(Giocatore *g, Tabellone t[]);
 
+void finePartita(Giocatore *g, FILE *log);
 _Bool fineGioco(int nGiocatori);
 
+void leggiStatistiche(FILE *f, Stat s[]);
 void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m);
 
 Colore assegnaColore(int id);
