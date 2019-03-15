@@ -80,6 +80,24 @@
 		<Unit filename="C:/Users/Matteo/CLionProjects/risika/docente.h">
 			<Option target="risika"/>
 		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libFile.c">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libFile.h">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libGioco.c">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libGioco.h">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libPrep.c">
+			<Option target="risika"/>
+		</Unit>
+		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libPrep.h">
+			<Option target="risika"/>
+		</Unit>
 		<Unit filename="C:/Users/Matteo/CLionProjects/risika/libRisika.c">
 			<Option target="risika"/>
 		</Unit>

@@ -95,11 +95,53 @@ CMakeFiles/risika.dir/docente.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/risika.dir/docente.c.s"
 	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Matteo\CLionProjects\risika\docente.c -o CMakeFiles\risika.dir\docente.c.s
 
+CMakeFiles/risika.dir/libPrep.c.obj: CMakeFiles/risika.dir/flags.make
+CMakeFiles/risika.dir/libPrep.c.obj: ../libPrep.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Matteo\CLionProjects\risika\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/risika.dir/libPrep.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\risika.dir\libPrep.c.obj   -c C:\Users\Matteo\CLionProjects\risika\libPrep.c
+
+CMakeFiles/risika.dir/libPrep.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/risika.dir/libPrep.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Matteo\CLionProjects\risika\libPrep.c > CMakeFiles\risika.dir\libPrep.c.i
+
+CMakeFiles/risika.dir/libPrep.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/risika.dir/libPrep.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Matteo\CLionProjects\risika\libPrep.c -o CMakeFiles\risika.dir\libPrep.c.s
+
+CMakeFiles/risika.dir/libGioco.c.obj: CMakeFiles/risika.dir/flags.make
+CMakeFiles/risika.dir/libGioco.c.obj: ../libGioco.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Matteo\CLionProjects\risika\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/risika.dir/libGioco.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\risika.dir\libGioco.c.obj   -c C:\Users\Matteo\CLionProjects\risika\libGioco.c
+
+CMakeFiles/risika.dir/libGioco.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/risika.dir/libGioco.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Matteo\CLionProjects\risika\libGioco.c > CMakeFiles\risika.dir\libGioco.c.i
+
+CMakeFiles/risika.dir/libGioco.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/risika.dir/libGioco.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Matteo\CLionProjects\risika\libGioco.c -o CMakeFiles\risika.dir\libGioco.c.s
+
+CMakeFiles/risika.dir/libFile.c.obj: CMakeFiles/risika.dir/flags.make
+CMakeFiles/risika.dir/libFile.c.obj: ../libFile.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Matteo\CLionProjects\risika\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/risika.dir/libFile.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\risika.dir\libFile.c.obj   -c C:\Users\Matteo\CLionProjects\risika\libFile.c
+
+CMakeFiles/risika.dir/libFile.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/risika.dir/libFile.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Matteo\CLionProjects\risika\libFile.c > CMakeFiles\risika.dir\libFile.c.i
+
+CMakeFiles/risika.dir/libFile.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/risika.dir/libFile.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Matteo\CLionProjects\risika\libFile.c -o CMakeFiles\risika.dir\libFile.c.s
+
 # Object files for target risika
 risika_OBJECTS = \
 "CMakeFiles/risika.dir/main.c.obj" \
 "CMakeFiles/risika.dir/libRisika.c.obj" \
-"CMakeFiles/risika.dir/docente.c.obj"
+"CMakeFiles/risika.dir/docente.c.obj" \
+"CMakeFiles/risika.dir/libPrep.c.obj" \
+"CMakeFiles/risika.dir/libGioco.c.obj" \
+"CMakeFiles/risika.dir/libFile.c.obj"
 
 # External object files for target risika
 risika_EXTERNAL_OBJECTS =
@@ -107,11 +149,14 @@ risika_EXTERNAL_OBJECTS =
 risika.exe: CMakeFiles/risika.dir/main.c.obj
 risika.exe: CMakeFiles/risika.dir/libRisika.c.obj
 risika.exe: CMakeFiles/risika.dir/docente.c.obj
+risika.exe: CMakeFiles/risika.dir/libPrep.c.obj
+risika.exe: CMakeFiles/risika.dir/libGioco.c.obj
+risika.exe: CMakeFiles/risika.dir/libFile.c.obj
 risika.exe: CMakeFiles/risika.dir/build.make
 risika.exe: CMakeFiles/risika.dir/linklibs.rsp
 risika.exe: CMakeFiles/risika.dir/objects1.rsp
 risika.exe: CMakeFiles/risika.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Matteo\CLionProjects\risika\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable risika.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Matteo\CLionProjects\risika\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable risika.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\risika.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

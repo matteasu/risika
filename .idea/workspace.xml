@@ -5,7 +5,7 @@
       <config projectName="risika" targetName="risika" />
     </generated>
   </component>
-  <component name="CMakeSettings">
+  <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
       <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
@@ -13,14 +13,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14c721fb-4d1d-4974-8feb-fc71f02638f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/libFile.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libFile.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libGioco.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libGioco.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libPrep.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libPrep.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/libRisika.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/libRisika.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.2/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.2/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.2/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/C.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/libRisika.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/main.c.obj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Salvataggio.rsk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Salvataggio.rsk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/objects1.rsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/risika.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/risika.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/risika.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/risika.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/risika.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libRisika.c" beforeDir="false" afterPath="$PROJECT_DIR$/libRisika.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libRisika.h" beforeDir="false" afterPath="$PROJECT_DIR$/libRisika.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -54,40 +77,16 @@
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="100">
-              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+              <caret line="5" column="135" selection-start-line="5" selection-start-column="135" selection-end-line="5" selection-end-column="135" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/libRisika.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="1683" lean-forward="true" selection-start-line="1683" selection-end-line="1683" />
-              <folding>
-                <element signature="e#35024#35040#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libRisika.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="170" column="12" lean-forward="true" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="12" />
+            <state relative-caret-position="38">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#98#116#0" expanded="true" />
               </folding>
@@ -96,10 +95,85 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docente.c">
+        <entry file="file://$PROJECT_DIR$/libPrep.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="203">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+              <folding>
+                <element signature="e#43#63#0" expanded="true" />
+                <element signature="e#466#840#0" />
+                <element signature="e#1595#1865#0" />
+                <element signature="e#2540#3475#0" />
+                <element signature="e#3477#5184#0" />
+                <element signature="e#5186#5305#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libPrep.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1180">
+              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libRisika.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="122" selection-start-line="122" selection-end-line="122" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libFile.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="228" column="1" selection-start-line="228" selection-start-column="1" selection-end-line="228" selection-end-column="1" />
+              <folding>
+                <element signature="e#66#512#0" />
+                <element signature="e#514#860#0" />
+                <element signature="e#862#1467#0" />
+                <element signature="e#1469#4224#0" />
+                <element signature="e#4226#5140#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libFile.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="49">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#93#111#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libGioco.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="515" column="100" selection-start-line="515" selection-start-column="100" selection-end-line="515" selection-end-column="100" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libGioco.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+              <folding>
+                <element signature="e#95#113#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,36 +182,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>attacco</find>
-      <find>rimuovi</find>
-      <find>nC</find>
-      <find>leggi</find>
-      <find>carte</find>
-      <find>bonus</find>
-      <find>recu</find>
-      <find>armatein</find>
-      <find>armateinT</find>
-      <find>asu</find>
-      <find>asu.rsk</find>
-      <find>colore</find>
-      <find>importaS</find>
-      <find>statistich</find>
-      <find>statisti</find>
-      <find>leggist</find>
-      <find>rinforzo</find>
-      <find>rimuoviCa</find>
-      <find>recuper</find>
-      <find>baseA</find>
-      <find>vuoi con</find>
-      <find>salva</find>
-      <find>attacca</find>
-      <find>hai Perso</find>
-      <find>recuperaCa</find>
-      <find>rimuoviGiocatore</find>
-      <find>jolly</find>
       <find>bonusC</find>
       <find>scrivi</find>
       <find>stat</find>
+      <find>leggi</find>
+      <find>carica</find>
+      <find>preparaz</find>
+      <find>leggi</find>
+      <find>ordinaV</find>
+      <find>scelta</find>
+      <find>assegna</find>
+      <find>dist</find>
+      <find>ass</find>
+      <find>assegn</find>
+      <find>posiz</find>
+      <find>assegm</find>
+      <find>ri</find>
+      <find>rinf</find>
+      <find>nomeId</find>
+      <find>stampa</find>
+      <find>richiest</find>
+      <find>richie</find>
+      <find>att</find>
+      <find>attac</find>
+      <find>attacca</find>
+      <find>bonu</find>
+      <find>richies</find>
+      <find>rimuoviG</find>
+      <find>bonus</find>
+      <find>sist</find>
+      <find>attacco</find>
     </findStrings>
     <replaceStrings>
       <replace>nuovoNodo</replace>
@@ -162,8 +236,19 @@
         <option value="$PROJECT_DIR$/todoProg.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/main.c" />
-        <option value="$PROJECT_DIR$/libRisika.h" />
+        <option value="$PROJECT_DIR$/strutture.c" />
+        <option value="$PROJECT_DIR$/libAttacco.h" />
+        <option value="$PROJECT_DIR$/libAttacco.c" />
+        <option value="$PROJECT_DIR$/strutture.h" />
+        <option value="$PROJECT_DIR$/libGioco.h.c" />
+        <option value="$PROJECT_DIR$/libPrep.h" />
+        <option value="$PROJECT_DIR$/libGioco.c" />
+        <option value="$PROJECT_DIR$/libGioco.h" />
+        <option value="$PROJECT_DIR$/libPrep.c" />
         <option value="$PROJECT_DIR$/libRisika.c" />
+        <option value="$PROJECT_DIR$/libFile.c" />
+        <option value="$PROJECT_DIR$/libFile.h" />
+        <option value="$PROJECT_DIR$/libRisika.h" />
       </list>
     </option>
   </component>
@@ -182,7 +267,17 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="risika" type="b2602c69:ProjectViewProjectNode" />
+              <item name="risika" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,7 +402,7 @@
       <workItem from="1552576323175" duration="11175000" />
       <workItem from="1552592511147" duration="3687000" />
       <workItem from="1552641546285" duration="6648000" />
-      <workItem from="1552662869109" duration="9135000" />
+      <workItem from="1552662869109" duration="14394000" />
     </task>
     <task id="LOCAL-00001" summary="Prova">
       <created>1548269373432</created>
@@ -638,11 +733,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552645986383</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Ci siamo quasi">
+      <created>1552673892688</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1552673892688</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="342886000" />
+    <option name="totallyTimeSpent" value="348145000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -655,7 +757,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48770493" weight="0.33489934" />
       <window_info id="Structure" order="1" sideWeight="0.5066225" side_tool="true" weight="0.40335572" />
@@ -663,7 +764,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32935917" />
       <window_info anchor="bottom" id="Inspection Results" order="2" sideWeight="0.49932885" weight="0.32935917" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.4986577" weight="0.9388972" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.4986577" visible="true" weight="0.9388972" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.43219075" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -725,7 +826,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="A quanto pare ho terminato la fase di preparazione" />
     <MESSAGE value="Pulizia del codice e ulteriori controlli sull'input da tastiera" />
     <MESSAGE value="Pulizia codice e deallocazione di cose" />
     <MESSAGE value="introduzione della libreria docente.h per verificare se i territori sono adiacenti. Inoltre potrei aver verificato se un giocatore ha più territori di una certa f" />
@@ -750,7 +850,8 @@
     <MESSAGE value="Creazione salvataggi blin blin" />
     <MESSAGE value="Nenno abbiamo finito" />
     <MESSAGE value="Credici" />
-    <option name="LAST_COMMIT_MESSAGE" value="Credici" />
+    <MESSAGE value="Ci siamo quasi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ci siamo quasi" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -763,23 +864,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/libRisika.c</url>
-          <line>471</line>
+          <line>199</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/libRisika.c</url>
-          <line>548</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
           <line>3</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/libRisika.c</url>
-          <line>1494</line>
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -818,48 +909,140 @@
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa13532.25502/docente.c" />
     <entry file="file://$PROJECT_DIR$/docente.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docente.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
+        <state relative-caret-position="800">
           <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libAttacco.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libAttacco.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#43#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strutture.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strutture.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="135" selection-start-line="5" selection-start-column="135" selection-end-line="5" selection-end-column="135" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libPrep.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#43#63#0" expanded="true" />
+            <element signature="e#466#840#0" />
+            <element signature="e#1595#1865#0" />
+            <element signature="e#2540#3475#0" />
+            <element signature="e#3477#5184#0" />
+            <element signature="e#5186#5305#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libPrep.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1180">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libRisika.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="122" selection-start-line="122" selection-end-line="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libFile.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="228" column="1" selection-start-line="228" selection-start-column="1" selection-end-line="228" selection-end-column="1" />
+          <folding>
+            <element signature="e#66#512#0" />
+            <element signature="e#514#860#0" />
+            <element signature="e#862#1467#0" />
+            <element signature="e#1469#4224#0" />
+            <element signature="e#4226#5140#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libGioco.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+          <folding>
+            <element signature="e#95#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libGioco.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="515" column="100" selection-start-line="515" selection-start-column="100" selection-end-line="515" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libFile.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#93#111#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libRisika.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="170" column="12" lean-forward="true" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="12" />
+        <state relative-caret-position="38">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="e#98#116#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libRisika.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="1683" lean-forward="true" selection-start-line="1683" selection-end-line="1683" />
-          <folding>
-            <element signature="e#35024#35040#0" expanded="true" />
           </folding>
         </state>
       </provider>

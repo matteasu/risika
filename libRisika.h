@@ -4,27 +4,9 @@
 
 #ifndef RISIKA_LIBRISIKA_H
 #define RISIKA_LIBRISIKA_H
-
-#include <stdio.h>
-#include <malloc.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include "docente.h"
-
-
 #define MIN_G 3
 #define MAX_G 6
 #define N_TERRITORI 26
-#define N_CARTE 28
-#define N_CARTESJ 26
-#define TREAINT 1 //3 armate nello stesso territorio
-#define DUEAINTET 2//2 armate in un territorio e una in un altro
-#define TREDIVERSO 3 //3 armate in 3 territori diversi
-#define DUEINT 4//2 armate in un territorio
-#define DUET 5//una armata in un territorio e una in un altro
-#define AINT 6//una armata in un territorio
 #define NUM_FACOLTA 6
 #define NUM_SU 5 //numero facolta studi umanistici
 #define NUM_SE 3 //numero facolta scienze economice
@@ -34,87 +16,27 @@
 #define NUM_FS 4 //numero facolta scientifiche
 #define F_LOG "log.txt"
 
+#include <stdio.h>
+#include <malloc.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include "libRisika.h"
+#include "docente.h"
+#include "libPrep.h"
+#include "libGioco.h"
+#include "libFile.h"
 
 
-//enumerazioni
-typedef enum {
-    Studi_Umanistici,
-    Scienze_Economiche_Giuridiche_Politiche,
-    Medicina_Chirurgia,
-    Biologia_Farmacia,
-    Ingegneria_Architettura,
-    Facolta_di_Scienze
-} Facolta;
+
+
+
 typedef enum {
     Rosso, Nero, Viola, Verde, Giallo, Blu
 } Colori;
-typedef enum {
-    Caffe, Birra, Vino, Jolly
-} Arma;
-
-typedef struct {
-    int id;
-    char nome[10];
-    _Bool inUse;
-} Colore;
-
-typedef struct {
-    char colore[10];
-    int nP;
-} Stat;
-
-// struttura territorio
-typedef struct {
-    int id;
-    char nome[24];
-    Facolta f;
-} Territorio;
-
-typedef struct {
-    Territorio t;
-    int idPropietario;
-    int nArmate;
-} Tabellone;
-
-//struttura nodo per la lista delle carte
-typedef struct {
-    Arma a;
-    int idTerritorio;
-    int idCarta;
-} Carta;
-
-//Nodo per il mazzo di carte
-typedef struct nodoc {
-    struct nodoc *prev;
-    struct nodoc *next;
-    Carta c;
-} NodoC;
-
-//strutura per il mazzo di carte
-typedef struct {
-    NodoC *testa;
-
-} Mazzo;
-
-//lista territori giocatore
-typedef struct {
-    NodoC *testa;
-} TerritoriG;
 
 
-
-// struttura giocatore
-typedef struct {
-    int id;
-    char nome[24];
-    Colore c;
-    int nArmate;
-    int nCarte;
-    int nArmateinG;
-    TerritoriG t;
-    Mazzo cg;
-    int vCarte[N_CARTE];
-} Giocatore;
 
 
 typedef struct {
@@ -122,64 +44,37 @@ typedef struct {
     int incr;
 } Incrementi;
 
-typedef struct {
-    int nGioc;
-    int currentP;
-    Giocatore g[MAX_G];
-    Tabellone t[N_TERRITORI];
-    int nCarte;
-    int carte[N_CARTE];
-} Salvataggio;
 
 
 
-
-int leggiGiocatori(int min, int max);
-void leggiNome(char c[]);
-Giocatore *caricaGiocatori(int nGiocatori, FILE *f);
 int generaCasuale(int min, int max);
-void ordinaVettore(Giocatore *g, int nGiocatori, FILE *f);
 void gioco();
-void preparazione(Giocatore *g, int nGiocatori, Mazzo *m, Tabellone t[], FILE *f);
-void sceltaColore(Giocatore *g, int nGiocatori, FILE *f);
-void assegnaArmate(Giocatore *g, int nGiocatori, FILE *f);
+
 void stampaGiocatori(Giocatore *g, int nGiocatori, Tabellone t[]);
 void importaTerritori(Tabellone t[]);
-void creaSalvataggio(FILE *f, int nGiocatori, int currentP, Giocatore *g, int nC, Mazzo m, Tabellone t[]);
-void ass(Mazzo *m, int nCarte);
-void distribuisciCarte(int nGioc,Mazzo *m,Giocatore *g);
+
+
 NodoC *nuovoNodoC();
-void rimuoviCarta(Mazzo *m);
-void posizionaArmate(Giocatore *g, Tabellone t[], int scelta);
+
+void stampaNomeIdTerritorio(int id, Tabellone t[]);
 void stampaNomeTerritorio(int id, Tabellone t[]);
 void armateInT(Giocatore *g, Tabellone t[], int nRip, int nA);
 void importaCarte(Mazzo *m);
-Giocatore *rimuoviGiocatore(Giocatore *g, int pos, int nGiocatori, Tabellone t[]);
+
 void inserimentoInCoda(NodoC *testa, Carta c);
-int bonusCarte(Giocatore *g, Tabellone t[], Mazzo *m);
-_Bool sceltaTerritorioAttacco(Giocatore g, Tabellone t[], int tB, int *tA);
+
+
 void pulisciConsole();
-void sistemaTabellone(Tabellone t[], int oldId, int newId);
-_Bool baseAttacco(Giocatore *g, Tabellone t[], int *tB);
+
 int contaTerritoriGiocatore(Tabellone t[], int id);
 NodoC *inserimentoInTesta(Carta c);
-void assegnaArmateTerritori(int nGiocatori, Giocatore g[], Tabellone t[]);
-void rinforzo(Giocatore *g, Tabellone t[], Mazzo *m);
-void daiCarte(Giocatore g[], Mazzo *m, int nGioc, int nCarte);
+
+
+void rimuoviCarta(Mazzo *m);
 int contaCarte(Mazzo *m);
-Salvataggio importaSalvataggio(FILE *f, Mazzo *m, Tabellone t[], int *nGioc, int *currentP, int *nCarte, FILE *log);
 int trovaMax(int v[], int n);
 void contaArmateG(Tabellone t[], Giocatore *g);
 Carta recuperaCarta(Mazzo *m, int el);
-int richiestaNumeroArmate(Giocatore g, int caso);
-void scriviStatistiche(FILE *f, Stat s[]);
-void statisticheVittoria(Giocatore *g, Stat s[]);
-void spostamentoStrategio(Giocatore *g, Tabellone t[]);
-void finePartita(Giocatore *g, FILE *log);
-_Bool fineGioco(int nGiocatori);
-void leggiStatistiche(FILE *f, Stat s[]);
-void attacca(Giocatore *g1, Giocatore *g2, Tabellone t[], int tA, int tB, int nA, int nAD, int *idP, Mazzo *m);
-Colore assegnaColore(int id);
-Giocatore *nuovaPartita(int *nGiocatori, Mazzo *m, Tabellone t[], FILE *log);
-void attacco(Giocatore *g, Giocatore giocatori[], Tabellone t[], int *idP, Mazzo *m);
+
+
 #endif //RISIKA_LIBRISIKA_H

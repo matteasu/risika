@@ -149,6 +149,87 @@ docente.c.s:
 	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/docente.c.s
 .PHONY : docente.c.s
 
+libFile.obj: libFile.c.obj
+
+.PHONY : libFile.obj
+
+# target to build an object file
+libFile.c.obj:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libFile.c.obj
+.PHONY : libFile.c.obj
+
+libFile.i: libFile.c.i
+
+.PHONY : libFile.i
+
+# target to preprocess a source file
+libFile.c.i:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libFile.c.i
+.PHONY : libFile.c.i
+
+libFile.s: libFile.c.s
+
+.PHONY : libFile.s
+
+# target to generate assembly for a file
+libFile.c.s:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libFile.c.s
+.PHONY : libFile.c.s
+
+libGioco.obj: libGioco.c.obj
+
+.PHONY : libGioco.obj
+
+# target to build an object file
+libGioco.c.obj:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libGioco.c.obj
+.PHONY : libGioco.c.obj
+
+libGioco.i: libGioco.c.i
+
+.PHONY : libGioco.i
+
+# target to preprocess a source file
+libGioco.c.i:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libGioco.c.i
+.PHONY : libGioco.c.i
+
+libGioco.s: libGioco.c.s
+
+.PHONY : libGioco.s
+
+# target to generate assembly for a file
+libGioco.c.s:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libGioco.c.s
+.PHONY : libGioco.c.s
+
+libPrep.obj: libPrep.c.obj
+
+.PHONY : libPrep.obj
+
+# target to build an object file
+libPrep.c.obj:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libPrep.c.obj
+.PHONY : libPrep.c.obj
+
+libPrep.i: libPrep.c.i
+
+.PHONY : libPrep.i
+
+# target to preprocess a source file
+libPrep.c.i:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libPrep.c.i
+.PHONY : libPrep.c.i
+
+libPrep.s: libPrep.c.s
+
+.PHONY : libPrep.s
+
+# target to generate assembly for a file
+libPrep.c.s:
+	$(MAKE) -f CMakeFiles\risika.dir\build.make CMakeFiles/risika.dir/libPrep.c.s
+.PHONY : libPrep.c.s
+
 libRisika.obj: libRisika.c.obj
 
 .PHONY : libRisika.obj
@@ -215,6 +296,15 @@ help:
 	@echo ... docente.obj
 	@echo ... docente.i
 	@echo ... docente.s
+	@echo ... libFile.obj
+	@echo ... libFile.i
+	@echo ... libFile.s
+	@echo ... libGioco.obj
+	@echo ... libGioco.i
+	@echo ... libGioco.s
+	@echo ... libPrep.obj
+	@echo ... libPrep.i
+	@echo ... libPrep.s
 	@echo ... libRisika.obj
 	@echo ... libRisika.i
 	@echo ... libRisika.s

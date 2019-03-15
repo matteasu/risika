@@ -4,11 +4,38 @@
 CMakeFiles/risika.dir/docente.c.obj: ../docente.c
 CMakeFiles/risika.dir/docente.c.obj: ../docente.h
 
+CMakeFiles/risika.dir/libFile.c.obj: ../docente.h
+CMakeFiles/risika.dir/libFile.c.obj: ../libFile.c
+CMakeFiles/risika.dir/libFile.c.obj: ../libFile.h
+CMakeFiles/risika.dir/libFile.c.obj: ../libGioco.h
+CMakeFiles/risika.dir/libFile.c.obj: ../libPrep.h
+CMakeFiles/risika.dir/libFile.c.obj: ../libRisika.h
+
+CMakeFiles/risika.dir/libGioco.c.obj: ../docente.h
+CMakeFiles/risika.dir/libGioco.c.obj: ../libFile.h
+CMakeFiles/risika.dir/libGioco.c.obj: ../libGioco.c
+CMakeFiles/risika.dir/libGioco.c.obj: ../libGioco.h
+CMakeFiles/risika.dir/libGioco.c.obj: ../libPrep.h
+CMakeFiles/risika.dir/libGioco.c.obj: ../libRisika.h
+
+CMakeFiles/risika.dir/libPrep.c.obj: ../docente.h
+CMakeFiles/risika.dir/libPrep.c.obj: ../libFile.h
+CMakeFiles/risika.dir/libPrep.c.obj: ../libGioco.h
+CMakeFiles/risika.dir/libPrep.c.obj: ../libPrep.c
+CMakeFiles/risika.dir/libPrep.c.obj: ../libPrep.h
+CMakeFiles/risika.dir/libPrep.c.obj: ../libRisika.h
+
 CMakeFiles/risika.dir/libRisika.c.obj: ../docente.h
+CMakeFiles/risika.dir/libRisika.c.obj: ../libFile.h
+CMakeFiles/risika.dir/libRisika.c.obj: ../libGioco.h
+CMakeFiles/risika.dir/libRisika.c.obj: ../libPrep.h
 CMakeFiles/risika.dir/libRisika.c.obj: ../libRisika.c
 CMakeFiles/risika.dir/libRisika.c.obj: ../libRisika.h
 
 CMakeFiles/risika.dir/main.c.obj: ../docente.h
+CMakeFiles/risika.dir/main.c.obj: ../libFile.h
+CMakeFiles/risika.dir/main.c.obj: ../libGioco.h
+CMakeFiles/risika.dir/main.c.obj: ../libPrep.h
 CMakeFiles/risika.dir/main.c.obj: ../libRisika.h
 CMakeFiles/risika.dir/main.c.obj: ../main.c
 
