@@ -1,5 +1,5 @@
 # risika
-Repository contenente il codice sorgente del progetto finale del corso di Programmazione 1 dell'università di Cagliari.
+Repository contenente il codice sorgente del progetto finale del corso di Programmazione 1 svolto presso l'Università di Cagliari nell'Anno accademico 2018/2019.
 
 Il progetto finale consiste nella creazione di una versione digitale del famoso gioco da tavolo Risiko, mediante l'utlizzo del linguaggio di programmazione C.
 
